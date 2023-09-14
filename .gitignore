@@ -1,0 +1,2 @@
+# Removes client id and client secret needed to run app
+appsettings.json

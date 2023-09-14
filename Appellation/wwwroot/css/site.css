@@ -1,0 +1,32 @@
+html {
+    --theme-bg-light: #2a2a2a;
+    --theme-bg-med: #121212;
+    --theme-bg-dark: #000000;
+
+    --theme-green-dark: #1ED760;
+    --theme-green-med: #1FDF64;
+    --theme-green-light: #C3F0C8;
+
+    --theme-accent-light: #E3D7EE;
+    --theme-accent-med: #B49BC7;
+    --theme-accent-dark: #503750;
+    --theme-col-accent: #C4B1D4;
+
+    --theme-txt-col: #FFFFFF;
+}
+
+html {
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+body {
+  margin-bottom: 60px;
+}

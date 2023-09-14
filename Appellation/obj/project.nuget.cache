@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "wv3nKyAXYIo4j85MgGN1Nd1BAhNKLNcok4agHTziqu5f99ffIe6fUk9MAJotPDZHgLLWdzoVhi0E1TyUY7F5Sw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Appellation\\Appellation.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\aasan\\.nuget\\packages\\aspnet.security.oauth.spotify\\6.0.15\\aspnet.security.oauth.spotify.6.0.15.nupkg.sha512",
+    "C:\\Users\\aasan\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\6.0.0\\microsoft.extensions.configuration.abstractions.6.0.0.nupkg.sha512",
+    "C:\\Users\\aasan\\.nuget\\packages\\microsoft.extensions.primitives\\6.0.0\\microsoft.extensions.primitives.6.0.0.nupkg.sha512",
+    "C:\\Users\\aasan\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
