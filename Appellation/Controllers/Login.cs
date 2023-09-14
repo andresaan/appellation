@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Appellation.Controllers
 {
@@ -8,5 +9,15 @@ namespace Appellation.Controllers
         {
             return View();
         }
-    }
+
+        public IActionResult Challenge()
+        {
+            var properties = new AuthenticationProperties()
+            {
+                RedirectUri = "/home"
+            };
+
+            return Challenge(properties, "Spotify");
+        }
+    }   
 }

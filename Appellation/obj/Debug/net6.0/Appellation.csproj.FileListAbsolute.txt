@@ -29,3 +29,5 @@ C:\Users\aasan\OneDrive\Desktop\DEV\Appellation\Appellation\obj\Debug\net6.0\ref
 C:\Users\aasan\OneDrive\Desktop\DEV\Appellation\Appellation\obj\Debug\net6.0\Appellation.pdb
 C:\Users\aasan\OneDrive\Desktop\DEV\Appellation\Appellation\obj\Debug\net6.0\Appellation.genruntimeconfig.cache
 C:\Users\aasan\OneDrive\Desktop\DEV\Appellation\Appellation\obj\Debug\net6.0\ref\Appellation.dll
+C:\Users\aasan\OneDrive\Desktop\DEV\Appellation\Appellation\bin\Debug\net6.0\AspNet.Security.OAuth.Spotify.dll
+C:\Users\aasan\OneDrive\Desktop\DEV\Appellation\Appellation\obj\Debug\net6.0\Appellation.csproj.CopyComplete

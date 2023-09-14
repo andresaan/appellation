@@ -7,10 +7,33 @@
   "targets": {
     ".NETCoreApp,Version=v6.0": {
       "Appellation/1.0.0": {
+        "dependencies": {
+          "AspNet.Security.OAuth.Spotify": "6.0.15",
+          "Microsoft.Extensions.Configuration.Abstractions": "6.0.0"
+        },
         "runtime": {
           "Appellation.dll": {}
         }
-      }
+      },
+      "AspNet.Security.OAuth.Spotify/6.0.15": {
+        "runtime": {
+          "lib/net6.0/AspNet.Security.OAuth.Spotify.dll": {
+            "assemblyVersion": "6.0.15.0",
+            "fileVersion": "6.0.1523.21638"
+          }
+        }
+      },
+      "Microsoft.Extensions.Configuration.Abstractions/6.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.Primitives": "6.0.0"
+        }
+      },
+      "Microsoft.Extensions.Primitives/6.0.0": {
+        "dependencies": {
+          "System.Runtime.CompilerServices.Unsafe": "6.0.0"
+        }
+      },
+      "System.Runtime.CompilerServices.Unsafe/6.0.0": {}
     }
   },
   "libraries": {
@@ -18,6 +41,34 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "AspNet.Security.OAuth.Spotify/6.0.15": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-oi4gRcRI7nFBHIHbBuQbGv5eP35DuS996RwxAyTGC4L0WZWN0mNQitbUtlA8TTpZ7ItaDqWKd5yGJdDIJmZn+Q==",
+      "path": "aspnet.security.oauth.spotify/6.0.15",
+      "hashPath": "aspnet.security.oauth.spotify.6.0.15.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Configuration.Abstractions/6.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-qWzV9o+ZRWq+pGm+1dF+R7qTgTYoXvbyowRoBxQJGfqTpqDun2eteerjRQhq5PQ/14S+lqto3Ft4gYaRyl4rdQ==",
+      "path": "microsoft.extensions.configuration.abstractions/6.0.0",
+      "hashPath": "microsoft.extensions.configuration.abstractions.6.0.0.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Primitives/6.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-9+PnzmQFfEFNR9J2aDTfJGGupShHjOuGw4VUv+JB044biSHrnmCIMD+mJHmb2H7YryrfBEXDurxQ47gJZdCKNQ==",
+      "path": "microsoft.extensions.primitives/6.0.0",
+      "hashPath": "microsoft.extensions.primitives.6.0.0.nupkg.sha512"
+    },
+    "System.Runtime.CompilerServices.Unsafe/6.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/iUeP3tq1S0XdNNoMz5C9twLSrM/TH+qElHkXWaPvuNOt+99G75NrV0OS2EqHx5wMN7popYjpc8oTjC1y16DLg==",
+      "path": "system.runtime.compilerservices.unsafe/6.0.0",
+      "hashPath": "system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
     }
   }
 }
