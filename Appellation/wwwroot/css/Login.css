@@ -30,24 +30,44 @@
         color: var(--theme-accent-light);
     }
 
-page-title-sm {
+
+/* Universal Styles - Refactor */
+
+.page-title-sm {
     font-size: 54px;
     padding: 40px;
     margin-bottom: 35px;
     text-align: center;
 }
 
-.underlined {
+.underlined-md {
     position: relative;
     display: inline-block !important;
 }
 
-    .underlined::before {
+    .underlined-md::before {
         content: "";
         position: absolute;
-        bottom: -12px;
+        bottom: -38px;
         left: 0;
-        height: 7px;
+        height: 35px;
+        width: 100% !important;
+        border: solid 6px yellow;
+        border-color: var(--theme-txt-col) transparent transparent transparent;
+        border-radius: 50%;
+    }
+
+.underlined-lg {
+    position: relative;
+    display: inline-block !important;
+}
+
+    .underlined-lg::before {
+        content: "";
+        position: absolute;
+        bottom: -68px;
+        left: 0;
+        height: 60px;
         width: 100% !important;
         border: solid 8px yellow;
         border-color: var(--theme-txt-col) transparent transparent transparent;

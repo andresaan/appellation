@@ -17,10 +17,34 @@
 }*/
 
 /* Page Layout */
+
+.home-page-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    background-color: var(--theme-bg-dark);
+    height: 100vh;
+    width: 100vw;
+    overflow: scroll;
+}
+
 main.main-home {
+    display: flex;
+    flex-direction: column;
     border-style: none;
     background-color: var(--theme-bg-dark)
 }
+
+aside {
+    margin: 50px 0px;
+    padding: 50px 0px;
+    background-color: white;
+
+}
+
+/* Universal Elements */
 
 .page-intro-cont {
     width: 85%;
@@ -30,10 +54,8 @@ main.main-home {
     align-items: center;
     border-top: 3px solid;
     border-bottom: 3px solid;
-    padding: 85px 0px;
+    padding: 90px 0px;
 }
-
-
 
 .page-title-md {
     font-size: 65px;
@@ -45,4 +67,26 @@ main.main-home {
 .page-title-lg {
     font-size: 110px;
     padding: 24px;
+    margin-bottom: 45px
 }
+
+.theme-button {
+    margin: 12px;
+    padding: 12px;
+}
+
+    .theme-button a {
+        text-decoration: none;
+        background-color: var(--theme-accent-light);
+        border: 1px solid var(--theme-bg-light);
+        color: var(--theme-bg-light) !important;
+        font-size: 20px;
+        padding: 6px 30px;
+        border-radius: 25px;
+    }
+
+        .theme-button a:hover {
+            background-color: var(--theme-bg-light);
+            color: var(--theme-accent-light) !important;
+            border: 1px solid var(--theme-accent-light);
+        }
