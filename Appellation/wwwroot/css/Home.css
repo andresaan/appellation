@@ -1,0 +1,48 @@
+﻿
+
+/* Variables
+    
+    html {
+    --theme-bg-light: #2a2a2a;
+    --theme-bg-med: #121212;
+    --theme-bg-dark: #000000;
+    --theme-green-dark: #1ED760;
+    --theme-green-med: #1FDF64;
+    --theme-green-light: #C3F0C8;
+    --theme-accent-light: #E3D7EE;
+    --theme-accent-med: #B49BC7;
+    --theme-accent-dark: #503750;
+    --theme-col-accent: #C4B1D4;
+    --theme-txt-col: #FFFFFF;
+}*/
+
+/* Page Layout */
+main.main-home {
+    border-style: none;
+    background-color: var(--theme-bg-dark)
+}
+
+.page-intro-cont {
+    width: 85%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-top: 3px solid;
+    border-bottom: 3px solid;
+    padding: 85px 0px;
+}
+
+
+
+.page-title-md {
+    font-size: 65px;
+    color: var(--theme-txt-col);
+    margin: 0px;
+    padding: 24px;
+}
+
+.page-title-lg {
+    font-size: 110px;
+    padding: 24px;
+}

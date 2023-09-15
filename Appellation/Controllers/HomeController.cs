@@ -14,7 +14,8 @@ namespace Appellation.Controllers
             _logger = logger;
         }
 
-        [Authorize]
+        //Auth commented out for front end design
+        //[Authorize]
         public IActionResult Index()
         {
             return View();
