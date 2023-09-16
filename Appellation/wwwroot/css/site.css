@@ -1,3 +1,18 @@
+/* Global Style Elements */
+
+.spotify {
+    font-weight: bolder;
+    color: var(--theme-green-dark)
+
+}
+
+.appellation {
+    font-weight: lighter;
+    background: linear-gradient(to right, var(--theme-accent-light), var(--theme-accent-med));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 html {
     --theme-bg-light: #2a2a2a;
     --theme-bg-med: #121212;
@@ -29,4 +44,27 @@ html {
 
 body {
   margin-bottom: 60px;
+}
+
+.base-page-wrapper {
+    display: flex;
+    justify-content: center;
+    background-color: var(--theme-bg-dark);
+    height: 100vh;
+    width: 100vw;
+}
+
+main.base {
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--theme-bg-med);
+    color: var(--theme-txt-col);
+    border-image: linear-gradient(var(--theme-green-dark), var(--theme-accent-med)) 30;
+    border-width: 4px;
+    border-style: solid;
+    border-top-style: none;
+    border-bottom-style: none;
 }

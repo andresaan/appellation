@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "KodtHOr0KUAOwD9gGPrVolmwftk2eMYT44w/O4oWzGA=",
+  "Hash": "qoSVHdPj4pgJzfXxjb8gnjm1b6ip+g6jjkIJ4HQlhIE=",
   "Source": "Appellation",
   "BasePath": "_content/Appellation",
   "Mode": "Default",
@@ -49,6 +49,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Appellation\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\Appellation.bundle.scp.css"
+    },
+    {
+      "Identity": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Appellation\\wwwroot\\css\\Home.css",
+      "SourceId": "Appellation",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Appellation\\wwwroot\\",
+      "BasePath": "_content/Appellation",
+      "RelativePath": "css/Home.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\Home.css"
     },
     {
       "Identity": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Appellation\\wwwroot\\css\\Login.css",
