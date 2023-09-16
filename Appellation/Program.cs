@@ -44,14 +44,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 
 builder.Services.AddHttpContextAccessor();
 
-
 builder.Services.AddHttpClient("Spotify", httpClient =>
-{
-    httpClient.BaseAddress = new Uri("https://accounts.spotify.com");
-    httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
-});
-
-builder.Services.AddHttpClient("SpotifyRequest", httpClient =>
 {
     httpClient.BaseAddress = new Uri("https://api.spotify.com/v1");
     httpClient.DefaultRequestHeaders.Add("Accept", "application/json");

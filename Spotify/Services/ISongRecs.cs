@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Spotify.Services
 {
-    internal class SpotifyApi
+    internal interface ISongRecs
     {
     }
 }
