@@ -1,18 +1,23 @@
 ﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Appellation.Controllers
 {
-    public class Login : Controller
+    public class UserController : Controller
     {
-        // User interacted controller and the button in view will need to send user to my endpoint
+        [Authorize]
         public IActionResult Index()
         {
             return View();
         }
+        
+        public IActionResult Login()
+        {
+            return View();
+        }
 
-        // Move to seperate entity auth controller
-        public IActionResult Challenge()
+        new public IActionResult Challenge()
         {
             var properties = new AuthenticationProperties()
             {
@@ -21,5 +26,11 @@ namespace Appellation.Controllers
 
             return Challenge(properties, "Spotify");
         }
+
+        public IActionResult LogOut() 
+        { 
+            return View(); 
+        }
+
     }   
 }

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
+using Spotify.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,7 +21,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     .AddCookie(options =>
     {
         options.ExpireTimeSpan = TimeSpan.FromMinutes(59);
-        options.LoginPath = "/login";
+        options.LoginPath = "/user/login";
 
     })
     .AddSpotify(options =>
@@ -50,6 +51,8 @@ builder.Services.AddHttpClient("Spotify", httpClient =>
     httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
 });
 
+builder.Services.AddScoped<ISongRecs, SongRecs>();
+builder.Services.AddScoped<ISeedService, SeedService>();
 
 var app = builder.Build();
 

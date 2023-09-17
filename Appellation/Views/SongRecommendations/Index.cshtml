@@ -1,0 +1,12 @@
+﻿@using Data.Seed;
+@model SeedInput
+
+
+<form asp-controller="SongRecommendations" asp-action="Verification">
+
+    <label asp-for="@Model.ArtistUserInput">
+        Input an artist you want your recommmendations to take inspiration from
+    </label>
+    <input asp-for="@Model.ArtistUserInput"/>
+
+</form>
