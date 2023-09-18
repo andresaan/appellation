@@ -8,10 +8,10 @@ namespace Data.Seed
         public string? TrackUserInput { get; set; } = string.Empty;
         public string? GenreUserInput { get; set; } = string.Empty;
 
-        public List<PotentialSeed>? PotentialArtistSeeds { get; set; } = new List<PotentialSeed>();
+        public List<PotentialSeed> PotentialArtistSeeds { get; set; } = new List<PotentialSeed>();
 
 
-        public List<SeedValue>? potentialTrackSeeds { get; set; } = new List<SeedValue>();
+        public List<SeedValue>? PotentialTrackSeeds { get; set; } = new List<SeedValue>();
         public List<SeedValue>? PotentialGenreSeeds { get; set; } = new List<SeedValue>();
 
         public List<SeedValue>? VerifiedArtistSeeds { get; set; } = new List<SeedValue>();

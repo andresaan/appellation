@@ -10,7 +10,7 @@ namespace Spotify.Services
 {
     public interface ISeedService
     {
-        public List<SeedValue> ProcessSeeds(string userSeedInput);
+        public void ProcessSeeds(SeedInput seedInput);
 
         public List<PotentialSeed> GetPotentialSeedsAsync(List<SeedValue> seedsProvided);
 

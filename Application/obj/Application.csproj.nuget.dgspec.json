@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Data\\Data.csproj": {}
+    "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Application\\Application.csproj": {}
   },
   "projects": {
-    "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Data\\Data.csproj": {
+    "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Application\\Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Data\\Data.csproj",
-        "projectName": "Data",
-        "projectPath": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Data\\Data.csproj",
+        "projectUniqueName": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Application\\Application.csproj",
+        "projectName": "Application",
+        "projectPath": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Application\\Application.csproj",
         "packagesPath": "C:\\Users\\aasan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Data\\obj\\",
+        "outputPath": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Application\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\aasan\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -39,12 +39,6 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "dependencies": {
-            "Newtonsoft.Json": {
-              "target": "Package",
-              "version": "[13.0.3, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",

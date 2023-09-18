@@ -20,7 +20,7 @@ namespace Appellation.Controllers
         [HttpPost]
         public IActionResult Verification(SeedInput model)
         {
-            _seedService.ProcessSeeds(model.ArtistUserInput);
+            _seedService.ProcessSeeds(model);
 
             return View();
         }
