@@ -9,29 +9,29 @@ namespace Data.Results
 {
     public class Rootobject
     {
-        public Seed[] Seeds { get; set; }
-        public Track[] Tracks { get; set; }
+        public Seed[] Seeds { get; set; } = Array.Empty<Seed>();
+        public Track[] Tracks { get; set; } = Array.Empty<Track>();
     }
 
     public class Track
     {
-        public Album Album { get; set; }
+        public Album Album { get; set; } = new Album();
         
         [JsonProperty("artists")]
-        public Artist[] PerformingArtists { get; set; }
+        public Artist[] PerformingArtists { get; set; } = Array.Empty <Artist>();
 
         [JsonProperty("available_markets")]
-        public string[] AvailableMarkets { get; set; }
+        public string[] AvailableMarkets { get; set; } = Array.Empty<string>();
 
         [JsonProperty("disc_number")]
-        public int DiscNumber { get; set; }
+        public int DiscNumber { get; set; } 
 
         [JsonProperty("duration_ms")]
         public int DurationMs { get; set; }
         public bool Explicit { get; set; }
 
         [JsonProperty("external_ids")]
-        public External_Ids ExternalIds { get; set; }
+        public External_Ids ExternalIds { get; set; } = new External_Ids();
 
         [JsonProperty("external_urls")]
         public External_Urls ExternalUrls { get; set; } = new External_Urls();
@@ -71,7 +71,7 @@ namespace Data.Results
         public External_Urls ExternalUrls { get; set; } = new External_Urls();
         public string Href { get; set; } = string.Empty;
         public string Id { get; set; } = string.Empty;
-        public Image[] Images { get; set; }
+        public Image[] Images { get; set; } = Array.Empty<Image>();
         public string Name { get; set; } = string.Empty;
 
         [JsonProperty("release_date")]

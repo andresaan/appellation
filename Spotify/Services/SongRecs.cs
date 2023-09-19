@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.AspNetCore.Authentication;
 using Newtonsoft.Json;
-using Spotify.Models;
+using Data.Results;
 
 namespace Spotify.Services
 {

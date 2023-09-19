@@ -11,7 +11,7 @@ namespace Data.Results
     public class ArtistSearchResult
     {
         [JsonProperty(PropertyName = "artists")]
-        public ArtistSearchSummary Summary { get; set; }
+        public ArtistSearchSummary Summary { get; set; } = new ArtistSearchSummary();
     }
 
     public class ArtistSearchSummary
@@ -19,7 +19,7 @@ namespace Data.Results
         public string Href { get; set; } = string.Empty;
 
         [JsonProperty (PropertyName = "items")]
-        public Artist[] Artists { get; set; } = new Artist[0];
+        public Artist[] Artists { get; set; } = Array.Empty<Artist>();
         public int Limit { get; set; }
         public string Next { get; set; } = string.Empty;
         public int Offset { get; set; }

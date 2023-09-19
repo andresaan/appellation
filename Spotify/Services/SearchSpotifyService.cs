@@ -1,6 +1,6 @@
 ﻿using Data.Seed;
 using Newtonsoft.Json;
-using Spotify.Models;
+using Data.Results;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,17 +40,19 @@ namespace Spotify.Services
             var content = await response.Content.ReadAsStringAsync();
             var artistSearchSummary = JsonConvert.DeserializeObject<ArtistSearchSummary>(content);
 
-            foreach (Artist artist in artistSearchSummary.Artists)
-            {
+            //foreach (Artist artist in artistSearchSummary.Artists)
+            //{
 
-            }
+            //}
 
-            if (potentialArtistSeeds != null)
-            {
-                return seedInput;
-            }
-            else
-                throw new Exception();
+            //if (potentialArtistSeeds != null)
+            //{
+            //    return seedInput;
+            //}
+            //else
+            //    throw new Exception();
+
+            throw new NotImplementedException();
             
         }
     }

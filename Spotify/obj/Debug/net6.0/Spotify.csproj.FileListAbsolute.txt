@@ -10,3 +10,6 @@ C:\Users\aasan\OneDrive\Desktop\DEV\Appellation\Spotify\obj\Debug\net6.0\Spotify
 C:\Users\aasan\OneDrive\Desktop\DEV\Appellation\Spotify\obj\Debug\net6.0\refint\Spotify.dll
 C:\Users\aasan\OneDrive\Desktop\DEV\Appellation\Spotify\obj\Debug\net6.0\Spotify.pdb
 C:\Users\aasan\OneDrive\Desktop\DEV\Appellation\Spotify\obj\Debug\net6.0\ref\Spotify.dll
+C:\Users\aasan\OneDrive\Desktop\DEV\Appellation\Spotify\bin\Debug\net6.0\Data.dll
+C:\Users\aasan\OneDrive\Desktop\DEV\Appellation\Spotify\bin\Debug\net6.0\Data.pdb
+C:\Users\aasan\OneDrive\Desktop\DEV\Appellation\Spotify\obj\Debug\net6.0\Spotify.csproj.CopyComplete
