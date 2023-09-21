@@ -42,3 +42,7 @@ C:\Users\aasan\OneDrive\Desktop\DEV\Appellation\Appellation\bin\Debug\net6.0\Sys
 C:\Users\aasan\OneDrive\Desktop\DEV\Appellation\Appellation\bin\Debug\net6.0\System.Security.Permissions.dll
 C:\Users\aasan\OneDrive\Desktop\DEV\Appellation\Appellation\bin\Debug\net6.0\Spotify.dll
 C:\Users\aasan\OneDrive\Desktop\DEV\Appellation\Appellation\bin\Debug\net6.0\Spotify.pdb
+C:\Users\aasan\OneDrive\Desktop\DEV\Appellation\Appellation\bin\Debug\net6.0\Application.dll
+C:\Users\aasan\OneDrive\Desktop\DEV\Appellation\Appellation\bin\Debug\net6.0\Data.dll
+C:\Users\aasan\OneDrive\Desktop\DEV\Appellation\Appellation\bin\Debug\net6.0\Data.pdb
+C:\Users\aasan\OneDrive\Desktop\DEV\Appellation\Appellation\bin\Debug\net6.0\Application.pdb

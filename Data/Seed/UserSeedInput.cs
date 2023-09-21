@@ -1,38 +1,39 @@
-﻿using System.ComponentModel;
+﻿using Data.Results;
+using System.ComponentModel;
 
 namespace Data.Seed
 {
-    public class SeedInput
+    public class SongRecSeed
     {
         public string? ArtistUserInput { get; set; } = string.Empty;
         public string? TrackUserInput { get; set; } = string.Empty;
         public string? GenreUserInput { get; set; } = string.Empty;
-
-        public List<PotentialSeed> PotentialArtistSeeds { get; set; } = new List<PotentialSeed>();
-
-
-        public List<SeedValue>? PotentialTrackSeeds { get; set; } = new List<SeedValue>();
-        public List<SeedValue>? PotentialGenreSeeds { get; set; } = new List<SeedValue>();
-
-        public List<SeedValue>? VerifiedArtistSeeds { get; set; } = new List<SeedValue>();
-        public List<SeedValue>? VerifiedTrackSeeds { get; set; } = new List<SeedValue>();
-        public List<SeedValue>? VerifiedGenreSeeds { get; set; } = new List<SeedValue>();
-
+        public List<SeedIntermediary> SeedIntermediaries { get; set; } = new List<SeedIntermediary>();
+        public List<VerifiedSeed> VerifiedSeeds { get; set; }
     }
 
-    public class SeedValue
+    public class SeedIntermediary
     {
         public string UserInput { get; set; } = string.Empty;
+        public List<PotentialSeed> PotentialSeeds { get; set; } = new List<PotentialSeed>();
+        public bool Error { get; set; }
         public string SeedType { get; set; } = string.Empty;
-        public string VerifiedName { get; set; } = string.Empty;
-        public string VerifiedSpotifyId { get; set; } = string.Empty;
+        public string VerifiedSeedId { get; set; } = string.Empty;
     }
 
     public class PotentialSeed
     {
-        public string UserInput { get; set; } = string.Empty;
-        public string Name { get; set; } = string.Empty;
+        public Image[] Images { get; set; } 
+        public string ArtistName { get; set; } = string.Empty;
         public string SpotifyId { get; set; } = string.Empty;
 
     }
+    public class VerifiedSeed
+    {
+        public string VerifiedName { get; set; } = string.Empty;
+        public string VerifiedSpotifyId { get; set; } = string.Empty;
+    }
+
 }
+
+

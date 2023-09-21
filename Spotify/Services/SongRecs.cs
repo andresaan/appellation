@@ -9,11 +9,12 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.AspNetCore.Authentication;
 using Newtonsoft.Json;
+using Application.Interfaces;
 using Data.Results;
 
 namespace Spotify.Services
 {
-    public class SongRecs : ISongRecs
+    public class SongRecs : ISongRecsService
     {
         private IHttpClientFactory _httpClientFactory;
         private IHttpContextAccessor _httpContextAccessor;

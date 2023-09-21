@@ -19,7 +19,7 @@ namespace Data.Results
         public string Href { get; set; } = string.Empty;
 
         [JsonProperty (PropertyName = "items")]
-        public Artist[] Artists { get; set; } = Array.Empty<Artist>();
+        public ArtistComplex[] Artists { get; set; } = Array.Empty<ArtistComplex>();
         public int Limit { get; set; }
         public string Next { get; set; } = string.Empty;
         public int Offset { get; set; }
@@ -27,21 +27,7 @@ namespace Data.Results
         public int Total { get; set; }
     }
 
-    public class Artist : ArtistBase
-    {
-        public string Id { get; set; }
-        public string Name { get; set; }
-        public int Popularity { get; set; } // keep
-        public Image[] Images { get; set; }
-        public string Uri { get; set; }
-        public string Href { get; set; }
-        public Followers Followers { get; set; }
-        public string[] Genres { get; set; } // keep
-        [JsonProperty("external_urls")]
-        public External_Urls ExternalUrls { get; set; }
-        public string Type { get; set; }
-        
-    }
+   
 
 }
 

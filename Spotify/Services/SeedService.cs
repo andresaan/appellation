@@ -1,4 +1,5 @@
 ﻿using Data.Seed;
+using Application.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
@@ -10,7 +11,7 @@ namespace Spotify.Services
 {
     public class SeedService : ISeedService
     {
-        public void ProcessSeeds(SeedInput seedInput)
+        public void ProcessSeeds(SongRecSeed seedInput)
         {
             if (seedInput.ArtistUserInput != null)
             {
@@ -18,27 +19,27 @@ namespace Spotify.Services
 
                 foreach(string artist in splitArtistSeeds)
                 {
-                    seedInput.PotentialArtistSeeds.Add( new PotentialSeed()
+                    seedInput.SeedIntermediaries.Add(new SeedIntermediary()
                     {
-                        UserInput = artist
+                        UserInput = artist,
+                        SeedType = "artist"
                     });
                 }  
             }
+            
 
         }
 
-        public List<PotentialSeed> GetPotentialSeedsAsync(List<SeedValue> seedsProvided)
+        public async Task<List<PotentialSeed>> SearchIntermediariesAsync(SongRecSeed seedInput)
         {
+            //GetPotentialSeedsAsync
             throw new NotImplementedException();
         }
 
-
-        public void AddVerifiedSeed(SeedValue verifiedSeed)
+        public void AddVerifiedSeed(VerifiedSeed verifiedSeed)
         {
             throw new NotImplementedException();
         }
-
-        
 
     }
 }

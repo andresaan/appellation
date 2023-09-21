@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Spotify.Services
+namespace Application.Interfaces
 {
-    public interface ISongRecs
+    public interface ISongRecsService
     {
         public Task<IEnumerable<Track>> GetSongRecsAsync(IEnumerable<string> seedTrack, IEnumerable<string> seedArtist, IEnumerable<string> seedGenre);
     }

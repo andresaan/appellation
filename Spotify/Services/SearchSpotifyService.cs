@@ -10,11 +10,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authentication;
-using Data.Results;
+using Application.Interfaces;
+using System.Runtime.Serialization;
 
 namespace Spotify.Services
 {
-    public class SearchSpotifyService
+    public class SearchSpotifyService : ISearchSpotifyService
     {
         private IHttpClientFactory _httpClientFactory;
         private IHttpContextAccessor _httpContextAccessor;
@@ -24,36 +25,27 @@ namespace Spotify.Services
             _httpClientFactory = httpClientFactory;
             _httpContextAccessor = httpContextAccessor;
         }
-        public async Task<SeedInput> ArtistSeedSearchResultsAsync(SeedInput seedInput)
+
+        public async Task<ArtistSearchSummary?> GetSeedSearchResultsAsync(string q, string type)
         {
-           
+            // making artist search - returning search result
             var httpClient = _httpClientFactory.CreateClient("Spotify");
             var token = await _httpContextAccessor.HttpContext.GetTokenAsync("access_token");
 
-            var request = new HttpRequestMessage(HttpMethod.Get, $"{httpClient.BaseAddress}/search");
+            var request = new HttpRequestMessage(HttpMethod.Get, $"{httpClient.BaseAddress}/search?q={q}&type={type}&limit=3");
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            
+
             var response = await httpClient.SendAsync(request);
-            
-            response.EnsureSuccessStatusCode();
+
+            //response.EnsureSuccessStatusCode();
 
             var content = await response.Content.ReadAsStringAsync();
-            var artistSearchSummary = JsonConvert.DeserializeObject<ArtistSearchSummary>(content);
+            var artistSearchResult = JsonConvert.DeserializeObject<ArtistSearchResult>(content);
 
-            //foreach (Artist artist in artistSearchSummary.Artists)
-            //{
-
-            //}
-
-            //if (potentialArtistSeeds != null)
-            //{
-            //    return seedInput;
-            //}
-            //else
-            //    throw new Exception();
-
-            throw new NotImplementedException();
+            return artistSearchResult.Summary;
             
         }
+
     }
+
 }

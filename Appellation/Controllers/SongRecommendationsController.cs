@@ -1,28 +1,37 @@
 ﻿using Data.Seed;
 using Microsoft.AspNetCore.Mvc;
 using Spotify.Services;
+using Application.Interfaces;
+using Application.SongRecLogic;
 
 namespace Appellation.Controllers
 {
     public class SongRecommendationsController : Controller
     {
-        private ISeedService _seedService;
-        public SongRecommendationsController(ISeedService seedService)
+        private ISongRecommendationLogic _songRecommendationLogic;
+        public SongRecommendationsController(ISongRecommendationLogic songRecommendationLogic)
         {
-            _seedService = seedService;
-        
+            _songRecommendationLogic = songRecommendationLogic;
         }
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Verification(SeedInput model)
+        public IActionResult Index(SeedIntermediary model)
         {
-            _seedService.ProcessSeeds(model);
 
-            return View();
+            throw new NotImplementedException();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Verification(SongRecSeed model)
+        {
+            model = await _songRecommendationLogic.VerifySeedInputsAsync(model);
+
+            return View(model);
         }
     }
 

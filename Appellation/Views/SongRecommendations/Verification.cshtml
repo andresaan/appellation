@@ -1,0 +1,22 @@
+﻿@using Data.Seed
+@model SongRecSeed
+
+<div>
+    <form asp-controller="SongRecommendations" asp-action="Index">
+        @foreach (SeedIntermediary intermediary in Model.SeedIntermediaries)
+        {
+            <div>
+                <p>Verify which @intermediary.SeedType you would like to use for inspiration when generating your song recommendations</p>
+            </div>
+            <div>
+                <select asp-for="@Model.VerifiedSeeds">
+                    @foreach (PotentialSeed potentialSeed in intermediary.PotentialSeeds)
+                    {
+                        <option value="@Model.VerifiedSeeds.Add(new VerifiedSeed() { VerifiedName = potentialSeed.ArtistName, VerifiedSpotifyId = potentialSeed.SpotifyId})">@potentialSeed.ArtistName</option>
+                    }
+                </select>
+            </div>
+        }
+        <input type="submit"/>
+    </form>
+</div>

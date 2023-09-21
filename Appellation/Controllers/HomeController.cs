@@ -1,5 +1,4 @@
 ﻿using Appellation.Models;
-using AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -15,8 +14,8 @@ namespace Appellation.Controllers
             _logger = logger;
         }
 
-        //Auth commented out for front end design
-        //[Authorize]
+        
+        [Authorize]
         public IActionResult Index()
         {
             return View();

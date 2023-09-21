@@ -19,6 +19,17 @@ namespace Data.Results
         public string Uri { get; set; } = string.Empty;
     }
 
+    public class ArtistComplex : ArtistBase // contains all artist information spotify can provide through an endpoint
+    {
+        public int Popularity { get; set; } 
+        public Image[] Images { get; set; } = Array.Empty<Image>();
+        public Followers Followers { get; set; } = new Followers();
+        public string[] Genres { get; set; } = Array.Empty<string>();
 
+    }
+
+    public class ArtistSimple : ArtistBase // spotifies simple artist obj
+    {
+    }
 
 }

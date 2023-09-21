@@ -18,7 +18,7 @@ namespace Data.Results
         public Album Album { get; set; } = new Album();
         
         [JsonProperty("artists")]
-        public Artist[] PerformingArtists { get; set; } = Array.Empty <Artist>();
+        public ArtistComplex[] PerformingArtists { get; set; } = Array.Empty<ArtistComplex>();
 
         [JsonProperty("available_markets")]
         public string[] AvailableMarkets { get; set; } = Array.Empty<string>();
@@ -84,21 +84,7 @@ namespace Data.Results
         public string Uri { get; set; } = string.Empty;
 
         [JsonProperty("artists")]
-        public AlbumContributingArtist[] ContributingArtists { get; set; } = new AlbumContributingArtist[0];
-    }
-
-    public class AlbumContributingArtist : ArtistBase // artist obj within album obj
-    {
-        // fields for artistbase
-        // question - if a class inherits all the fields it needs then does it need any fields written in the class?
-        public string Id { get; set; } = string.Empty;
-        public string Name { get; set; } = string.Empty;
-
-        [JsonProperty("external_urls")]
-        public External_Urls ExternalUrls { get; set; } = new External_Urls();
-        public string Href { get; set; } = string.Empty;
-        public string Type { get; set; } = string.Empty;
-        public string Uri { get; set; } = string.Empty;
+        public ArtistSimple[] ContributingArtists { get; set; } = new ArtistSimple[0];
     }
 
     public class External_Urls
