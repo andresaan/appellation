@@ -53,10 +53,10 @@ builder.Services.AddHttpClient("Spotify", httpClient =>
     httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
 });
 
-builder.Services.AddScoped<ISongRecsService, SongRecs>();
+builder.Services.AddScoped<ISongRecommendationsService, SongRecommendationsService>();
 builder.Services.AddScoped<ISeedService, SeedService>();
 builder.Services.AddScoped<ISearchSpotifyService, SearchSpotifyService>();
-builder.Services.AddScoped<ISongRecommendationLogic, SongRecLogic>();
+builder.Services.AddScoped<IProcessSongRecommendations, ProcessSongRecommendations>();
 
 var app = builder.Build();
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Data.Results
 {
-    public class Rootobject
+    public class SongRecommendationsResult
     {
         public Seed[] Seeds { get; set; } = Array.Empty<Seed>();
         public Track[] Tracks { get; set; } = Array.Empty<Track>();

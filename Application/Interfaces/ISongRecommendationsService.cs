@@ -1,4 +1,4 @@
-﻿using Application.Models.SongRecommendations;
+﻿using Data.Results;
 using Data.Seed;
 using System;
 using System.Collections.Generic;
@@ -6,13 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace Application.Interfaces
 {
-    public interface ISeedService
+    public interface ISongRecommendationsService
     {
-        public SeedVerificationModel ProcessSeeds(SongRecommendationsIndexModel seedInput);
-
+        public Task<Track[]> GetSongRecommendationsAsync(SongRecommendationSeeds seeds);
     }
-
 }

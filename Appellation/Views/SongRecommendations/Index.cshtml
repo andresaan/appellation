@@ -1,5 +1,7 @@
 ﻿@using Data.Seed;
-@model SeedVerificationModel
+@using Data.Results;
+@using Application.Models.SongRecommendations;
+@model SongRecommendationsIndexModel
 
 
 <form asp-controller="SongRecommendations" asp-action="Verification">
@@ -10,3 +12,14 @@
     <input asp-for="@Model.ArtistUserInput"/>
 
 </form>
+
+@if (Model.RecommendationsGiven != false) 
+{
+    foreach (Track track in Model.Tracks)
+    {   
+        <div>artist name: @track.PerformingArtists[0].Name</div>
+        <div>track name: @track.Name</div>
+        
+        <img href="@track.Album.Images[0].Url" />
+    }
+}
