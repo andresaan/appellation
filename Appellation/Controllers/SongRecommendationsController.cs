@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Spotify.Services;
 using Application.Interfaces;
 using Application.SongRecLogic;
+using Appellation.Models;
 
 namespace Appellation.Controllers
 {
@@ -20,7 +21,7 @@ namespace Appellation.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(SeedIntermediary model)
+        public IActionResult Index(SeedVerificationModel model)
         {
 
             throw new NotImplementedException();
@@ -31,7 +32,10 @@ namespace Appellation.Controllers
         {
             model = await _songRecommendationLogic.VerifySeedInputsAsync(model);
 
-            return View(model);
+            var seedVerificationModel = new SeedVerificationModel();
+            seedVerificationModel.Intermediaries = model.SeedIntermediaries;
+
+            return View(seedVerificationModel);
         }
     }
 

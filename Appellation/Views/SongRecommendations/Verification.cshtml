@@ -1,22 +1,25 @@
-﻿@using Data.Seed
-@model SongRecSeed
+﻿@model SeedVerificationModel
 
 <div>
     <form asp-controller="SongRecommendations" asp-action="Index">
-        @foreach (SeedIntermediary intermediary in Model.SeedIntermediaries)
+        @for (var i = 0; i < Model.Intermediaries.Count(); i++)
         {
             <div>
-                <p>Verify which @intermediary.SeedType you would like to use for inspiration when generating your song recommendations</p>
+                <p>Verify which @Model.Intermediaries[i].SeedType you would like to use for inspiration when generating your song recommendations</p>
             </div>
-            <div>
-                <select asp-for="@Model.VerifiedSeeds">
-                    @foreach (PotentialSeed potentialSeed in intermediary.PotentialSeeds)
-                    {
-                        <option value="@Model.VerifiedSeeds.Add(new VerifiedSeed() { VerifiedName = potentialSeed.ArtistName, VerifiedSpotifyId = potentialSeed.SpotifyId})">@potentialSeed.ArtistName</option>
-                    }
-                </select>
-            </div>
+
+            <input type="hidden" asp-for="@Model.Intermediaries[i].SeedType" value="@Model.Intermediaries[i].SeedType"/>
+
+            @for (var j = 0; j < Model.Intermediaries[i].PotentialSeeds.Count(); j++)
+            {
+                <input type="hidden" asp-for="@Model.Intermediaries[i].PotentialSeeds[j].SpotifyId" value="@Model.Intermediaries[i].PotentialSeeds[j].SpotifyId" />
+                <input type="hidden" asp-for="@Model.Intermediaries[i].PotentialSeeds[j].ArtistName" value="@Model.Intermediaries[i].PotentialSeeds[j].ArtistName" />
+                
+                <label asp-for="@Model.Intermediaries[i].PotentialSeeds[j].Verified">@Model.Intermediaries[i].PotentialSeeds[j].ArtistName</label>
+                <input type="checkbox" asp-for="@Model.Intermediaries[i].PotentialSeeds[j].Verified" value="true" />
+
+            }
         }
-        <input type="submit"/>
+        <input type="submit" />
     </form>
 </div>

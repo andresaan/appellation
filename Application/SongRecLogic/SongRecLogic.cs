@@ -21,9 +21,12 @@ namespace Application.SongRecLogic
             _seedService = seedService;
             _songRecsService = songRecsService;
         }
-        //General Flow: User input* - process seeds* - validate user input - get song recs
-        //Validation Flow: processed seeds* - search endpoint* - display possibilities to user - have user confirm seeds - use verified seeds
-        //Search Flow: make a search for each seed value and return potential seeds 
+        //General Flow: User input* - process seeds* - validate user input* - get song recs
+        //Validation Flow: processed seeds* - search endpoint* - display possibilities to user* - have user confirm seeds* - use verified seeds
+        //Search Flow: make a search for each seed value and return potential seeds*
+        //Song Rec Flow:
+        //Organization/Refactor: Follow above flows and ensure separation of concerns. For data, use the classes created where needed. 
+        //Include remaining 2 types in flows
 
         public async Task<SongRecSeed> VerifySeedInputsAsync(SongRecSeed seedInput)
         {
@@ -40,7 +43,6 @@ namespace Application.SongRecLogic
                     intermediary.PotentialSeeds.Add(potentialSeed);
                 }
 
-                var ch = "ch";
             }
 
             return seedInput;
