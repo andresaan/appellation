@@ -14,19 +14,17 @@ namespace Application.SongRecLogic
     public class ProcessSongRecommendations : IProcessSongRecommendations
     {
         private readonly ISearchSpotifyService _searchSpotifyService;
-        private readonly ISeedService _seedService;
         private readonly ISongRecommendationsService _songRecommendationsService;
-        public ProcessSongRecommendations(ISearchSpotifyService searchSpotifyService, ISeedService seedService, ISongRecommendationsService songRecsService)
+        public ProcessSongRecommendations(ISearchSpotifyService searchSpotifyService, ISongRecommendationsService songRecsService)
         {
             _searchSpotifyService = searchSpotifyService;
-            _seedService = seedService;
             _songRecommendationsService = songRecsService;
         }
         //General Flow: User input* - process seeds* - validate user input* - get song recs
 
         //Validation Flow: processed seeds* - search endpoint* - display possibilities to user* - have user confirm seeds*
         //Search Flow: make a search for each seed value and return potential seeds*
-
+        
         //Song Rec Flow: verified seeds sorted and types - search - response - display
 
 
@@ -37,17 +35,30 @@ namespace Application.SongRecLogic
 
         public async Task<SeedVerificationModel> VerifySeedInputsAsync(SongRecommendationsIndexModel seedInput)
         {
-            var songRecommendationSeeds = _seedService.ProcessSeeds(seedInput); // Splits user input into seed intermediaries with types - ARTIST ONLY RIGHT NOW
+            var songRecommendationSeeds = ProcessSeeds(seedInput); // Splits user input into seed intermediaries with types - MISSING GENRE
 
             foreach (SeedIntermediary intermediary in songRecommendationSeeds.SeedIntermediaries)
             {
-                var artistSearchSummary = await _searchSpotifyService.GetSeedSearchResultsAsync(intermediary.UserInput, intermediary.SeedType);
+                var artistSearchSummary = await _searchSpotifyService.GetArtistSeedSearchResultsAsync(intermediary.UserInput, intermediary.SeedType);
 
                 var potentialSeeds = ProcessArtistSearchSummary(artistSearchSummary);
 
                 foreach (PotentialSeed potentialSeed in potentialSeeds)
                 {
                     intermediary.PotentialSeeds.Add(potentialSeed);
+                }
+
+            }
+
+            foreach (TrackSeedIntermediary intermediary in songRecommendationSeeds.TrackSeedIntermediaries)
+            {
+                var trackSearchResult = await _searchSpotifyService.GetTrackSeedSearchResultsAsync(intermediary.UserInput, intermediary.SeedType);
+
+                var potentialSeeds = ProcessTrackSearchSummary(trackSearchResult);
+
+                foreach (TrackPotentialSeed potentialSeed in potentialSeeds)
+                {
+                    intermediary.TrackPotentialSeeds.Add(potentialSeed);
                 }
 
             }
@@ -69,6 +80,26 @@ namespace Application.SongRecLogic
                     SpotifyId = artist.Id
                     
                 });
+            }
+
+            return potentialSeeds;
+        }
+
+        public List<TrackPotentialSeed> ProcessTrackSearchSummary(TrackSearchSummary trackSearchSummary)
+        {
+            var potentialSeeds = new List<TrackPotentialSeed>();
+
+            foreach (Track track in trackSearchSummary.Tracks)
+            {
+                potentialSeeds.Add(new TrackPotentialSeed()
+                {
+                    TrackName = track.Name,
+                    PerformingArtist = track.PerformingArtists[0].Name,
+                    SpotifyId = track.Id,
+                    SeedType = track.Type,
+                    Images = track.Album.Images
+
+                }); ;
             }
 
             return potentialSeeds;
@@ -141,24 +172,39 @@ namespace Application.SongRecLogic
             }
         }
 
-        //public async Task<SongRecSeed> VerifySeedInputsAsync(SongRecSeed seedInput)
-        //{
-        //    _seedService.ProcessSeeds(seedInput); // Splits user input into seed intermediaries with types - ARTIST ONLY RIGHT NOW
+        public SeedVerificationModel ProcessSeeds(SongRecommendationsIndexModel seedInput)
+        {
+            var songRecommendationSeeds = new SeedVerificationModel();
 
-        //    foreach (SeedIntermediary intermediary in seedInput.SeedIntermediaries)
-        //    {
-        //        var artistSearchSummary = await _searchSpotifyService.GetSeedSearchResultsAsync(intermediary.UserInput, intermediary.SeedType);
+            if (seedInput.ArtistUserInput != null)
+            {
+                var splitArtistSeeds = seedInput.ArtistUserInput.Split(',').ToList();
 
-        //        var potentialSeeds = ProcessArtistSearchSummary(artistSearchSummary);
+                foreach (string artist in splitArtistSeeds)
+                {
+                    songRecommendationSeeds.SeedIntermediaries.Add(new SeedIntermediary()
+                    {
+                        UserInput = artist,
+                        SeedType = "artist"
+                    });
+                }
+            }
 
-        //        foreach (PotentialSeed potentialSeed in potentialSeeds)
-        //        {
-        //            intermediary.PotentialSeeds.Add(potentialSeed);
-        //        }
+            if (seedInput.TrackUserInput != null)
+            {
+                var splitTrackSeeds = seedInput.TrackUserInput.Split(',').ToList();
 
-        //    }
+                foreach (string track in splitTrackSeeds)
+                {
+                    songRecommendationSeeds.TrackSeedIntermediaries.Add(new TrackSeedIntermediary()
+                    {
+                        UserInput = track,
+                        SeedType = "track"
+                    });
+                }
+            }
 
-        //    return seedInput;
-        //}
+            return songRecommendationSeeds;
+        }
     }
 }

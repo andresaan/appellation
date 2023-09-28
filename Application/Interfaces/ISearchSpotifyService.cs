@@ -1,5 +1,6 @@
 ﻿using Data.Results;
 using Data.Seed;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,9 @@ namespace Application.Interfaces
 {
     public interface ISearchSpotifyService
     {
-        public Task<ArtistSearchSummary?> GetSeedSearchResultsAsync(string q, string type);
+        //rivate Task<string> GetSeedSearchResultsAsync(string q, string type);
+        public Task<ArtistSearchSummary> GetArtistSeedSearchResultsAsync(string q, string type);
+        public Task<TrackSearchSummary> GetTrackSeedSearchResultsAsync(string q, string type);
+
     }
 }

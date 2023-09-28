@@ -9,10 +9,10 @@ namespace Appellation.Controllers
 {
     public class SongRecommendationsController : Controller
     {
-        private IProcessSongRecommendations _songRecommendationLogic;
+        private IProcessSongRecommendations _processSongRecommendations;
         public SongRecommendationsController(IProcessSongRecommendations songRecommendationLogic)
         {
-            _songRecommendationLogic = songRecommendationLogic;
+            _processSongRecommendations = songRecommendationLogic;
         }
         [HttpGet]
         public IActionResult Index()
@@ -27,7 +27,7 @@ namespace Appellation.Controllers
         {
             var songRecommendationsIndexModel = new SongRecommendationsIndexModel();
             // potential seed types should be filled here
-            songRecommendationsIndexModel.Tracks = await _songRecommendationLogic.GetSongRecommendationsAsync(model);
+            songRecommendationsIndexModel.Tracks = await _processSongRecommendations.GetSongRecommendationsAsync(model);
 
             songRecommendationsIndexModel.RecommendationsGiven = true;
 
@@ -48,7 +48,7 @@ namespace Appellation.Controllers
         [HttpPost]
         public async Task<IActionResult> Verification(SongRecommendationsIndexModel model)
         {
-            var seedVerificationModel = await _songRecommendationLogic.VerifySeedInputsAsync(model);
+            var seedVerificationModel = await _processSongRecommendations.VerifySeedInputsAsync(model);
 
             return View(seedVerificationModel);
         }

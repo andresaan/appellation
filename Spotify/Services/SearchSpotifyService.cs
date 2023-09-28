@@ -26,7 +26,7 @@ namespace Spotify.Services
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<ArtistSearchSummary?> GetSeedSearchResultsAsync(string q, string type)
+        private async Task<string> GetSeedSearchResultsAsync(string q, string type)
         {
             // making artist search - returning search result
             var httpClient = _httpClientFactory.CreateClient("Spotify");
@@ -40,10 +40,25 @@ namespace Spotify.Services
             //response.EnsureSuccessStatusCode();
 
             var content = await response.Content.ReadAsStringAsync();
-            var artistSearchResult = JsonConvert.DeserializeObject<ArtistSearchResult>(content);
 
+            return content;
+
+        }
+
+        public async Task<ArtistSearchSummary> GetArtistSeedSearchResultsAsync(string q, string type)
+        {
+            var content = await GetSeedSearchResultsAsync(q, type);
+
+            var artistSearchResult = JsonConvert.DeserializeObject<ArtistSearchResult>(content);
             return artistSearchResult.Summary;
-            
+        }
+
+        public async Task<TrackSearchSummary> GetTrackSeedSearchResultsAsync(string q, string type)
+        {
+            var content = await GetSeedSearchResultsAsync(q, type);
+
+            var trackSearchResult = JsonConvert.DeserializeObject<TrackSearchResult>(content);
+            return trackSearchResult.TrackSearchSummary;
         }
 
     }

@@ -54,7 +54,6 @@ builder.Services.AddHttpClient("Spotify", httpClient =>
 });
 
 builder.Services.AddScoped<ISongRecommendationsService, SongRecommendationsService>();
-builder.Services.AddScoped<ISeedService, SeedService>();
 builder.Services.AddScoped<ISearchSpotifyService, SearchSpotifyService>();
 builder.Services.AddScoped<IProcessSongRecommendations, ProcessSongRecommendations>();
 
