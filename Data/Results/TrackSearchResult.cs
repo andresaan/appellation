@@ -13,6 +13,7 @@ namespace Data.Results
 
     public class TrackSearchResult
     {
+        [JsonProperty("tracks")]
         public TrackSearchSummary TrackSearchSummary { get; set; } = new TrackSearchSummary();
     }
 

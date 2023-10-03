@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Spotify.Services;
 using Application.Interfaces;
-using Application.SongRecLogic;
+using Application.Handlers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -55,7 +55,7 @@ builder.Services.AddHttpClient("Spotify", httpClient =>
 
 builder.Services.AddScoped<ISongRecommendationsService, SongRecommendationsService>();
 builder.Services.AddScoped<ISearchSpotifyService, SearchSpotifyService>();
-builder.Services.AddScoped<IProcessSongRecommendations, ProcessSongRecommendations>();
+builder.Services.AddScoped<ISongRecommendationHandler, SongRecommendationHandler>();
 
 var app = builder.Build();
 

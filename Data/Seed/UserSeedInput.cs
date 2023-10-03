@@ -6,6 +6,7 @@ namespace Data.Seed
     public class SongRecommendationSeeds
     {
         public List<VerifiedSeed> VerifiedArtistSeeds { get; set; } = new List<VerifiedSeed>();
+        public List<VerifiedSeed> VerifiedTrackSeeds { get; set; } = new List<VerifiedSeed>();
         public string ArtistSeedQueryParameter { get; set; } = string.Empty;
     }
 
