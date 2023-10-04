@@ -5,9 +5,13 @@ namespace Data.Seed
 {
     public class SongRecommendationSeeds
     {
-        public List<VerifiedSeed> VerifiedArtistSeeds { get; set; } = new List<VerifiedSeed>();
-        public List<VerifiedSeed> VerifiedTrackSeeds { get; set; } = new List<VerifiedSeed>();
+        public List<VerifiedSeed> ArtistVerifiedSeeds { get; set; } = new List<VerifiedSeed>();
+        public List<VerifiedSeed> TrackVerifiedSeeds { get; set; } = new List<VerifiedSeed>();
         public string ArtistSeedQueryParameter { get; set; } = string.Empty;
+        public string TrackSeedQueryParameter { get; set; } = string.Empty;
+
+        public string[] TArtistVerifiedSeeds { get; set; } = Array.Empty<string>();
+
     }
 
     public abstract class AbstractSeedIntermediary

@@ -8,7 +8,5 @@ namespace Application.Interfaces
         public Task<SeedVerificationDto> VerifySeedInputsAsync(SongRecommendationsDto seedInput);
 
         public Task<Track[]> GetSongRecommendationsAsync(SeedVerificationDto seedVerifications);
-
-        public Task<Track[]> TestGetSongRecommendationsAsync(SeedVerificationDto seedVerifications);
     }
 }

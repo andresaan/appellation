@@ -26,7 +26,7 @@ namespace Spotify.Services
             _httpContextAccessor = httpContextAccessor;
         }
         
-        public async Task<Track[]> GetSongRecommendationsAsync(SongRecommendationSeeds seeds)
+        public async Task<Track[]> GetSongRecommendationsAsync(string queryParameters)
         {
             // HttpClient
             var httpClient = _httpClientFactory.CreateClient("Spotify");
@@ -35,16 +35,17 @@ namespace Spotify.Services
             var token = await _httpContextAccessor.HttpContext.GetTokenAsync("access_token");
 
             //Create new request and set authorization header
-            var queryParameters = ConstructQueryParameters(seeds);
 
-            var request = new HttpRequestMessage(HttpMethod.Get, $"{httpClient.BaseAddress}/recommendations?{queryParameters}");
+            var request = new HttpRequestMessage(HttpMethod.Get, $"{httpClient.BaseAddress}/recommendations?seed_artists={queryParameters}");
+
+            //var request = new HttpRequestMessage(HttpMethod.Get, $"{httpClient.BaseAddress}/recommendations?{queryParameters}");
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
             
             //send request 
             var response = await httpClient.SendAsync(request);
 
             //ensure success
-            response.EnsureSuccessStatusCode();
+            //response.EnsureSuccessStatusCode();
 
             //convert response message contents to tracks
             var content = await response.Content.ReadAsStringAsync();
@@ -57,18 +58,6 @@ namespace Spotify.Services
             }
             else
                 throw new Exception();
-        }
-
-        public string ConstructQueryParameters(SongRecommendationSeeds seeds)
-        {
-            var queryParameters = "";
-
-            if (!seeds.ArtistSeedQueryParameter.IsNullOrEmpty())
-            {
-                queryParameters = queryParameters + seeds.ArtistSeedQueryParameter;
-            }
-
-            return queryParameters;
         }
 
     }

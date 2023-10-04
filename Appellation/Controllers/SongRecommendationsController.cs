@@ -23,50 +23,24 @@ namespace Appellation.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(SeedVerificationModel model)
         {
-            var songRecommendationsIndexModel = new SongRecommendationsIndexModel();
-            // potential seed types should be filled here
-            songRecommendationsIndexModel.Tracks = await _processSongRecommendations.TestGetSongRecommendationsAsync(new SeedVerificationDto()
+            var songRecommendationsIndexModel = new SongRecommendationsIndexModel()
             {
-                SeedIntermediaries = model.SeedIntermediaries,
-                TrackSeedIntermediaries = model.TrackSeedIntermediaries,
-                VerifiedSeeds = model.VerifiedSeeds
-            });
+                Tracks = await _processSongRecommendations.GetSongRecommendationsAsync(new SeedVerificationDto()
+                {
+                    ArtistVerifiedSeeds = model.ArtistVerifiedSeeds,
+                    TrackVerifiedSeeds = model.TrackVerifiedSeeds,
 
-            songRecommendationsIndexModel.RecommendationsGiven = true;
+                    TArtistVerifiedSeeds = model.TArtistVerifiedSeeds
+                }),
+
+                RecommendationsGiven = true
+            };
 
             return View(songRecommendationsIndexModel);
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> Verification(SongRecSeed model)
-        //{
-        //    model = await _songRecommendationLogic.VerifySeedInputsAsync(model);
-
-        //    var seedVerificationModel = new SeedVerificationModel();
-        //    seedVerificationModel.Intermediaries = model.SeedIntermediaries;
-
-        //    return View(seedVerificationModel);
-        //}
-
         [HttpPost]
         public async Task<IActionResult> Verification(SongRecommendationsIndexModel model)
-        {
-            
-            
-            var seedVerificationModel = await _processSongRecommendations.VerifySeedInputsAsync(new SongRecommendationsDto()
-            {
-                ArtistUserInput = model.ArtistUserInput,
-                GenreUserInput = model.GenreUserInput, 
-                TrackUserInput  = model.TrackUserInput,
-                Tracks = model.Tracks,
-                RecommendationsGiven = model.RecommendationsGiven
-            });
-
-            return View(seedVerificationModel);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> TestVerification(SongRecommendationsIndexModel model)
         {
             var seedVerificationModelDto = await _processSongRecommendations.VerifySeedInputsAsync(new SongRecommendationsDto()
             {
@@ -81,7 +55,7 @@ namespace Appellation.Controllers
             {
                 SeedIntermediaries = seedVerificationModelDto.SeedIntermediaries,
                 TrackSeedIntermediaries = seedVerificationModelDto.TrackSeedIntermediaries,
-                VerifiedSeeds = seedVerificationModelDto.VerifiedSeeds,
+                ArtistVerifiedSeeds = seedVerificationModelDto.ArtistVerifiedSeeds,
             }; 
 
             return View(seedVerificationModel);

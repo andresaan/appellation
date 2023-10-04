@@ -131,95 +131,59 @@ namespace Application.Handlers
             return potentialSeeds;
         }
 
-        
+
         public async Task<Track[]> GetSongRecommendationsAsync(SeedVerificationDto seedVerifications)
         {
-            var verifiedSeeds = SortVerifiedSeeds(seedVerifications);
+
+            var songRecommendationSeeds = new SongRecommendationSeeds()
+            {
+                ArtistVerifiedSeeds = seedVerifications.ArtistVerifiedSeeds,
+                TrackVerifiedSeeds = seedVerifications.TrackVerifiedSeeds,
+
+                TArtistVerifiedSeeds = seedVerifications.TArtistVerifiedSeeds
+            };
+
+            //var queryParameters = ConstructQueryParameters(songRecommendationSeeds);
+            //var tracks = await _songRecommendationsService.GetSongRecommendationsAsync(queryParameters);
             
-            var songRecommendationSeeds = FilterVerifiedSeedsByType(verifiedSeeds);
+            var tQueryParameters = string.Join(',', songRecommendationSeeds.TArtistVerifiedSeeds);
+            
+            var tracks = await _songRecommendationsService.GetSongRecommendationsAsync(tQueryParameters);
 
-            ConstructSeedQueryParameters(songRecommendationSeeds);
-
-            var tracks = await _songRecommendationsService.GetSongRecommendationsAsync(songRecommendationSeeds);
 
             return tracks;
         }
 
-        private List<VerifiedSeed> SortVerifiedSeeds(SeedVerificationDto seedVerificationModel)
+        private string ConstructQueryParameters(SongRecommendationSeeds seeds)
         {
-            var verifiedSeedsIntermediary = new List<PotentialSeed>();
-
-            foreach (SeedIntermediary seedIntermediary in seedVerificationModel.SeedIntermediaries)
+            // no longer need verified seed typing which means verified seed obj isn't necessary and should be a list<string>
+            // this will change the need for foreach loops and instead joins should be used
+            
+            if (seeds.ArtistVerifiedSeeds.Any())
             {
-              
-                //not a good solution to seed type value bug - using in order to continue testing 
-                foreach (PotentialSeed potentialSeed in seedIntermediary.PotentialSeeds)
-                {
-                    potentialSeed.SeedType = seedIntermediary.SeedType;
-                }
 
-                verifiedSeedsIntermediary.Add(seedIntermediary.PotentialSeeds.First(i => i.Verified == true));
-            }
-
-            var verifiedSeeds = new List<VerifiedSeed>();
-
-            foreach (PotentialSeed seed in verifiedSeedsIntermediary)
-            {
-                verifiedSeeds.Add(new VerifiedSeed()
-                {
-                    SeedType = seed.SeedType,
-                    SpotifyId = seed.SpotifyId
-                }); 
-            }
-
-            return verifiedSeeds;
-        }
-
-        private SongRecommendationSeeds FilterVerifiedSeedsByType(List<VerifiedSeed> verifiedSeeds)
-        {
-            var songRecommendationSeeds = new SongRecommendationSeeds();
-
-            songRecommendationSeeds.VerifiedArtistSeeds.AddRange(verifiedSeeds.Where(o => o.SeedType == "artist"));
-
-            return songRecommendationSeeds;
-        }
-
-        private void ConstructSeedQueryParameters(SongRecommendationSeeds seeds)
-        {
-            if (seeds.VerifiedArtistSeeds.Any())
-            {
-                seeds.ArtistSeedQueryParameter = "seed_artists=";
-
-                foreach (VerifiedSeed seed in seeds.VerifiedArtistSeeds)
+                foreach (VerifiedSeed seed in seeds.ArtistVerifiedSeeds)
                 {
                     seeds.ArtistSeedQueryParameter = seeds.ArtistSeedQueryParameter + $"{seed.SpotifyId},";
                 }
 
                 seeds.ArtistSeedQueryParameter = seeds.ArtistSeedQueryParameter.TrimEnd(',');
             }
-        }
 
-        //TEST METHODS
+            if (seeds.TrackVerifiedSeeds.Any())
+            {
+                
+                foreach (VerifiedSeed seed in seeds.TrackVerifiedSeeds)
+                {
+                    seeds.TrackSeedQueryParameter = seeds.TrackSeedQueryParameter + $"{seed.SpotifyId},";
+                }
 
-        private SongRecommendationSeeds TestFilterVerifiedSeedsByType(SeedVerificationDto seedVerificationModel)
-        {
-            var songRecommendationSeeds = new SongRecommendationSeeds();
+                seeds.TrackSeedQueryParameter.TrimEnd(',');
+            }
 
-            songRecommendationSeeds.VerifiedArtistSeeds.AddRange(seedVerificationModel.VerifiedSeeds.Where(o => o.SeedType == "artist"));
+            var queryParameters = $"seed_artists={seeds.ArtistSeedQueryParameter}&seed_tracks={seeds.TrackSeedQueryParameter}";
 
-            return songRecommendationSeeds;
-        }
-
-        public async Task<Track[]> TestGetSongRecommendationsAsync(SeedVerificationDto seedVerifications)
-        {
-
-            var songRecommendationSeeds = TestFilterVerifiedSeedsByType(seedVerifications);
-
-            ConstructSeedQueryParameters(songRecommendationSeeds);
-
-            var tracks = await _songRecommendationsService.GetSongRecommendationsAsync(songRecommendationSeeds);
-
-            return tracks;
+            return queryParameters;
         }
 
     }
