@@ -7,25 +7,9 @@ namespace Appellation.Models
         public List<SeedIntermediary> SeedIntermediaries { get; set; } = new List<SeedIntermediary>();
         public List<TrackSeedIntermediary> TrackSeedIntermediaries { get; set; } = new List<TrackSeedIntermediary>();
 
-        public string[] TArtistVerifiedSeeds { get; set; } = new string[5];
-        public List<VerifiedSeed> ArtistVerifiedSeeds { get; set; } = new List<VerifiedSeed>()
-        {
-            new VerifiedSeed(),
-            new VerifiedSeed(),
-            new VerifiedSeed(),
-            new VerifiedSeed(),
-            new VerifiedSeed()
-        };
-
-        public List<VerifiedSeed> TrackVerifiedSeeds { get; set; } = new List<VerifiedSeed>
-        {
-            new VerifiedSeed(),
-            new VerifiedSeed(),
-            new VerifiedSeed(),
-            new VerifiedSeed(),
-            new VerifiedSeed()
-        };
-
+        public string[] ArtistVerifiedSeeds { get; set; } = new string[5];
+        public string[] TrackVerifiedSeeds { get; set; } = new string[5];
+        public string[] GenreVerifiedSeeds { get; set; } = new string[5];
     }
 }
 

@@ -1,7 +1,7 @@
 ﻿using Application.Interfaces;
-using Application.Dtos;
 using Appellation.Models;
 using Microsoft.AspNetCore.Mvc;
+using Data.Seed;
 
 namespace Appellation.Controllers
 {
@@ -25,13 +25,8 @@ namespace Appellation.Controllers
         {
             var songRecommendationsIndexModel = new SongRecommendationsIndexModel()
             {
-                Tracks = await _processSongRecommendations.GetSongRecommendationsAsync(new SeedVerificationDto()
-                {
-                    ArtistVerifiedSeeds = model.ArtistVerifiedSeeds,
-                    TrackVerifiedSeeds = model.TrackVerifiedSeeds,
-
-                    TArtistVerifiedSeeds = model.TArtistVerifiedSeeds
-                }),
+                Tracks = await _processSongRecommendations.GetSongRecommendationsAsync(
+                    model.ArtistVerifiedSeeds, model.TrackVerifiedSeeds, model.GenreVerifiedSeeds),
 
                 RecommendationsGiven = true
             };
@@ -42,21 +37,13 @@ namespace Appellation.Controllers
         [HttpPost]
         public async Task<IActionResult> Verification(SongRecommendationsIndexModel model)
         {
-            var seedVerificationModelDto = await _processSongRecommendations.VerifySeedInputsAsync(new SongRecommendationsDto()
-            {
-                ArtistUserInput = model.ArtistUserInput,
-                GenreUserInput = model.GenreUserInput,
-                TrackUserInput = model.TrackUserInput,
-                Tracks = model.Tracks,
-                RecommendationsGiven = model.RecommendationsGiven
-            });
+            var songRecommendationSeeds = await _processSongRecommendations.VerifySeedInputsAsync(model.ArtistUserInput, model.TrackUserInput, model.GenreUserInput);
 
             var seedVerificationModel = new SeedVerificationModel()
             {
-                SeedIntermediaries = seedVerificationModelDto.SeedIntermediaries,
-                TrackSeedIntermediaries = seedVerificationModelDto.TrackSeedIntermediaries,
-                ArtistVerifiedSeeds = seedVerificationModelDto.ArtistVerifiedSeeds,
-            }; 
+                SeedIntermediaries = songRecommendationSeeds.SeedIntermediaries,
+                TrackSeedIntermediaries = songRecommendationSeeds.TrackSeedIntermediaries
+            };
 
             return View(seedVerificationModel);
         }

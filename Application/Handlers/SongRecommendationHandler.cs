@@ -1,4 +1,4 @@
-﻿using Application.Dtos;
+﻿
 using Application.Interfaces;
 using Data.Results;
 using Data.Seed;
@@ -18,16 +18,16 @@ namespace Application.Handlers
 
         //Validation Flow: processed seeds* - search endpoint* - display possibilities to user* - have user confirm seeds*
         //Search Flow: make a search for each seed value and return potential seeds*
-        
+
         //Song Rec Flow: verified seeds sorted and types - search - response - display
 
 
         //Organization/Refactor: Follow above flows and ensure separation of concerns. For data, use the classes created where needed. 
         //Include remaining 2 types in flows
 
-        public async Task<SeedVerificationDto> VerifySeedInputsAsync(SongRecommendationsDto seedInput)
+        public async Task<SongRecommendationSeeds> VerifySeedInputsAsync(string? artistInput, string? trackInput, string? genreInput)
         {
-            var songRecommendationSeeds = ProcessSeeds(seedInput); // Splits user input into seed intermediaries with types - MISSING GENRE
+            var songRecommendationSeeds = ProcessSeeds(artistInput, trackInput, genreInput); // Splits user input into seed intermediaries with types - MISSING GENRE
 
             foreach (SeedIntermediary intermediary in songRecommendationSeeds.SeedIntermediaries)
             {
@@ -58,13 +58,13 @@ namespace Application.Handlers
             return songRecommendationSeeds;
         }
 
-        private SeedVerificationDto ProcessSeeds(SongRecommendationsDto seedInput)
+        private SongRecommendationSeeds ProcessSeeds(string? artistInput, string? trackInput, string? genreInput)
         {
-            var songRecommendationSeeds = new SeedVerificationDto();
+            var songRecommendationSeeds = new SongRecommendationSeeds();
 
-            if (seedInput.ArtistUserInput != null)
+            if (artistInput != null)
             {
-                var splitArtistSeeds = seedInput.ArtistUserInput.Split(',').ToList();
+                var splitArtistSeeds = artistInput.Split(',').ToList();
 
                 foreach (string artist in splitArtistSeeds)
                 {
@@ -76,9 +76,9 @@ namespace Application.Handlers
                 }
             }
 
-            if (seedInput.TrackUserInput != null)
+            if (trackInput != null)
             {
-                var splitTrackSeeds = seedInput.TrackUserInput.Split(',').ToList();
+                var splitTrackSeeds = trackInput.Split(',').ToList();
 
                 foreach (string track in splitTrackSeeds)
                 {
@@ -92,6 +92,7 @@ namespace Application.Handlers
 
             return songRecommendationSeeds;
         }
+
         private List<PotentialSeed> ProcessArtistSearchSummary(ArtistSearchSummary searchSummary)
         {
             var potentialSeeds = new List<PotentialSeed>();
@@ -104,7 +105,7 @@ namespace Application.Handlers
                     Images = artist.Images,
                     SeedType = artist.Type,
                     SpotifyId = artist.Id
-                    
+
                 });
             }
 
@@ -131,57 +132,24 @@ namespace Application.Handlers
             return potentialSeeds;
         }
 
-
-        public async Task<Track[]> GetSongRecommendationsAsync(SeedVerificationDto seedVerifications)
+        public async Task<Track[]> GetSongRecommendationsAsync(string[]? artistVerifiedSeeds, string[]? trackVerifiedSeeds, string[]? genreVerifiedSeeds)
         {
 
-            var songRecommendationSeeds = new SongRecommendationSeeds()
-            {
-                ArtistVerifiedSeeds = seedVerifications.ArtistVerifiedSeeds,
-                TrackVerifiedSeeds = seedVerifications.TrackVerifiedSeeds,
+            var queryParameters = ConstructQueryParameters(artistVerifiedSeeds, trackVerifiedSeeds, genreVerifiedSeeds);
 
-                TArtistVerifiedSeeds = seedVerifications.TArtistVerifiedSeeds
-            };
-
-            //var queryParameters = ConstructQueryParameters(songRecommendationSeeds);
-            //var tracks = await _songRecommendationsService.GetSongRecommendationsAsync(queryParameters);
-            
-            var tQueryParameters = string.Join(',', songRecommendationSeeds.TArtistVerifiedSeeds);
-            
-            var tracks = await _songRecommendationsService.GetSongRecommendationsAsync(tQueryParameters);
+            var tracks = await _songRecommendationsService.GetSongRecommendationsAsync(queryParameters);
 
 
             return tracks;
         }
 
-        private string ConstructQueryParameters(SongRecommendationSeeds seeds)
+        private string ConstructQueryParameters(string[]? artistSeeds, string[]? trackSeeds, string[]? genreSeeds)
         {
-            // no longer need verified seed typing which means verified seed obj isn't necessary and should be a list<string>
-            // this will change the need for foreach loops and instead joins should be used
-            
-            if (seeds.ArtistVerifiedSeeds.Any())
-            {
+            var ArtistSeedQueryParameters = artistSeeds != null ? string.Join(',', artistSeeds) : "";
 
-                foreach (VerifiedSeed seed in seeds.ArtistVerifiedSeeds)
-                {
-                    seeds.ArtistSeedQueryParameter = seeds.ArtistSeedQueryParameter + $"{seed.SpotifyId},";
-                }
+            var TrackSeedQueryParameters = trackSeeds != null ? string.Join(',', trackSeeds) : "";
 
-                seeds.ArtistSeedQueryParameter = seeds.ArtistSeedQueryParameter.TrimEnd(',');
-            }
-
-            if (seeds.TrackVerifiedSeeds.Any())
-            {
-                
-                foreach (VerifiedSeed seed in seeds.TrackVerifiedSeeds)
-                {
-                    seeds.TrackSeedQueryParameter = seeds.TrackSeedQueryParameter + $"{seed.SpotifyId},";
-                }
-
-                seeds.TrackSeedQueryParameter.TrimEnd(',');
-            }
-
-            var queryParameters = $"seed_artists={seeds.ArtistSeedQueryParameter}&seed_tracks={seeds.TrackSeedQueryParameter}";
+            var queryParameters = $"seed_artists={ArtistSeedQueryParameters}&seed_tracks={TrackSeedQueryParameters}";
 
             return queryParameters;
         }

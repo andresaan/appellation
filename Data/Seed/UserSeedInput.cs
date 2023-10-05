@@ -5,12 +5,14 @@ namespace Data.Seed
 {
     public class SongRecommendationSeeds
     {
-        public List<VerifiedSeed> ArtistVerifiedSeeds { get; set; } = new List<VerifiedSeed>();
-        public List<VerifiedSeed> TrackVerifiedSeeds { get; set; } = new List<VerifiedSeed>();
-        public string ArtistSeedQueryParameter { get; set; } = string.Empty;
-        public string TrackSeedQueryParameter { get; set; } = string.Empty;
-
-        public string[] TArtistVerifiedSeeds { get; set; } = Array.Empty<string>();
+        public List<SeedIntermediary> SeedIntermediaries { get; set; } = new List<SeedIntermediary>();
+        public List<TrackSeedIntermediary> TrackSeedIntermediaries { get; set; } = new List<TrackSeedIntermediary>();
+    }
+    
+    public class VerifiedSeeds
+    {
+        public string[] ArtistVerifiedSeeds { get; set; } = Array.Empty<string>();
+        public string[] TrackVerifiedSeeds { get; set; } = Array.Empty<string>();
 
     }
 
@@ -54,12 +56,6 @@ namespace Data.Seed
         public string TrackName { get; set; } = string.Empty;
         public string PerformingArtist { get; set; } = string.Empty;
         public Image[] Images { get; set; } = Array.Empty<Image>();
-    }
-
-    public class VerifiedSeed
-    {
-        public string SpotifyId { get; set; } = string.Empty;
-        public string SeedType { get; set; } = string.Empty;
     }
 
 }

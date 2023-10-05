@@ -36,9 +36,8 @@ namespace Spotify.Services
 
             //Create new request and set authorization header
 
-            var request = new HttpRequestMessage(HttpMethod.Get, $"{httpClient.BaseAddress}/recommendations?seed_artists={queryParameters}");
-
-            //var request = new HttpRequestMessage(HttpMethod.Get, $"{httpClient.BaseAddress}/recommendations?{queryParameters}");
+            var request = new HttpRequestMessage(HttpMethod.Get, $"{httpClient.BaseAddress}/recommendations?{queryParameters}");
+            
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
             
             //send request 

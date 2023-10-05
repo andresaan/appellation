@@ -9,20 +9,16 @@
                 <p>Verify which @Model.SeedIntermediaries[i].SeedType you would like to use for inspiration when generating your song recommendations</p>
             </div>
 
-            <input type="hidden" asp-for="@Model.ArtistVerifiedSeeds[i].SeedType" value="@Model.SeedIntermediaries[i].SeedType" />
-
             @for (var j = 0; j < Model.SeedIntermediaries[i].PotentialSeeds.Count(); j++)
             {
-                <input type="hidden" asp-for="@Model.ArtistVerifiedSeeds[i].SpotifyId" value="@Model.SeedIntermediaries[i].PotentialSeeds[j].SpotifyId" />
-                
-                <input type="hidden" asp-for="@Model.TArtistVerifiedSeeds[i]" value="@Model.SeedIntermediaries[i].PotentialSeeds[j].SpotifyId" />
 
+                <input type="hidden" asp-for="@Model.ArtistVerifiedSeeds[i]" value="@Model.SeedIntermediaries[i].PotentialSeeds[j].SpotifyId" />
 
-                <label asp-for="@Model.ArtistVerifiedSeeds[i].SpotifyId">
+                <label asp-for="@Model.ArtistVerifiedSeeds[i]">
 
                     @Model.SeedIntermediaries[i].PotentialSeeds[j].ArtistName
 
-                    <input type="checkbox" name="@Model.TArtistVerifiedSeeds" value="@Model.SeedIntermediaries[i].PotentialSeeds[j].SpotifyId" />
+                    <input type="checkbox" name="@Model.ArtistVerifiedSeeds[i]" value="@Model.SeedIntermediaries[i].PotentialSeeds[j].SpotifyId" />
 
                 </label>
             }
@@ -34,21 +30,19 @@
                 <p>Verify which @Model.TrackSeedIntermediaries[i].SeedType you would like to use for inspiration when generating your song recommendations</p>
             </div>
 
-            <input type="hidden" asp-for="@Model.TrackVerifiedSeeds[i].SeedType" value="@Model.TrackSeedIntermediaries[i].SeedType" />
-
             @for (var j = 0; j < Model.TrackSeedIntermediaries[i].TrackPotentialSeeds.Count(); j++)
             {
 
-                <input type="hidden" asp-for="@Model.TrackVerifiedSeeds[i].SpotifyId" value="@Model.TrackSeedIntermediaries[i].TrackPotentialSeeds[j].SpotifyId" />
+                <input type="hidden" asp-for="@Model.TrackVerifiedSeeds[i]" value="@Model.TrackSeedIntermediaries[i].TrackPotentialSeeds[j].SpotifyId" />
 
-                <label asp-for="@Model.TrackVerifiedSeeds[i].SpotifyId">
-                    
+                <label asp-for="@Model.TrackVerifiedSeeds[i]">
+
                     <div>
                         <p>Track Name: @Model.TrackSeedIntermediaries[i].TrackPotentialSeeds[j].TrackName</p>
                         <p>Performing Artist: @Model.TrackSeedIntermediaries[i].TrackPotentialSeeds[j].PerformingArtist</p>
                     </div>
 
-                    <input type="checkbox" name="@Model.TrackVerifiedSeeds" value="@Model.TrackSeedIntermediaries[i].TrackPotentialSeeds[j].SpotifyId" />
+                    <input type="checkbox" name="@Model.TrackVerifiedSeeds[i]" value="@Model.TrackSeedIntermediaries[i].TrackPotentialSeeds[j].SpotifyId" />
 
                 </label>
             }
