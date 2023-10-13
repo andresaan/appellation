@@ -14,9 +14,9 @@ namespace Application.Handlers
             _searchSpotifyService = searchSpotifyService;
             _songRecommendationsService = songRecsService;
         }
-        //General Flow: User input* - process seeds* - validate user input* - get song recs
+        //General Flow: User input** - process seeds** - validate user input* - get song recs
 
-        //Validation Flow: processed seeds* - search endpoint* - display possibilities to user* - have user confirm seeds*
+        //Validation Flow: processed seeds** - search endpoint** - display possibilities to user* - have user confirm seeds*
         //Search Flow: make a search for each seed value and return potential seeds*
 
         //Song Rec Flow: verified seeds sorted and types - search - response - display

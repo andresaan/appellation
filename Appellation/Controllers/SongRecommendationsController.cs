@@ -20,11 +20,11 @@ namespace Appellation.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        public IActionResult Index(SongRecommendationsIndexModel model)
-        {
-            return View(model);
-        }
+        //[HttpPost]
+        //public IActionResult Index(SongRecommendationsIndexModel model)
+        //{
+        //    return View(model);
+        //}
 
         [HttpPost]
         public async Task<IActionResult> Index(SeedVerificationModel model)
@@ -33,7 +33,7 @@ namespace Appellation.Controllers
             var songRecommendationsIndexModel = new SongRecommendationsIndexModel()
             {
                 Tracks = await _processSongRecommendations.GetSongRecommendationsAsync(
-                    model.ArtistVerifiedSeeds, model.TrackVerifiedSeeds, model.GenreVerifiedSeeds),
+                    model._TestArtistSeeds, model._TestTrackSeeds, model._TestGenreSeeds),
 
                 RecommendationsGiven = true
             };

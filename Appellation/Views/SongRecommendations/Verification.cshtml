@@ -1,58 +1,146 @@
 ﻿@using Data.Seed;
 @model SeedVerificationModel
 
+@section scripts {
+
+    <script>
+
+        var artistVerifiedSeeds = [];
+
+        var trackVerifiedSeeds = [];
+
+        function verifyArtist(event) {
+
+            var radioContainer = event.target.closest("div");
+            var inputs = radioContainer.getElementsByTagName("input");
+
+            for (var input of inputs) {
+
+                var type = input.type;
+                var value = input.value;
+
+                if (input.checked && type == "radio") {
+
+                    artistVerifiedSeeds.push(value);
+
+                }
+
+                if (!input.checked && artistVerifiedSeeds.includes(value)) {
+
+                    artistVerifiedSeeds.splice(artistVerifiedSeeds.indexOf(value), 1);
+
+                }
+            }
+        }
+
+        function verifyTrack(event) {
+
+            var radioContainer = event.target.closest("div");
+            var inputs = radioContainer.getElementsByTagName("input");
+
+            for (var input of inputs) {
+
+                var type = input.type;
+                var value = input.value;
+
+                if (input.checked && type == "radio") {
+
+                    trackVerifiedSeeds.push(value);
+
+                }
+
+                if (!input.checked && trackVerifiedSeeds.includes(value)) {
+
+                    trackVerifiedSeeds.splice(trackVerifiedSeeds.indexOf(value), 1);
+
+                }
+            }
+        }
+
+        function setValues() {
+
+            var artistSeedsJoined = artistVerifiedSeeds.join();
+            var artistOutput = document.getElementById("verified-artist-output");
+
+            artistOutput.value = artistSeedsJoined;
+
+            var trackSeedsJoined = trackVerifiedSeeds.join();
+            var trackOutput = document.getElementById("verified-track-output");
+
+            trackOutput.value = trackSeedsJoined;
+
+        }
+
+
+    </script>
+
+}
+
+
 <div>
     <form asp-controller="SongRecommendations" asp-action="Index">
         @for (var i = 0; i < Model.SeedIntermediaries.Count(); i++)
         {
             <div>
-                <p>Verify which @Model.SeedIntermediaries[i].SeedType you would like to use for inspiration when generating your song recommendations</p>
+                <p>Verify which artist you would like to use for inspiration when generating your song recommendations</p>
             </div>
 
-            @for (var j = 0; j < Model.SeedIntermediaries[i].PotentialSeeds.Count(); j++)
-            {
+            <div class="d-flex flex-row">
 
-                <input type="hidden" asp-for="@Model.ArtistVerifiedSeeds[i]" value="@Model.SeedIntermediaries[i].PotentialSeeds[j].SpotifyId" />
+                @for (var j = 0; j < Model.SeedIntermediaries[i].PotentialSeeds.Count(); j++)
+                {
 
-                <label asp-for="@Model.ArtistVerifiedSeeds[i]">
+                    <label asp-for="@Model.ArtistVerifiedSeeds[i]">
 
-                    @Model.SeedIntermediaries[i].PotentialSeeds[j].ArtistName
+                        @Model.SeedIntermediaries[i].PotentialSeeds[j].ArtistName
 
-                    <input type="checkbox" name="@Model.ArtistVerifiedSeeds[i]" value="@Model.SeedIntermediaries[i].PotentialSeeds[j].SpotifyId" />
+                        <input type="radio" name="artist-seed-@i" id="artist-seed-@i-@j" value="@Model.SeedIntermediaries[i].PotentialSeeds[j].SpotifyId" onchange="verifyArtist(event)" />
 
-                </label>
-            }
+                    </label>
+
+                }
+
+            </div>
         }
 
         @for (var i = 0; i < Model.TrackSeedIntermediaries.Count(); i++)
         {
             <div>
-                <p>Verify which @Model.TrackSeedIntermediaries[i].SeedType you would like to use for inspiration when generating your song recommendations</p>
+                <p>Verify which track you would like to use for inspiration when generating your song recommendations</p>
             </div>
 
-            @for (var j = 0; j < Model.TrackSeedIntermediaries[i].TrackPotentialSeeds.Count(); j++)
-            {
+            <div class="d-flex flex-row">
 
-                <input type="hidden" asp-for="@Model.TrackVerifiedSeeds[i]" value="@Model.TrackSeedIntermediaries[i].TrackPotentialSeeds[j].SpotifyId" />
+                @for (var j = 0; j < Model.TrackSeedIntermediaries[i].TrackPotentialSeeds.Count(); j++)
+                {
+                    <label asp-for="@Model.TrackVerifiedSeeds[i]">
 
-                <label asp-for="@Model.TrackVerifiedSeeds[i]">
+                        <div>
+                            <p>Track Name: @Model.TrackSeedIntermediaries[i].TrackPotentialSeeds[j].TrackName</p>
+                            <p>Performing Artist: @Model.TrackSeedIntermediaries[i].TrackPotentialSeeds[j].PerformingArtist</p>
+                        </div>
 
-                    <div>
-                        <p>Track Name: @Model.TrackSeedIntermediaries[i].TrackPotentialSeeds[j].TrackName</p>
-                        <p>Performing Artist: @Model.TrackSeedIntermediaries[i].TrackPotentialSeeds[j].PerformingArtist</p>
-                    </div>
+                        <input type="radio" name="track-seed-@i" id="track-seed-@i-@j" value="@Model.TrackSeedIntermediaries[i].TrackPotentialSeeds[j].SpotifyId" onchange="verifyTrack(event)"/>
 
-                    <input type="checkbox" name="@Model.TrackVerifiedSeeds[i]" value="@Model.TrackSeedIntermediaries[i].TrackPotentialSeeds[j].SpotifyId" />
+                    </label>
+                }
+            </div>
 
-                </label>
-            }
+        }
+        
+        @if (Model.GenreVerifiedSeeds.Any())
+        {
+            <div>
+                <label asp-for="@Model._TestGenreSeeds">Genre(s) Being Used: @Model._TestGenreSeeds</label>
+                <input type="hidden" asp-for="@Model._TestGenreSeeds" />
+            </div>
         }
 
-        <div>
-            <label asp-for="@Model._TestGenreSeeds">Genre Seeds: @Model._TestGenreSeeds</label>
-            <input type="hidden" asp-for="@Model._TestGenreSeeds"/>
-        </div>
+        <input type="hidden" asp-for="@Model._TestTrackSeeds" id="verified-track-output" />
+        <input type="hidden" asp-for="@Model._TestArtistSeeds" id="verified-artist-output" />
 
-        <input type="submit" />
+        <input type="submit" onclick="setValues()" />
     </form>
+
+    <button>Go Back</button>
 </div>

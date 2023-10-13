@@ -113,13 +113,20 @@
 
             var target = event.target
 
-            var seedValue = target.closest("span").txt;
+            var content = target.closest("div");
+            var seed = content.getElementsByTagName("span");
+
+            for (i = 0; i < seed.length; i++) {
+                
+                var seedValue = seed[i].innerHTML;
+
+            }
 
             if (dataListValues.includes(seedValue)) {
 
                 addGenreBack(seedValue);
             }
-            
+
             target.closest("div").remove();
 
             counter--;
