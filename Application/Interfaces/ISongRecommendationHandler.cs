@@ -8,6 +8,6 @@ namespace Application.Interfaces
     {
         public Task<SongRecommendationSeeds> VerifySeedInputsAsync(string? artistInput, string? trackInput, string? genreInput);
 
-        public Task<Track[]> GetSongRecommendationsAsync(string[]? artistInput, string[]? trackInput, string[]? genreInput);
+        public Task<Track[]> GetSongRecommendationsAsync(string[]? artistInput, string[]? trackInput, List<string> genreInput);
     }
 }

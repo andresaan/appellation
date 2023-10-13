@@ -9,7 +9,9 @@ namespace Appellation.Models
 
         public string[] ArtistVerifiedSeeds { get; set; } = new string[5];
         public string[] TrackVerifiedSeeds { get; set; } = new string[5];
-        public string[] GenreVerifiedSeeds { get; set; } = new string[5];
+        public List<string> GenreVerifiedSeeds { get; set; } = new List<string>();
+
+        public string? _TestGenreSeeds { get; set; } = string.Empty;
     }
 }
 

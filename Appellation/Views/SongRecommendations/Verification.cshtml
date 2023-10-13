@@ -48,6 +48,11 @@
             }
         }
 
+        <div>
+            <label asp-for="@Model._TestGenreSeeds">Genre Seeds: @Model._TestGenreSeeds</label>
+            <input type="hidden" asp-for="@Model._TestGenreSeeds"/>
+        </div>
+
         <input type="submit" />
     </form>
 </div>

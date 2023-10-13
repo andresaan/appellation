@@ -21,8 +21,15 @@ namespace Appellation.Controllers
         }
 
         [HttpPost]
+        public IActionResult Index(SongRecommendationsIndexModel model)
+        {
+            return View(model);
+        }
+
+        [HttpPost]
         public async Task<IActionResult> Index(SeedVerificationModel model)
         {
+
             var songRecommendationsIndexModel = new SongRecommendationsIndexModel()
             {
                 Tracks = await _processSongRecommendations.GetSongRecommendationsAsync(
@@ -42,12 +49,12 @@ namespace Appellation.Controllers
             var seedVerificationModel = new SeedVerificationModel()
             {
                 SeedIntermediaries = songRecommendationSeeds.SeedIntermediaries,
-                TrackSeedIntermediaries = songRecommendationSeeds.TrackSeedIntermediaries
+                TrackSeedIntermediaries = songRecommendationSeeds.TrackSeedIntermediaries,
+                GenreVerifiedSeeds = songRecommendationSeeds.GenreVerifiedSeeds
             };
 
             return View(seedVerificationModel);
         }
+
     }
-
-
 }

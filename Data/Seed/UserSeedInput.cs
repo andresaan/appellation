@@ -7,6 +7,8 @@ namespace Data.Seed
     {
         public List<SeedIntermediary> SeedIntermediaries { get; set; } = new List<SeedIntermediary>();
         public List<TrackSeedIntermediary> TrackSeedIntermediaries { get; set; } = new List<TrackSeedIntermediary>();
+
+        public List<string> GenreVerifiedSeeds { get; set; } = new List<string>();
     }
     
     public class VerifiedSeeds

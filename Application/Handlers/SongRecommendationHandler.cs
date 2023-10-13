@@ -64,7 +64,8 @@ namespace Application.Handlers
 
             if (artistInput != null)
             {
-                var splitArtistSeeds = artistInput.Split(',').ToList();
+                var artistInputTrimmed = artistInput.TrimEnd(',');
+                var splitArtistSeeds = artistInputTrimmed.Split(',').ToList();
 
                 foreach (string artist in splitArtistSeeds)
                 {
@@ -78,7 +79,8 @@ namespace Application.Handlers
 
             if (trackInput != null)
             {
-                var splitTrackSeeds = trackInput.Split(',').ToList();
+                var trackInputTrimmed = trackInput.TrimEnd(',');
+                var splitTrackSeeds = trackInputTrimmed.Split(',').ToList();
 
                 foreach (string track in splitTrackSeeds)
                 {
@@ -88,6 +90,12 @@ namespace Application.Handlers
                         SeedType = "track"
                     });
                 }
+            }
+
+            if (genreInput != null)
+            {
+                var genreInputTrimmed = genreInput.TrimEnd(',');
+                songRecommendationSeeds.GenreVerifiedSeeds = genreInputTrimmed.Split(',').ToList();
             }
 
             return songRecommendationSeeds;
@@ -132,7 +140,7 @@ namespace Application.Handlers
             return potentialSeeds;
         }
 
-        public async Task<Track[]> GetSongRecommendationsAsync(string[]? artistVerifiedSeeds, string[]? trackVerifiedSeeds, string[]? genreVerifiedSeeds)
+        public async Task<Track[]> GetSongRecommendationsAsync(string[]? artistVerifiedSeeds, string[]? trackVerifiedSeeds, List<string>? genreVerifiedSeeds)
         {
 
             var queryParameters = ConstructQueryParameters(artistVerifiedSeeds, trackVerifiedSeeds, genreVerifiedSeeds);
@@ -143,13 +151,15 @@ namespace Application.Handlers
             return tracks;
         }
 
-        private string ConstructQueryParameters(string[]? artistSeeds, string[]? trackSeeds, string[]? genreSeeds)
+        private string ConstructQueryParameters(string[]? artistSeeds, string[]? trackSeeds, List<string>? genreSeeds)
         {
-            var ArtistSeedQueryParameters = artistSeeds != null ? string.Join(',', artistSeeds) : "";
+            var artistSeedQueryParameters = artistSeeds != null ? string.Join(',', artistSeeds) : "";
 
-            var TrackSeedQueryParameters = trackSeeds != null ? string.Join(',', trackSeeds) : "";
+            var trackSeedQueryParameters = trackSeeds != null ? string.Join(',', trackSeeds) : "";
 
-            var queryParameters = $"seed_artists={ArtistSeedQueryParameters}&seed_tracks={TrackSeedQueryParameters}";
+            var genreSeedQueryParameters = genreSeeds != null ? string.Join(",", genreSeeds) : "";
+
+            var queryParameters = $"seed_artists={artistSeedQueryParameters}&seed_tracks={trackSeedQueryParameters}&seed_genres={genreSeedQueryParameters}";
 
             return queryParameters;
         }
