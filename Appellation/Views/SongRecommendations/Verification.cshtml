@@ -90,13 +90,9 @@
                 @for (var j = 0; j < Model.SeedIntermediaries[i].PotentialSeeds.Count(); j++)
                 {
 
-                    <label asp-for="@Model.ArtistVerifiedSeeds[i]">
-
                         @Model.SeedIntermediaries[i].PotentialSeeds[j].ArtistName
 
                         <input type="radio" name="artist-seed-@i" id="artist-seed-@i-@j" value="@Model.SeedIntermediaries[i].PotentialSeeds[j].SpotifyId" onchange="verifyArtist(event)" />
-
-                    </label>
 
                 }
 
@@ -113,31 +109,29 @@
 
                 @for (var j = 0; j < Model.TrackSeedIntermediaries[i].TrackPotentialSeeds.Count(); j++)
                 {
-                    <label asp-for="@Model.TrackVerifiedSeeds[i]">
 
-                        <div>
-                            <p>Track Name: @Model.TrackSeedIntermediaries[i].TrackPotentialSeeds[j].TrackName</p>
-                            <p>Performing Artist: @Model.TrackSeedIntermediaries[i].TrackPotentialSeeds[j].PerformingArtist</p>
-                        </div>
+                    <div>
+                        <p>Track Name: @Model.TrackSeedIntermediaries[i].TrackPotentialSeeds[j].TrackName</p>
+                        <p>Performing Artist: @Model.TrackSeedIntermediaries[i].TrackPotentialSeeds[j].PerformingArtist</p>
+                    </div>
 
-                        <input type="radio" name="track-seed-@i" id="track-seed-@i-@j" value="@Model.TrackSeedIntermediaries[i].TrackPotentialSeeds[j].SpotifyId" onchange="verifyTrack(event)"/>
+                    <input type="radio" name="track-seed-@i" id="track-seed-@i-@j" value="@Model.TrackSeedIntermediaries[i].TrackPotentialSeeds[j].SpotifyId" onchange="verifyTrack(event)" />
 
-                    </label>
                 }
             </div>
 
         }
-        
-        @if (Model.GenreVerifiedSeeds.Any())
+
+        @if (Model.GenreVerifiedSeeds != "")
         {
             <div>
-                <label asp-for="@Model._TestGenreSeeds">Genre(s) Being Used: @Model._TestGenreSeeds</label>
-                <input type="hidden" asp-for="@Model._TestGenreSeeds" />
+                <label asp-for="@Model.GenreVerifiedSeeds">Genre(s) Being Used: @Model.GenreVerifiedSeeds</label>
+                <input type="hidden" asp-for="@Model.GenreVerifiedSeeds" value="@Model.GenreVerifiedSeeds" />
             </div>
         }
 
-        <input type="hidden" asp-for="@Model._TestTrackSeeds" id="verified-track-output" />
-        <input type="hidden" asp-for="@Model._TestArtistSeeds" id="verified-artist-output" />
+        <input type="hidden" asp-for="@Model.TrackVerifiedSeeds" id="verified-track-output" />
+        <input type="hidden" asp-for="@Model.ArtistVerifiedSeeds" id="verified-artist-output" />
 
         <input type="submit" onclick="setValues()" />
     </form>

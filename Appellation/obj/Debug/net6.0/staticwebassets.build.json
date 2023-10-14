@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "qoSVHdPj4pgJzfXxjb8gnjm1b6ip+g6jjkIJ4HQlhIE=",
+  "Hash": "uyfFucRIu/ULZoyqcURb9nJKz1gNaGyBDQSUJqSgbs0=",
   "Source": "Appellation",
   "BasePath": "_content/Appellation",
   "Mode": "Default",
@@ -100,6 +100,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
+    },
+    {
+      "Identity": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Appellation\\wwwroot\\css\\SongRec.css",
+      "SourceId": "Appellation",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Appellation\\wwwroot\\",
+      "BasePath": "_content/Appellation",
+      "RelativePath": "css/SongRec.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\SongRec.css"
     },
     {
       "Identity": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Appellation\\wwwroot\\favicon.ico",

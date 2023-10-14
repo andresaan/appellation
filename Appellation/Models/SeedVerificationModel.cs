@@ -4,18 +4,13 @@ namespace Appellation.Models
 {
     public class SeedVerificationModel
     {
-        public List<SeedIntermediary> SeedIntermediaries { get; set; } = new List<SeedIntermediary>();
+        public List<ArtistSeedIntermediary> SeedIntermediaries { get; set; } = new List<ArtistSeedIntermediary>();
         public List<TrackSeedIntermediary> TrackSeedIntermediaries { get; set; } = new List<TrackSeedIntermediary>();
+     
+        public string? GenreVerifiedSeeds { get; set; } = string.Empty;
+        public string? ArtistVerifiedSeeds { get; set; } = string.Empty;
+        public string? TrackVerifiedSeeds { get; set; } = string.Empty;
 
-        public string[] ArtistVerifiedSeeds { get; set; } = new string[5];
-        public string[] TrackVerifiedSeeds { get; set; } = new string[5];
-        public List<string> GenreVerifiedSeeds { get; set; } = new List<string>();
-
-        public string? _TestGenreSeeds { get; set; } = string.Empty;
-
-        public string? _TestArtistSeeds { get; set; } = string.Empty;
-
-        public string? _TestTrackSeeds { get; set; } = string.Empty;
     }
 }
 

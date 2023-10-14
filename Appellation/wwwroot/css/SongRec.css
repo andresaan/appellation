@@ -1,0 +1,27 @@
+﻿
+main.recommendations {
+    width: 85%;
+    text-align: left;
+}
+
+
+.recommendation-instructions {
+    color: var(--theme-txt-col);
+}
+
+.master-container {
+    color: var(--theme-txt-col);
+}
+
+.master-seed-div {
+    display: flex;
+    flex-direction: row;
+    width: 70%;
+    background-color: white;
+}
+
+.seed-inter {
+    display: flex;
+    flex-direction: row;
+    color: black;
+}

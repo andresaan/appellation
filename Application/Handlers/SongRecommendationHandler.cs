@@ -29,13 +29,13 @@ namespace Application.Handlers
         {
             var songRecommendationSeeds = ProcessSeeds(artistInput, trackInput, genreInput); // Splits user input into seed intermediaries with types - MISSING GENRE
 
-            foreach (SeedIntermediary intermediary in songRecommendationSeeds.SeedIntermediaries)
+            foreach (ArtistSeedIntermediary intermediary in songRecommendationSeeds.SeedIntermediaries)
             {
                 var artistSearchSummary = await _searchSpotifyService.GetArtistSeedSearchResultsAsync(intermediary.UserInput, intermediary.SeedType);
 
                 var potentialSeeds = ProcessArtistSearchSummary(artistSearchSummary);
 
-                foreach (PotentialSeed potentialSeed in potentialSeeds)
+                foreach (ArtistPotentialSeed potentialSeed in potentialSeeds)
                 {
                     intermediary.PotentialSeeds.Add(potentialSeed);
                 }
@@ -69,7 +69,7 @@ namespace Application.Handlers
 
                 foreach (string artist in splitArtistSeeds)
                 {
-                    songRecommendationSeeds.SeedIntermediaries.Add(new SeedIntermediary()
+                    songRecommendationSeeds.SeedIntermediaries.Add(new ArtistSeedIntermediary()
                     {
                         UserInput = artist,
                         SeedType = "artist"
@@ -92,22 +92,18 @@ namespace Application.Handlers
                 }
             }
 
-            if (genreInput != null)
-            {
-                var genreInputTrimmed = genreInput.TrimEnd(',');
-                songRecommendationSeeds.GenreVerifiedSeeds = genreInputTrimmed.Split(',').ToList();
-            }
+            songRecommendationSeeds.GenreVerifiedSeeds = genreInput != null ? genreInput.TrimEnd(',') : "";
 
             return songRecommendationSeeds;
         }
 
-        private List<PotentialSeed> ProcessArtistSearchSummary(ArtistSearchSummary searchSummary)
+        private List<ArtistPotentialSeed> ProcessArtistSearchSummary(ArtistSearchSummary searchSummary)
         {
-            var potentialSeeds = new List<PotentialSeed>();
+            var potentialSeeds = new List<ArtistPotentialSeed>();
 
             foreach (ArtistComplex artist in searchSummary.Artists)
             {
-                potentialSeeds.Add(new PotentialSeed()
+                potentialSeeds.Add(new ArtistPotentialSeed()
                 {
                     ArtistName = artist.Name,
                     Images = artist.Images,
@@ -140,26 +136,20 @@ namespace Application.Handlers
             return potentialSeeds;
         }
 
-        public async Task<Track[]> GetSongRecommendationsAsync(string[]? artistVerifiedSeeds, string[]? trackVerifiedSeeds, List<string>? genreVerifiedSeeds)
+        public async Task<Track[]> GetSongRecommendationsAsync(string? artistVerifiedSeeds, string? trackVerifiedSeeds, string? genreVerifiedSeeds)
         {
 
             var queryParameters = ConstructQueryParameters(artistVerifiedSeeds, trackVerifiedSeeds, genreVerifiedSeeds);
 
             var tracks = await _songRecommendationsService.GetSongRecommendationsAsync(queryParameters);
 
-
             return tracks;
         }
 
-        private string ConstructQueryParameters(string[]? artistSeeds, string[]? trackSeeds, List<string>? genreSeeds)
+        private string ConstructQueryParameters(string? artistSeeds, string? trackSeeds, string? genreSeeds)
         {
-            var artistSeedQueryParameters = artistSeeds != null ? string.Join(',', artistSeeds) : "";
 
-            var trackSeedQueryParameters = trackSeeds != null ? string.Join(',', trackSeeds) : "";
-
-            var genreSeedQueryParameters = genreSeeds != null ? string.Join(",", genreSeeds) : "";
-
-            var queryParameters = $"seed_artists={artistSeedQueryParameters}&seed_tracks={trackSeedQueryParameters}&seed_genres={genreSeedQueryParameters}";
+            var queryParameters = $"seed_artists={artistSeeds}&seed_tracks={trackSeeds}&seed_genres={genreSeeds}";
 
             return queryParameters;
         }

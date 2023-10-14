@@ -1,6 +1,21 @@
 ﻿
 /* Page Layout */
 
+main.login {
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--theme-bg-med);
+    color: var(--theme-txt-col);
+    border-image: linear-gradient(var(--theme-green-dark), var(--theme-accent-med)) 30;
+    border-width: 4px;
+    border-style: solid;
+    border-top-style: none;
+    border-bottom-style: none;
+}
+
 .login-container {
     width: 85%;
     display: flex;
@@ -28,48 +43,4 @@
         background-color: var(--theme-bg-light);
         border: 1px solid var(--theme-accent-light);
         color: var(--theme-accent-light);
-    }
-
-
-/* Universal Styles - Refactor */
-
-.page-title-sm {
-    font-size: 54px;
-    padding: 40px;
-    margin-bottom: 35px;
-    text-align: center;
-}
-
-.underlined-md {
-    position: relative;
-    display: inline-block !important;
-}
-
-    .underlined-md::before {
-        content: "";
-        position: absolute;
-        bottom: -38px;
-        left: 0;
-        height: 35px;
-        width: 100% !important;
-        border: solid 6px yellow;
-        border-color: var(--theme-txt-col) transparent transparent transparent;
-        border-radius: 50%;
-    }
-
-.underlined-lg {
-    position: relative;
-    display: inline-block !important;
-}
-
-    .underlined-lg::before {
-        content: "";
-        position: absolute;
-        bottom: -68px;
-        left: 0;
-        height: 60px;
-        width: 100% !important;
-        border: solid 8px yellow;
-        border-color: var(--theme-txt-col) transparent transparent transparent;
-        border-radius: 50%;
     }
