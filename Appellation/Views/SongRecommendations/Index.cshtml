@@ -35,7 +35,7 @@
 
             if (inputValue != "" && counter < 5) {
 
-                var newSpan = createSpan(inputValue);
+                var newSpan = createDiv(inputValue);
 
                 var elem = document.getElementById("artist-seeds-container");
                 elem.appendChild(newSpan);
@@ -51,6 +51,17 @@
 
         }
 
+        function setWidth(elem) {
+
+            var interWidth = elem.offsetWidth;
+            var container = elem.closest(".master-seed-div");
+
+            alert(`${interWidth}`)
+
+            container.style.setProperty('--inter-width', interWidth);
+
+        }
+
         function addNewTrack() {
 
             var input = document.getElementById("track-input");
@@ -58,7 +69,7 @@
 
             if (inputValue != "" && counter < 5) {
 
-                var newSpan = createSpan(inputValue);
+                var newSpan = createDiv(inputValue);
 
                 var elem = document.getElementById("track-seeds-container");
                 elem.appendChild(newSpan);
@@ -80,10 +91,10 @@
 
             if (inputValue != "" && counter < 5 && validGenre == true) {
 
-                var newSpan = createSpan(inputValue);
+                var newDiv = createDiv(inputValue);
 
                 var elem = document.getElementById("genre-seeds-container");
-                elem.appendChild(newSpan);
+                elem.appendChild(newDiv);
 
                 removeGenreOption(inputValue);
                 input.value = "";
@@ -100,13 +111,14 @@
 
         }
 
-        function createSpan(inputValue) {
+        function createDiv(inputValue) {
 
-            var newSpan = document.createElement("div");
+            var newDiv = document.createElement("div");
+            newDiv.classList.add("individual-seed");
 
-            newSpan.innerHTML = `<span>${inputValue}</span><button onclick="removeSeed(event)">X</button>`
+            newDiv.innerHTML = `<span>${inputValue}</span><button onclick="removeSeed(event)">x</button>`
 
-            return newSpan;
+            return newDiv;
 
         }
 
@@ -176,7 +188,6 @@
 
             var output = document.getElementById("artist-seeds");
             output.value = seeds;
-
         }
 
         function setTrackSeeds() {
@@ -246,74 +257,76 @@
     </script>
 }
 
-<div class="base-page-wrapper">
+<div class="song-rec-wrapper">
     <main class="recommendations">
 
-        <div style="display:none">
+        <div id="generate-again" style="display:none">
             <button>See Instructions</button>
         </div>
 
-        <div class="recommendation-instructions">
-            <p>Welcome!</p>
-            <p>
-                To get started and receive personalized song recommendations, you'll need to provide us with at least one,
-                but no more than five seeds. A seed is an artist, track, or genre that we will use to base your song recommendations off of.
-                These seeds serve as the foundation for generating recommendations that match your musical preferences.
-            </p>
-            <p>
-                Please fill out your seeds in the input field below. In order to add the seed and allow for more seed inputs press tab.
-            </p>
+        <div id="get-started">
+            <h1 class="page-heading">Welcome!</h1>
+            <div class="recommendation-instructions">
+                <p>
+                    To get started and receive personalized song recommendations, you'll need to provide us with at least one,
+                    but no more than five seeds.
+                </p>
+                <p>
+                    A seed is an artist, track, or genre that we will use to base your song recommendations off of.
+                    These seeds serve as the foundation for generating recommendations that match your musical preferences.
+                </p>
+                <p>
+                    Please fill out your seeds in the input fields below. In order to add the seed and allow for more seed inputs press tab.
+                </p>
+            </div>
         </div>
 
-        <div class="seed-input-container">
+        <div class="recommendation-inputs d-flex flex-row">
+            <div class="seed-input-container">
 
-            <div class="master-container">
+                <div class="master-container">
 
-                <div>
-                    <p>Artist Seeds</p>
+                    <div class="d-flex flex-row">
+                        <label>Artist Seeds</label>
+                        <button class="add-seed-bttn" onclick="addNewArtist()">+</button>
+                    </div>
+
+                    <div class="master-seed-div">
+                        <div id="artist-seeds-container" class="seed-inter" onchange="setArtistSeeds()">
+                        </div>
+                        <input value="" id="artist-input" type="text" placeholder="e.g. Bon Iver" />
+
+                    </div>
+
                 </div>
 
-                <div class="master-seed-div">
-                    <div id="artist-seeds-container" class="seed-inter" onchange="setArtistSeeds()">
+                <div class="master-container">
+
+                    <div class="d-flex flex-row">
+                        <label>Track Seeds</label>
+                        <button class="add-seed-bttn" onclick="addNewTrack()">+</button>
                     </div>
-                    <div>
 
-                        <input value="" id="artist-input" type="text" />
+                    <div class="master-seed-div">
+                        <div id="track-seeds-container" class="seed-inter">
+                        </div>
+                        <input value="" id="track-input" type="text" placeholder="e.g. Greedy" />
+
                     </div>
-                </div>
-                
-                <button onclick="addNewArtist()">Add</button>
 
-            </div>
-
-            <div class="master-container">
-
-                <div>
-                    <p>Track Seeds</p>
                 </div>
 
-                <div class="master-seed-div">
-                    <div id="track-seeds-container" class="seed-inter">
-                    </div>
-                    <div>
-                        <input value="" id="track-input" type="text" />
-                    </div>
-                </div>
-                
-                <button onclick="addNewTrack()">Add</button>
-            </div>
+                <div class="master-container">
 
-            <div class="master-container">
-
-                <div>
-                    <p>Genre Seeds</p>
-                </div>
-
-                <div class="master-seed-div">
-                    <div id="genre-seeds-container" class="seed-inter">
+                    <div class="d-flex flex-row">
+                        <label>Genre Seeds</label>
+                        <button class="add-seed-bttn" onclick="addNewGenre()">+</button>
                     </div>
-                    <div>
-                        <input value="" list="genres" id="genre-input" type="text" />
+
+                    <div class="master-seed-div">
+                        <div id="genre-seeds-container" class="seed-inter">
+                        </div>
+                        <input value="" list="genres" id="genre-input" type="text" placeholder="e.g. Acoustic" />
                         <datalist id="genres">
                             <option id="acoustic" value="acoustic" />
                             <option id="afrobeat" value="afrobeat" />
@@ -442,29 +455,35 @@
                             <option id="work-out" value="work-out" />
                             <option id="world-music" value="world-music" />
                         </datalist>
+
                     </div>
+
                 </div>
-                
-                <button onclick="addNewGenre()">Add</button>
             
+                <form asp-action="Verification" asp-controller="SongRecommendations">
+                    <div>
+                        <input type="hidden" id="artist-seeds" asp-for="@Model.ArtistUserInput" />
+                        <input type="hidden" id="track-seeds" asp-for="@Model.TrackUserInput" />
+                        <input type="hidden" id="genre-seeds" asp-for="@Model.GenreUserInput" />
+                        <input id="seed-submit" type="submit" onmouseover="submitSeeds()" onselect="checkInputs()" />
+                    </div>
+                </form>
+
             </div>
+
+            <div class="extra-recommendation-filters">
+                <div>More Filters Coming Soon!</div>
+                <div class="coming-soon"></div>
+                <div class="coming-soon"></div>
+                <div class="coming-soon"></div>
+            </div>
+
         </div>
 
     </main>
 </div>
 
 
-
-
-
-<form asp-action="Verification" asp-controller="SongRecommendations">
-    <div>
-        <input type="hidden" id="artist-seeds" asp-for="@Model.ArtistUserInput" />
-        <input type="hidden" id="track-seeds" asp-for="@Model.TrackUserInput" />
-        <input type="hidden" id="genre-seeds" asp-for="@Model.GenreUserInput" />
-        <input id="seed-submit" type="submit" onmouseover="submitSeeds()" onselect="checkInputs()" />
-    </div>
-</form>
 
 
 @if (Model.RecommendationsGiven != false)
