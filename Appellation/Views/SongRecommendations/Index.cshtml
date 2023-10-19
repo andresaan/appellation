@@ -264,9 +264,9 @@
             <button>See Instructions</button>
         </div>
 
-        <div id="get-started">
-            <h1 class="page-heading">Welcome!</h1>
-            <div class="recommendation-instructions">
+        <div id="get-started" class="theme-container theme-box-shadow">
+            <div class="page-text">
+                <h1 class="page-heading">Welcome!</h1>
                 <p>
                     To get started and receive personalized song recommendations, you'll need to provide us with at least one,
                     but no more than five seeds.
@@ -282,7 +282,7 @@
         </div>
 
         <div class="recommendation-inputs d-flex flex-row">
-            <div class="seed-input-container">
+            <div class="theme-container">
 
                 <div class="master-container">
 
@@ -459,7 +459,7 @@
                     </div>
 
                 </div>
-            
+
                 <form asp-action="Verification" asp-controller="SongRecommendations">
                     <div>
                         <input type="hidden" id="artist-seeds" asp-for="@Model.ArtistUserInput" />
@@ -471,7 +471,7 @@
 
             </div>
 
-            <div class="extra-recommendation-filters">
+            <div class="additional-recommendation-filters">
                 <div>More Filters Coming Soon!</div>
                 <div class="coming-soon"></div>
                 <div class="coming-soon"></div>
@@ -480,19 +480,36 @@
 
         </div>
 
+        @if (Model.RecommendationsGiven != false)
+        {
+            <div class="track-recommendations">
+
+                <div class="page-text theme-container">
+                    <h1 class="page-heading">Song Recommendations</h1>
+                    <p>
+                        Dont forget to mix and match different seeds to generate a new batch of recommendations!
+                    </p>
+                </div>
+
+                <div class="card-container">
+                    @foreach (Track track in Model.Tracks)
+                    {
+
+                        <div class="card">
+                            <div class="card-body">                             
+                                <img src="@track.Album.Images[0].Url" width="275" height="275" alt="Album cover art" />
+                                <h5 class="card-title">@track.Name</h5>
+                                <h6 class="card-subtitle">@track.PerformingArtists[0].Name</h6>
+                                <a href="@track.PreviewUrl" target="_blank" class="preview">Preview</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
     </main>
 </div>
 
 
 
 
-@if (Model.RecommendationsGiven != false)
-{
-    foreach (Track track in Model.Tracks)
-    {
-        <div>artist name: @track.PerformingArtists[0].Name</div>
-        <div>track name: @track.Name</div>
-
-        <img href="@track.Album.Images[0].Url" />
-    }
-}

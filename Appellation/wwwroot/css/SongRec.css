@@ -3,6 +3,14 @@
 
 */
 
+/*Individual Styles*/
+
+.theme-box-shadow {
+    box-shadow: 0px 2px 6px 3px #0A0A0A;
+}
+
+/*Individual Styles Above*/
+
 html {
 }
 
@@ -20,15 +28,42 @@ main.recommendations {
     text-align: left;
 }
 
-#get-started {
+.theme-container {
     background-color: var(--theme-bg-light);
-    margin-top: 100px;
+    margin-top: 120px;
     margin-bottom: 24px;
     padding: 24px;
     width: 55%;
     border-radius: 4px;
     color: var(--theme-txt-col);
+    font-size: 18px;
+    /*    box-shadow: 0px 1px 6px 1px #0A0A0A;*/
+    box-shadow: 0px 1px 6px 1px #141414;
 }
+
+.additional-recommendation-filters {
+    background-color: var(--theme-bg-light);
+    width: calc(100% - var(--seed-container-width) - 24px);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-left: 24px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    color: var(--theme-txt-col);
+    /*    box-shadow: 0px 1px 6px 1px #0A0A0A;*/
+    box-shadow: 0px 1px 6px 1px #141414;
+}
+
+    .additional-recommendation-filters > .coming-soon {
+        height: 12%;
+        width: 100%;
+        background-color: var(--theme-bg-med);
+        border-radius: 4px;
+        opacity: 82%;
+    }
+
 
 .page-heading {
     font-size: 42px;
@@ -38,20 +73,22 @@ main.recommendations {
     color: #46bddf;
 }
 
-.recommendation-instructions {
+.page-text {
     font-size: 18px;
     color: var(--theme-txt-col);
 }
 
-.seed-input-container {
-    background-color: var(--theme-bg-light);
-/*    margin-right: 24px;
-*/    padding: 24px;
-    width: var(--seed-container-width);
-    border-radius: 4px;
-    color: var(--theme-txt-col);
-    font-size: 17px;
+    .page-text > p:last-child {
+        margin-bottom: 0px;
+    }
+
+.recommendation-inputs {
+    margin-bottom: 120px;
 }
+
+    .recommendation-inputs > .theme-container {
+        margin: 0px;
+    }
 
 .master-container {
     color: var(--theme-txt-col);
@@ -93,6 +130,7 @@ main.recommendations {
     padding: 5px;
     border-radius: 4px;
     --inter-width: 0px;
+    box-shadow: 0px 1px 6px 2px #1F1F1F;
 }
 
     .master-seed-div > input {
@@ -101,11 +139,11 @@ main.recommendations {
         font-size: 14px;
         width: calc(100% - var(--inter-width));
     }
-    
-    .master-seed-div > input:focus-visible {
-        border: none;
-        outline: none;
-    }
+
+        .master-seed-div > input:focus-visible {
+            border: none;
+            outline: none;
+        }
 
 .seed-inter {
     display: flex;
@@ -135,29 +173,68 @@ main.recommendations {
         color: #e95065;
     }
 
-    .individual-seed > button:hover {
-        color: var(--theme-bg-dark);
-    }
+        .individual-seed > button:hover {
+            color: var(--theme-bg-dark);
+        }
 
-
-.extra-recommendation-filters {
-    background-color: var(--theme-bg-light);
-    width: calc(100% - var(--seed-container-width) - 24px);
-    padding: 24px;
+.track-recommendations {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    margin-left: 24px;
-    box-sizing: border-box;
-    border-radius: 4px;
+    align-items: center;
+}
+
+    .track-recommendations > .text-container {
+        margin-bottom: 64px;
+    }
+
+.card {
+    margin: 18px;
+    background-color: /*#333333*/ #292929;
     color: var(--theme-txt-col);
-
+    text-decoration: none;
+    width: 325px;
+   /* box-shadow: 0px 2px 6px 3px #0A0A0A;*/
+    box-shadow: 0px 1px 6px 1px #141414;
 }
 
-.extra-recommendation-filters > .coming-soon {
-    height: 12%;
+div.card-body > * {
+    margin-bottom: 12px;
+}
+
+.card-body {
+    padding: 25px;
+}
+
+.card-subtitle {
+    color: #B3B3B3;
+    font-size: 17px;
+    margin-top: -0.5rem;
+}
+
+.card-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     width: 100%;
-    background-color: var(--theme-bg-med);
-    border-radius: 4px;
-    opacity: 82%;
+    justify-content: center;
+    align-items: center;
 }
+
+a:not([href]) {
+    opacity: 45%;
+    color: #E0E0E0;
+    pointer-events: none;
+    cursor: default;
+    text-decoration: none;
+}
+
+.preview {
+    border: none;
+    background-color: none;
+    color: #e95065;
+    text-decoration: none;
+}
+
+    .preview:hover {
+        color: var(--theme-bg-dark);
+    }

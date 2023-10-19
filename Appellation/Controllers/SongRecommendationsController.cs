@@ -48,7 +48,7 @@ namespace Appellation.Controllers
 
             var seedVerificationModel = new SeedVerificationModel()
             {
-                SeedIntermediaries = songRecommendationSeeds.SeedIntermediaries,
+                ArtistSeedIntermediaries = songRecommendationSeeds.SeedIntermediaries,
                 TrackSeedIntermediaries = songRecommendationSeeds.TrackSeedIntermediaries,
                 GenreVerifiedSeeds = songRecommendationSeeds.GenreVerifiedSeeds,
             };
