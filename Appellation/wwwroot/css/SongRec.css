@@ -126,23 +126,39 @@ main.recommendations {
     flex-direction: row;
     flex-wrap: wrap;
     width: 100%;
-    background-color: var(--theme-txt-col);
+    background: var(--theme-bg-light);
+    border-bottom: 1px solid rgb(255 255 255 / 70%);
     padding: 5px;
-    border-radius: 4px;
-    --inter-width: 0px;
-    box-shadow: 0px 1px 6px 2px #1F1F1F;
+    --inter-width: 0px;   
+    color: var(--theme-txt-col);
 }
 
+    .master-seed-div:hover {
+        border-bottom: 1px solid rgb(255 255 255);
+
+    }
+
+    .master-seed-div:focus-within {
+        border-bottom: 2px solid #66b2ff;
+    }
+
     .master-seed-div > input {
-        background-color: var(--theme-txt-col);
-        border: none;
+        background: var(--theme-bg-light);
         font-size: 14px;
-        width: calc(100% - var(--inter-width));
+        border: none;
+        color: var(--theme-txt-col);
+        /*background-color: var(--theme-txt-col);    
+        font-size: 14px;
+        width: calc(100% - var(--inter-width));*/
     }
 
         .master-seed-div > input:focus-visible {
             border: none;
             outline: none;
+        }
+
+        .master-seed-div > input::placeholder {
+            color: rgb(255 255 255 / 70%);
         }
 
 .seed-inter {
@@ -157,9 +173,10 @@ main.recommendations {
     padding: 0px 5px;
     margin-right: 5px;
     font-size: 14px;
-    color: var(--theme-bg-dark);
-    border: 1px solid var(--theme-bg-dark);
+    color: #66b2ff;
+    border: 1px solid rgb(0, 89, 178);
     border-radius: 8px;
+    background-color: hsl(210.26deg 100% 22.94% / 40%);
 }
 
     .individual-seed > span {
@@ -169,12 +186,12 @@ main.recommendations {
 
     .individual-seed > button {
         border: none;
-        background-color: none;
+        background-color: hsl(210.26deg 100% 22.94% / 0%);
         color: #e95065;
     }
 
         .individual-seed > button:hover {
-            color: var(--theme-bg-dark);
+            color: var(--theme-txt-col);
         }
 
 .track-recommendations {

@@ -51,6 +51,15 @@
 
         }
 
+        function addNewArtistEnter(event) {
+            
+            if (event.key == "Enter") {
+
+                document.getElementById("add-artist-bttn").click();
+                
+            }
+        } 
+
         function setWidth(elem) {
 
             var interWidth = elem.offsetWidth;
@@ -83,6 +92,14 @@
 
         }
 
+        function addNewTrackEnter(event) {
+
+            if (event.key == "Enter") {
+
+                document.getElementById("add-track-bttn").click();
+            }
+        }
+
         function addNewGenre() {
 
             var input = document.getElementById("genre-input");
@@ -110,6 +127,14 @@
             }
 
         }
+
+        function addNewGenreEnter(event) {
+            
+            if (event.key == "Enter") {
+
+                document.getElementById("add-genre-bttn").click();              
+            }
+        } 
 
         function createDiv(inputValue) {
 
@@ -288,13 +313,13 @@
 
                     <div class="d-flex flex-row">
                         <label>Artist Seeds</label>
-                        <button class="add-seed-bttn" onclick="addNewArtist()">+</button>
+                        <button class="add-seed-bttn" id="add-artist-bttn" onclick="addNewArtist()">+</button>
                     </div>
 
                     <div class="master-seed-div">
                         <div id="artist-seeds-container" class="seed-inter" onchange="setArtistSeeds()">
                         </div>
-                        <input value="" id="artist-input" type="text" placeholder="e.g. Bon Iver" />
+                        <input value="" id="artist-input" type="text" placeholder="e.g. Bon Iver" onkeyup="addNewArtistEnter(event)"/>
 
                     </div>
 
@@ -304,13 +329,13 @@
 
                     <div class="d-flex flex-row">
                         <label>Track Seeds</label>
-                        <button class="add-seed-bttn" onclick="addNewTrack()">+</button>
+                        <button id="add-track-bttn" class="add-seed-bttn" onclick="addNewTrack()">+</button>
                     </div>
 
                     <div class="master-seed-div">
                         <div id="track-seeds-container" class="seed-inter">
                         </div>
-                        <input value="" id="track-input" type="text" placeholder="e.g. Greedy" />
+                        <input value="" id="track-input" type="text" placeholder="e.g. Greedy" onkeyup="addNewTrackEnter(event)" />
 
                     </div>
 
@@ -320,13 +345,13 @@
 
                     <div class="d-flex flex-row">
                         <label>Genre Seeds</label>
-                        <button class="add-seed-bttn" onclick="addNewGenre()">+</button>
+                        <button id="add-genre-bttn" class="add-seed-bttn" onclick="addNewGenre()">+</button>
                     </div>
 
                     <div class="master-seed-div">
                         <div id="genre-seeds-container" class="seed-inter">
                         </div>
-                        <input value="" list="genres" id="genre-input" type="text" placeholder="e.g. Acoustic" />
+                        <input value="" list="genres" id="genre-input" type="text" placeholder="e.g. Acoustic" onkeyup="addNewGenreEnter(event)" />
                         <datalist id="genres">
                             <option id="acoustic" value="acoustic" />
                             <option id="afrobeat" value="afrobeat" />
