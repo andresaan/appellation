@@ -12,19 +12,14 @@
 
         var dataListValues = getDataListValues();
 
-        function seedInputErrors(inputValue) {
+        function setWidth(elem) {
 
-            if (inputValue == "") {
-                return alert("seed input cannot be empty");
-            }
+            var interWidth = elem.offsetWidth;
+            var container = elem.closest(".js-seed-cont");
 
-            if (counter >= 5) {
-                return alert("cannot have more than 5 seeds");
-            }
+            alert(`${interWidth}`)
 
-            else {
-                return alert("error");
-            }
+            container.style.setProperty('--inter-width', interWidth);
 
         }
 
@@ -33,7 +28,7 @@
             var input = document.getElementById("artist-input");
             var inputValue = input.value;
 
-            if (inputValue != "" && counter < 5) {
+            if (inputValue.trim() != "" && counter < 5) {
 
                 var newSpan = createDiv(inputValue);
 
@@ -47,28 +42,18 @@
             else {
 
                 seedInputErrors(inputValue);
+                input.value = "";
             }
 
         }
 
         function addNewArtistEnter(event) {
-            
+
             if (event.key == "Enter") {
 
                 document.getElementById("add-artist-bttn").click();
-                
+
             }
-        } 
-
-        function setWidth(elem) {
-
-            var interWidth = elem.offsetWidth;
-            var container = elem.closest(".master-seed-div");
-
-            alert(`${interWidth}`)
-
-            container.style.setProperty('--inter-width', interWidth);
-
         }
 
         function addNewTrack() {
@@ -76,7 +61,7 @@
             var input = document.getElementById("track-input");
             var inputValue = input.value;
 
-            if (inputValue != "" && counter < 5) {
+            if (inputValue.trim() != "" && counter < 5) {
 
                 var newSpan = createDiv(inputValue);
 
@@ -88,6 +73,7 @@
             }
             else {
                 seedInputErrors(inputValue);
+                input.value = "";
             }
 
         }
@@ -106,7 +92,7 @@
             var inputValue = input.value;
             var validGenre = dataListValues.includes(inputValue);
 
-            if (inputValue != "" && counter < 5 && validGenre == true) {
+            if (inputValue.trim() != "" && counter < 5 && validGenre == true) {
 
                 var newDiv = createDiv(inputValue);
 
@@ -119,27 +105,32 @@
                 return;
             }
             if (validGenre == false) {
+                var toastEmptyInput = document.getElementById("genreInputValidation");
+                var toast = bootstrap.Toast.getOrCreateInstance(toastEmptyInput);
+                toast.show();
 
-                return alert("genre seeds must be a value from the drop down");
+                input.value = "";
+                return;
             }
             else {
                 seedInputErrors(inputValue);
+                input.value = "";
             }
 
         }
 
         function addNewGenreEnter(event) {
-            
+
             if (event.key == "Enter") {
 
-                document.getElementById("add-genre-bttn").click();              
+                document.getElementById("add-genre-bttn").click();
             }
-        } 
+        }
 
         function createDiv(inputValue) {
 
             var newDiv = document.createElement("div");
-            newDiv.classList.add("individual-seed");
+            newDiv.classList.add("js-individual-seed");
 
             newDiv.innerHTML = `<span>${inputValue}</span><button onclick="removeSeed(event)">x</button>`
 
@@ -187,14 +178,21 @@
             setGenreSeeds();
 
             if (document.getElementById("artist-seeds").value == "" && document.getElementById("track-seeds").value == "" && document.getElementById("genre-seeds").value == "") {
+                var toastEmptyInput = document.getElementById("seedSubmitValidation");
+                var toast = bootstrap.Toast.getOrCreateInstance(toastEmptyInput);
+                toast.show();
 
-                document.getElementById("seed-submit").disabled = true;
-                alert("you must have at least one seed input");
+                return false;
 
             }
 
+            if (!validateLimit()) {               
+                
+                return false;
+            }
+
             else {
-                document.getElementById("seed-submit").disabled = false;
+                return true;
             }
         }
 
@@ -278,20 +276,72 @@
 
         }
 
+        function seedInputErrors(inputValue) {
+
+            if (inputValue.trim() == "") {
+                var toastEmptyInput = document.getElementById("toastEmptySeed");
+                var toast = bootstrap.Toast.getOrCreateInstance(toastEmptyInput);
+                toast.show();
+                return;
+            }
+
+            if (counter >= 5) {
+                var toastEmptyInput = document.getElementById("toastSeedCount");
+                var toast = bootstrap.Toast.getOrCreateInstance(toastEmptyInput);
+                toast.show();
+                return;
+            }
+
+            else {
+                var toastEmptyInput = document.getElementById("error");
+                var toast = bootstrap.Toast.getOrCreateInstance(toastEmptyInput);
+                toast.show();
+                return;
+            }
+        }
+
+        function setLimit() {
+
+            var userValue = document.getElementById("user-limit-input").value;
+
+            if (validateLimit()) {
+                var output = document.getElementById("recommendation-limit");
+                output.value = userValue;
+                return;
+            }
+
+        }
+
+        function validateLimit() {
+
+            var value = document.getElementById("user-limit-input").value;
+
+            var toastInvalidLimit = document.getElementById("toastInvalidLimit");
+            var toast = bootstrap.Toast.getOrCreateInstance(toastInvalidLimit);
+            
+            if (value <= 100 && value > 0) {
+                toast.hide();
+                return true;
+            }
+
+            else {
+                toast.show();
+                return false;
+            }
+        }
 
     </script>
 }
 
-<div class="song-rec-wrapper">
+<div class="theme-page-wrapper">
     <main class="recommendations">
 
         <div id="generate-again" style="display:none">
             <button>See Instructions</button>
         </div>
 
-        <div id="get-started" class="theme-container theme-box-shadow">
-            <div class="page-text">
-                <h1 class="page-heading">Welcome!</h1>
+        <div id="get-started" class="theme-container theme-box-shadow mt-120 mb-26 theme-page-text">
+                <h1 class="theme-page-heading">Welcome!</h1>
                 <p>
                     To get started and receive personalized song recommendations, you'll need to provide us with at least one,
                     but no more than five seeds.
@@ -302,38 +352,37 @@
                 </p>
                 <p>
                     Please fill out your seeds in the input fields below. In order to add the seed and allow for more seed inputs press tab.
-                </p>
-            </div>
+                </p> 
         </div>
 
-        <div class="recommendation-inputs d-flex flex-row">
-            <div class="theme-container">
+        <div class="mb-120 d-flex flex-row">
+            <div class="theme-container theme-page-text m-0">
 
-                <div class="master-container">
+                <div class="mb-26">
 
-                    <div class="d-flex flex-row">
+                    <div class="seed-label d-flex flex-row">
                         <label>Artist Seeds</label>
-                        <button class="add-seed-bttn" id="add-artist-bttn" onclick="addNewArtist()">+</button>
+                        <button class="seed-label__plus-bttn" id="add-artist-bttn" onclick="addNewArtist()">+</button>
                     </div>
 
-                    <div class="master-seed-div">
-                        <div id="artist-seeds-container" class="seed-inter" onchange="setArtistSeeds()">
+                    <div class="js-seed-cont">
+                        <div id="artist-seeds-container" class="js-seed-cont__seed-inter" onchange="setArtistSeeds()">
                         </div>
-                        <input value="" id="artist-input" type="text" placeholder="e.g. Bon Iver" onkeyup="addNewArtistEnter(event)"/>
+                        <input value="" id="artist-input" type="text" placeholder="e.g. Bon Iver" onkeyup="addNewArtistEnter(event)" />
 
                     </div>
 
                 </div>
 
-                <div class="master-container">
+                <div class="mb-26">
 
-                    <div class="d-flex flex-row">
+                    <div class="seed-label d-flex flex-row">
                         <label>Track Seeds</label>
-                        <button id="add-track-bttn" class="add-seed-bttn" onclick="addNewTrack()">+</button>
+                        <button id="add-track-bttn" class="seed-label__plus-bttn" onclick="addNewTrack()">+</button>
                     </div>
 
-                    <div class="master-seed-div">
-                        <div id="track-seeds-container" class="seed-inter">
+                    <div class="js-seed-cont">
+                        <div id="track-seeds-container" class="js-seed-cont__seed-inter">
                         </div>
                         <input value="" id="track-input" type="text" placeholder="e.g. Greedy" onkeyup="addNewTrackEnter(event)" />
 
@@ -341,15 +390,15 @@
 
                 </div>
 
-                <div class="master-container">
+                <div class="mb-26">
 
-                    <div class="d-flex flex-row">
+                    <div class="seed-label d-flex flex-row">
                         <label>Genre Seeds</label>
-                        <button id="add-genre-bttn" class="add-seed-bttn" onclick="addNewGenre()">+</button>
+                        <button id="add-genre-bttn" class="seed-label__plus-bttn" onclick="addNewGenre()">+</button>
                     </div>
 
-                    <div class="master-seed-div">
-                        <div id="genre-seeds-container" class="seed-inter">
+                    <div class="js-seed-cont">
+                        <div id="genre-seeds-container" class="js-seed-cont__seed-inter">
                         </div>
                         <input value="" list="genres" id="genre-input" type="text" placeholder="e.g. Acoustic" onkeyup="addNewGenreEnter(event)" />
                         <datalist id="genres">
@@ -485,22 +534,89 @@
 
                 </div>
 
-                <form asp-action="Verification" asp-controller="SongRecommendations">
+                <form asp-action="Verification" asp-controller="SongRecommendations" onsubmit="return submitSeeds()">
                     <div>
                         <input type="hidden" id="artist-seeds" asp-for="@Model.ArtistUserInput" />
                         <input type="hidden" id="track-seeds" asp-for="@Model.TrackUserInput" />
                         <input type="hidden" id="genre-seeds" asp-for="@Model.GenreUserInput" />
-                        <input id="seed-submit" type="submit" onmouseover="submitSeeds()" onselect="checkInputs()" />
+                        <input type="hidden" id="recommendation-limit" asp-for="@Model.Limit" />
+                        <input id="seed-submit" type="submit" class="submit" />
                     </div>
                 </form>
 
             </div>
 
-            <div class="additional-recommendation-filters">
-                <div>More Filters Coming Soon!</div>
-                <div class="coming-soon"></div>
-                <div class="coming-soon"></div>
-                <div class="coming-soon"></div>
+            <aside class="theme-container theme-page-text ml-26">            
+                <div class="d-flex flex-row align-items-center mb-12">
+                    <label for="recommendationLimit">Number of Recommendations</label>
+                    <input id="user-limit-input" type="number" value="20" min="1" max="100" class="aside__limit-input p-0 ml-26" onchange="setLimit()" onkeyup="setLimit()"/>
+                </div>        
+                <div class="aside__coming-soon">More Filters Coming Soon!</div>
+            </aside>
+
+        </div>
+
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+
+            <div id="toastEmptySeed" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <strong class="me-auto">Input Invalid</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    seed input cannot be empty
+                </div>
+            </div>
+
+            <div id="toastSeedCount" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <strong class="me-auto">Input Invalid</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    cannot have more than 5 seeds
+                </div>
+            </div>
+
+            <div id="error" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <strong class="me-auto">Input Invalid</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    error
+                </div>
+            </div>
+
+            <div id="genreInputValidation" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <strong class="me-auto">Input Invalid</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    genre seeds must be a value from the drop down
+                </div>
+
+            </div>
+
+            <div id="seedSubmitValidation" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <strong class="me-auto">Input Invalid</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    you must have at least one seed input
+                </div>
+            </div>
+
+            <div id="toastInvalidLimit" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <strong class="me-auto">Input Invalid</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    number of recommendations must be between 1 - 100 inclusive
+                </div>
             </div>
 
         </div>
@@ -521,7 +637,7 @@
                     {
 
                         <div class="card">
-                            <div class="card-body">                             
+                            <div class="card-body">
                                 <img src="@track.Album.Images[0].Url" width="275" height="275" alt="Album cover art" />
                                 <h5 class="card-title">@track.Name</h5>
                                 <h6 class="card-subtitle">@track.PerformingArtists[0].Name</h6>
