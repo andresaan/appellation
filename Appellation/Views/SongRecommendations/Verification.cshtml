@@ -148,6 +148,7 @@
 
                 <input type="hidden" asp-for="@Model.TrackVerifiedSeeds" id="verified-track-output" />
                 <input type="hidden" asp-for="@Model.ArtistVerifiedSeeds" id="verified-artist-output" />
+                <input type="hidden" asp-for="@Model.Limit" value="@Model.Limit" />
 
                 <input type="submit" onclick="setValues()" class="submit"/>
             </form>

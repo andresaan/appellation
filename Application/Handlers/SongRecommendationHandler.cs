@@ -136,20 +136,20 @@ namespace Application.Handlers
             return potentialSeeds;
         }
 
-        public async Task<Track[]> GetSongRecommendationsAsync(string? artistVerifiedSeeds, string? trackVerifiedSeeds, string? genreVerifiedSeeds)
+        public async Task<Track[]> GetSongRecommendationsAsync(string? artistVerifiedSeeds, string? trackVerifiedSeeds, string? genreVerifiedSeeds, int limit)
         {
 
-            var queryParameters = ConstructQueryParameters(artistVerifiedSeeds, trackVerifiedSeeds, genreVerifiedSeeds);
+            var queryParameters = ConstructQueryParameters(artistVerifiedSeeds, trackVerifiedSeeds, genreVerifiedSeeds, limit);
 
             var tracks = await _songRecommendationsService.GetSongRecommendationsAsync(queryParameters);
 
             return tracks;
         }
 
-        private string ConstructQueryParameters(string? artistSeeds, string? trackSeeds, string? genreSeeds)
+        private string ConstructQueryParameters(string? artistSeeds, string? trackSeeds, string? genreSeeds, int limit)
         {
 
-            var queryParameters = $"seed_artists={artistSeeds}&seed_tracks={trackSeeds}&seed_genres={genreSeeds}";
+            var queryParameters = $"limit={limit}&seed_artists={artistSeeds}&seed_tracks={trackSeeds}&seed_genres={genreSeeds}";
 
             return queryParameters;
         }

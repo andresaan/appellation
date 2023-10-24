@@ -33,7 +33,7 @@ namespace Appellation.Controllers
             var songRecommendationsIndexModel = new SongRecommendationsIndexModel()
             {
                 Tracks = await _processSongRecommendations.GetSongRecommendationsAsync(
-                    model.ArtistVerifiedSeeds, model.TrackVerifiedSeeds, model.GenreVerifiedSeeds),
+                    model.ArtistVerifiedSeeds, model.TrackVerifiedSeeds, model.GenreVerifiedSeeds, model.Limit),
 
                 RecommendationsGiven = true
             };
@@ -51,6 +51,7 @@ namespace Appellation.Controllers
                 ArtistSeedIntermediaries = songRecommendationSeeds.SeedIntermediaries,
                 TrackSeedIntermediaries = songRecommendationSeeds.TrackSeedIntermediaries,
                 GenreVerifiedSeeds = songRecommendationSeeds.GenreVerifiedSeeds,
+                Limit = model.Limit
             };
 
             return View(seedVerificationModel);
