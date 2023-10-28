@@ -1,87 +1,12 @@
-﻿/* high level */
-
-html {
-}
-
-.theme-page-wrapper {
-    display: flex;
-    justify-content: center;
-    background-color: var(--theme-bg-med);
-    width: 100vw;
-    padding-bottom: 150px;
-    --seed-container-width: 55%;
-}
-
-/*Individual Styles*/
-
-.mt-12 {
-    margin-top: 12px;
-}
-
-.mb-12 {
-    margin-bottom: 12px
-}
-
-.mt-26 {
-    margin-top: 26px;
-}
-
-.mb-26 {
-    margin-bottom: 26px;
-}
-
-.ml-26 {
-    margin-left: 26px;
-}
-
-.mt-120 {
-    margin-top: 120px;
-}
-
-.mb-120 {
-    margin-bottom: 120px;
-}
-
-
-/*Reusable Classes*/
-
-.theme-box-shadow {
-    box-shadow: 0px 2px 6px 3px #0A0A0A;
-}
-
-.theme-page-heading {
-    font-size: 42px;
-    margin-bottom: 38px;
-    font-weight: bold;
-    color: #46bddf;
-}
-
-.theme-page-text {
-    font-size: 18px;
-    color: var(--theme-txt-col);
-}
-
-    .theme-page-text > p:last-child {
-        margin-bottom: 0px;
-    }
-
-.theme-container {
-    /*use theme text classes for text styling*/
-    background-color: var(--theme-bg-light);
-    padding: 24px;
-    width: 55%;
-    border-radius: 4px;
-    box-shadow: 0px 1px 6px 1px #141414;
-}
+﻿
 
 /*-- MAIN START --*/
 
-main.recommendations {
-    width: 75%;
-    text-align: left;
-}
-
 /*MAIN -- additional recommendation filters*/
+
+#get-started {
+    width: 100%;
+}
 
 aside.theme-container {
     width: calc(100% - var(--seed-container-width) - 26px);
@@ -216,17 +141,30 @@ aside.theme-container {
 
 /*-- MAIN END -- */
 
+/* -- RECOMMENDATIONS GIVEN -- */
+
+main:has(div.track-recommendations) > #js-generate {
+    display: none;
+}
+
+main:has(div.track-recommendations) > #js-generate > #recommendation-filters {
+    margin-bottom: 0px;
+}
+
+#js-hide-generate {
+    display: none;
+    width: 55%;
+}
+
+
+
+
 
 
 .track-recommendations {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    width: 100%;
 }
 
-    .track-recommendations > .text-container {
-        margin-bottom: 64px;
-    }
 
 .card {
     margin: 18px;

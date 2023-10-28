@@ -2,6 +2,7 @@
 using Appellation.Models;
 using Microsoft.AspNetCore.Mvc;
 using Data.Seed;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Appellation.Controllers
 {
@@ -12,6 +13,8 @@ namespace Appellation.Controllers
         {
             _processSongRecommendations = songRecommendationLogic;
         }
+
+        [Authorize]
         [HttpGet]
         public IActionResult Index()
         {
@@ -26,6 +29,7 @@ namespace Appellation.Controllers
         //    return View(model);
         //}
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Index(SeedVerificationModel model)
         {
@@ -41,6 +45,7 @@ namespace Appellation.Controllers
             return View(songRecommendationsIndexModel);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Verification(SongRecommendationsIndexModel model)
         {

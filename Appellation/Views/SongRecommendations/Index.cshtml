@@ -186,8 +186,8 @@
 
             }
 
-            if (!validateLimit()) {               
-                
+            if (!validateLimit()) {
+
                 return false;
             }
 
@@ -318,7 +318,7 @@
 
             var toastInvalidLimit = document.getElementById("toastInvalidLimit");
             var toast = bootstrap.Toast.getOrCreateInstance(toastInvalidLimit);
-            
+
             if (value <= 100 && value > 0) {
                 toast.hide();
                 return true;
@@ -330,229 +330,268 @@
             }
         }
 
+        function showGenerate() {
+
+            var generate = document.getElementById("js-generate");
+
+            if (generate.style.display == "none" || generate.style.display == "") {
+
+                document.getElementById("js-show-generate").style.display = "none";
+
+                document.getElementById("js-hide-generate").style.display = "block";
+                generate.style.display = "initial";
+            }
+
+        }
+
+        function hideGenerate() {
+
+            var generate = document.getElementById("js-generate");
+
+            if (generate.style.display == "initial") {
+
+                document.getElementById("js-hide-generate").style.display = "none";
+
+                document.getElementById("js-show-generate").style.display = "block";
+
+                generate.style.display = "none";
+            }
+
+
+        }
+
     </script>
 }
 
 <div class="theme-page-wrapper">
-    <main class="recommendations">
+    <main class="recommendation">
 
-        <div id="generate-again" style="display:none">
-            <button>See Instructions</button>
-        </div>
+        <div id="js-generate">
 
-        <div id="get-started" class="theme-container theme-box-shadow mt-120 mb-26 theme-page-text">
-                <h1 class="theme-page-heading">Welcome!</h1>
+            <div id="get-started" class="theme-container theme-page-text mt-120 mb-26">
+                <h1 class="theme-page__heading-big">Welcome!</h1>
                 <p>
-                    To get started and receive personalized song recommendations, you'll need to provide us with at least one,
-                    but no more than five seeds.
+                    To start curating a list of personalized song recommendaitons please follow the instructions below.
                 </p>
                 <p>
-                    A seed is an artist, track, or genre that we will use to base your song recommendations off of.
-                    These seeds serve as the foundation for generating recommendations that match your musical preferences.
+                    <span style="color:orangered; font-weight:bold;">Important:</span> In order to generate song recommendations you must
+                    provide 1-5 total seed values. A seed is an artist, track, or genre we will use to match to similar tracks that we can
+                    return to you. Each seed input field is NOT required. If you have at least one seed input, wether it be an artist,
+                    track or genre, you have fulfilled the seed requirement.
                 </p>
-                <p>
-                    Please fill out your seeds in the input fields below. In order to add the seed and allow for more seed inputs press tab.
-                </p> 
-        </div>
-
-        <div class="mb-120 d-flex flex-row">
-            <div class="theme-container theme-page-text m-0">
-
-                <div class="mb-26">
-
-                    <div class="seed-label d-flex flex-row">
-                        <label>Artist Seeds</label>
-                        <button class="seed-label__plus-bttn" id="add-artist-bttn" onclick="addNewArtist()">+</button>
-                    </div>
-
-                    <div class="js-seed-cont">
-                        <div id="artist-seeds-container" class="js-seed-cont__seed-inter" onchange="setArtistSeeds()">
-                        </div>
-                        <input value="" id="artist-input" type="text" placeholder="e.g. Bon Iver" onkeyup="addNewArtistEnter(event)" />
-
-                    </div>
-
-                </div>
-
-                <div class="mb-26">
-
-                    <div class="seed-label d-flex flex-row">
-                        <label>Track Seeds</label>
-                        <button id="add-track-bttn" class="seed-label__plus-bttn" onclick="addNewTrack()">+</button>
-                    </div>
-
-                    <div class="js-seed-cont">
-                        <div id="track-seeds-container" class="js-seed-cont__seed-inter">
-                        </div>
-                        <input value="" id="track-input" type="text" placeholder="e.g. Greedy" onkeyup="addNewTrackEnter(event)" />
-
-                    </div>
-
-                </div>
-
-                <div class="mb-26">
-
-                    <div class="seed-label d-flex flex-row">
-                        <label>Genre Seeds</label>
-                        <button id="add-genre-bttn" class="seed-label__plus-bttn" onclick="addNewGenre()">+</button>
-                    </div>
-
-                    <div class="js-seed-cont">
-                        <div id="genre-seeds-container" class="js-seed-cont__seed-inter">
-                        </div>
-                        <input value="" list="genres" id="genre-input" type="text" placeholder="e.g. Acoustic" onkeyup="addNewGenreEnter(event)" />
-                        <datalist id="genres">
-                            <option id="acoustic" value="acoustic" />
-                            <option id="afrobeat" value="afrobeat" />
-                            <option id="alt-rock" value="alt-rock" />
-                            <option id="alternative" value="alternative" />
-                            <option id="ambient" value="ambient" />
-                            <option id="anime" value="anime" />
-                            <option id="black-metal" value="black-metal" />
-                            <option id="bluegrass" value="bluegrass" />
-                            <option id="blues" value="blues" />
-                            <option id="bossanova" value="bossanova" />
-                            <option id="brazil" value="brazil" />
-                            <option id="breakbeat" value="breakbeat" />
-                            <option id="british" value="british" />
-                            <option id="cantopop" value="cantopop" />
-                            <option id="chicago-house" value="chicago-house" />
-                            <option id="children" value="children" />
-                            <option id="chill" value="chill" />
-                            <option id="classical" value="classical" />
-                            <option id="club" value="club" />
-                            <option id="comedy" value="comedy" />
-                            <option id="country" value="country" />
-                            <option id="dance" value="dance" />
-                            <option id="dancehall" value="dancehall" />
-                            <option id="death-metal" value="death-metal" />
-                            <option id="deep-house" value="deep-house" />
-                            <option id="detroit-techno" value="detroit-techno" />
-                            <option id="disco" value="disco" />
-                            <option id="disney" value="disney" />
-                            <option id="drum-and-bass" value="drum-and-bass" />
-                            <option id="dub" value="dub" />
-                            <option id="dubstep" value="dubstep" />
-                            <option id="edm" value="edm" />
-                            <option id="electro" value="electro" />
-                            <option id="electronic" value="electronic" />
-                            <option id="emo" value="emo" />
-                            <option id="folk" value="folk" />
-                            <option id="forro" value="forro" />
-                            <option id="french" value="french" />
-                            <option id="funk" value="funk" />
-                            <option id="garage" value="garage" />
-                            <option id="german" value="german" />
-                            <option id="gospel" value="gospel" />
-                            <option id="goth" value="goth" />
-                            <option id="grindcore" value="grindcore" />
-                            <option id="groove" value="groove" />
-                            <option id="grunge" value="grunge" />
-                            <option id="guitar" value="guitar" />
-                            <option id="happy" value="happy" />
-                            <option id="hard-rock" value="hard-rock" />
-                            <option id="hardcore" value="hardcore" />
-                            <option id="hardstyle" value="hardstyle" />
-                            <option id="heavy-metal" value="heavy-metal" />
-                            <option id="hip-hop" value="hip-hop" />
-                            <option id="holidays" value="holidays" />
-                            <option id="honky-tonk" value="honky-tonk" />
-                            <option id="house" value="house" />
-                            <option id="idm" value="idm" />
-                            <option id="indian" value="indian" />
-                            <option id="indie" value="indie" />
-                            <option id="indie-pop" value="indie-pop" />
-                            <option id="industrial" value="industrial" />
-                            <option id="iranian" value="iranian" />
-                            <option id="j-dance" value="j-dance" />
-                            <option id="j-idol" value="j-idol" />
-                            <option id="j-pop" value="j-pop" />
-                            <option id="j-rock" value="j-rock" />
-                            <option id="jazz" value="jazz" />
-                            <option id="k-pop" value="k-pop" />
-                            <option id="kids" value="kids" />
-                            <option id="latin" value="latin" />
-                            <option id="latino" value="latino" />
-                            <option id="malay" value="malay" />
-                            <option id="mandopop" value="mandopop" />
-                            <option id="metal" value="metal" />
-                            <option id="metal-misc" value="metal-misc" />
-                            <option id="metalcore" value="metalcore" />
-                            <option id="minimal-techno" value="minimal-techno" />
-                            <option id="movies" value="movies" />
-                            <option id="mpb" value="mpb" />
-                            <option id="new-age" value="new-age" />
-                            <option id="new-release" value="new-release" />
-                            <option id="opera" value="opera" />
-                            <option id="pagode" value="pagode" />
-                            <option id="party" value="party" />
-                            <option id="philippines-opm" value="philippines-opm" />
-                            <option id="piano" value="piano" />
-                            <option id="pop" value="pop" />
-                            <option id="pop-film" value="pop-film" />
-                            <option id="post-dubstep" value="post-dubstep" />
-                            <option id="power-pop" value="power-pop" />
-                            <option id="progressive-house" value="progressive-house" />
-                            <option id="psych-rock" value="psych-rock" />
-                            <option id="punk" value="punk" />
-                            <option id="punk-rock" value="punk-rock" />
-                            <option id="r-n-b" value="r-n-b" />
-                            <option id="rainy-day" value="rainy-day" />
-                            <option id="reggae" value="reggae" />
-                            <option id="reggaeton" value="reggaeton" />
-                            <option id="road-trip" value="road-trip" />
-                            <option id="rock" value="rock" />
-                            <option id="rock-n-roll" value="rock-n-roll" />
-                            <option id="rockabilly" value="rockabilly" />
-                            <option id="romance" value="romance" />
-                            <option id="sad" value="sad" />
-                            <option id="salsa" value="salsa" />
-                            <option id="samba" value="samba" />
-                            <option id="sertanejo" value="sertanejo" />
-                            <option id="show-tunes" value="show-tunes" />
-                            <option id="singer-songwriter" value="singer-songwriter" />
-                            <option id="ska" value="ska" />
-                            <option id="sleep" value="sleep" />
-                            <option id="songwriter" value="songwriter" />
-                            <option id="soul" value="soul" />
-                            <option id="soundtracks" value="soundtracks" />
-                            <option id="spanish" value="spanish" />
-                            <option id="study" value="study" />
-                            <option id="summer" value="summer" />
-                            <option id="swedish" value="swedish" />
-                            <option id="synth-pop" value="synth-pop" />
-                            <option id="tango" value="tango" />
-                            <option id="techno" value="techno" />
-                            <option id="trance" value="trance" />
-                            <option id="trip-hop" value="trip-hop" />
-                            <option id="turkish" value="turkish" />
-                            <option id="work-out" value="work-out" />
-                            <option id="world-music" value="world-music" />
-                        </datalist>
-
-                    </div>
-
-                </div>
-
-                <form asp-action="Verification" asp-controller="SongRecommendations" onsubmit="return submitSeeds()">
-                    <div>
-                        <input type="hidden" id="artist-seeds" asp-for="@Model.ArtistUserInput" />
-                        <input type="hidden" id="track-seeds" asp-for="@Model.TrackUserInput" />
-                        <input type="hidden" id="genre-seeds" asp-for="@Model.GenreUserInput" />
-                        <input type="hidden" id="recommendation-limit" asp-for="@Model.Limit" />
-                        <input id="seed-submit" type="submit" class="submit" />
-                    </div>
-                </form>
-
+                <h2 class="theme-page__heading-small">Instructions:</h2>
+                <ol>
+                    <li>Input seed values</li>
+                    <li>Add seeds by pressing + or enter</li>
+                    <li>Input 1-5 seeds total between the three types (artist, track, and genre)</li>
+                    <li>Determine how many recommendations you would like between 1-100</li>
+                    <li>Submit</li>
+                </ol>
             </div>
 
-            <aside class="theme-container theme-page-text ml-26">            
-                <div class="d-flex flex-row align-items-center mb-12">
-                    <label for="recommendationLimit">Number of Recommendations</label>
-                    <input id="user-limit-input" type="number" value="20" min="1" max="100" class="aside__limit-input p-0 ml-26" onchange="setLimit()" onkeyup="setLimit()"/>
-                </div>        
-                <div class="aside__coming-soon">More Filters Coming Soon!</div>
-            </aside>
+            <div id="recommendation-filters" class="mb-120 d-flex flex-row">
+                <div class="position-relative theme-container theme-page-text m-0 d">
+
+                    <div class="mb-26">
+
+                        <div class="seed-label d-flex flex-row">
+                            <p class="m-0">Artist Seeds</p>
+                            <button class="seed-label__plus-bttn" id="add-artist-bttn" onclick="addNewArtist()">+</button>
+                        </div>
+
+                        <div class="js-seed-cont">
+                            <div id="artist-seeds-container" class="js-seed-cont__seed-inter" onchange="setArtistSeeds()">
+                            </div>
+                            <input value="" id="artist-input" type="text" placeholder="e.g. Bon Iver" onkeyup="addNewArtistEnter(event)" />
+
+                        </div>
+
+                    </div>
+
+                    <div class="mb-26">
+
+                        <div class="seed-label d-flex flex-row">
+                            <p class="m-0">Track Seeds</p>
+                            <button id="add-track-bttn" class="seed-label__plus-bttn" onclick="addNewTrack()">+</button>
+                        </div>
+
+                        <div class="js-seed-cont">
+                            <div id="track-seeds-container" class="js-seed-cont__seed-inter">
+                            </div>
+                            <input value="" id="track-input" type="text" placeholder="e.g. Greedy" onkeyup="addNewTrackEnter(event)" />
+
+                        </div>
+
+                    </div>
+
+                    <div class="mb-26">
+
+                        <div class="seed-label d-flex flex-row">
+                            <p class="m-0">Genre Seeds</p>
+                            <button id="add-genre-bttn" class="seed-label__plus-bttn" onclick="addNewGenre()">+</button>
+                        </div>
+
+                        <div class="js-seed-cont">
+                            <div id="genre-seeds-container" class="js-seed-cont__seed-inter">
+                            </div>
+                            <input value="" list="genres" id="genre-input" type="text" placeholder="e.g. Acoustic" onkeyup="addNewGenreEnter(event)" />
+                            <datalist id="genres">
+                                <option id="acoustic" value="acoustic" />
+                                <option id="afrobeat" value="afrobeat" />
+                                <option id="alt-rock" value="alt-rock" />
+                                <option id="alternative" value="alternative" />
+                                <option id="ambient" value="ambient" />
+                                <option id="anime" value="anime" />
+                                <option id="black-metal" value="black-metal" />
+                                <option id="bluegrass" value="bluegrass" />
+                                <option id="blues" value="blues" />
+                                <option id="bossanova" value="bossanova" />
+                                <option id="brazil" value="brazil" />
+                                <option id="breakbeat" value="breakbeat" />
+                                <option id="british" value="british" />
+                                <option id="cantopop" value="cantopop" />
+                                <option id="chicago-house" value="chicago-house" />
+                                <option id="children" value="children" />
+                                <option id="chill" value="chill" />
+                                <option id="classical" value="classical" />
+                                <option id="club" value="club" />
+                                <option id="comedy" value="comedy" />
+                                <option id="country" value="country" />
+                                <option id="dance" value="dance" />
+                                <option id="dancehall" value="dancehall" />
+                                <option id="death-metal" value="death-metal" />
+                                <option id="deep-house" value="deep-house" />
+                                <option id="detroit-techno" value="detroit-techno" />
+                                <option id="disco" value="disco" />
+                                <option id="disney" value="disney" />
+                                <option id="drum-and-bass" value="drum-and-bass" />
+                                <option id="dub" value="dub" />
+                                <option id="dubstep" value="dubstep" />
+                                <option id="edm" value="edm" />
+                                <option id="electro" value="electro" />
+                                <option id="electronic" value="electronic" />
+                                <option id="emo" value="emo" />
+                                <option id="folk" value="folk" />
+                                <option id="forro" value="forro" />
+                                <option id="french" value="french" />
+                                <option id="funk" value="funk" />
+                                <option id="garage" value="garage" />
+                                <option id="german" value="german" />
+                                <option id="gospel" value="gospel" />
+                                <option id="goth" value="goth" />
+                                <option id="grindcore" value="grindcore" />
+                                <option id="groove" value="groove" />
+                                <option id="grunge" value="grunge" />
+                                <option id="guitar" value="guitar" />
+                                <option id="happy" value="happy" />
+                                <option id="hard-rock" value="hard-rock" />
+                                <option id="hardcore" value="hardcore" />
+                                <option id="hardstyle" value="hardstyle" />
+                                <option id="heavy-metal" value="heavy-metal" />
+                                <option id="hip-hop" value="hip-hop" />
+                                <option id="holidays" value="holidays" />
+                                <option id="honky-tonk" value="honky-tonk" />
+                                <option id="house" value="house" />
+                                <option id="idm" value="idm" />
+                                <option id="indian" value="indian" />
+                                <option id="indie" value="indie" />
+                                <option id="indie-pop" value="indie-pop" />
+                                <option id="industrial" value="industrial" />
+                                <option id="iranian" value="iranian" />
+                                <option id="j-dance" value="j-dance" />
+                                <option id="j-idol" value="j-idol" />
+                                <option id="j-pop" value="j-pop" />
+                                <option id="j-rock" value="j-rock" />
+                                <option id="jazz" value="jazz" />
+                                <option id="k-pop" value="k-pop" />
+                                <option id="kids" value="kids" />
+                                <option id="latin" value="latin" />
+                                <option id="latino" value="latino" />
+                                <option id="malay" value="malay" />
+                                <option id="mandopop" value="mandopop" />
+                                <option id="metal" value="metal" />
+                                <option id="metal-misc" value="metal-misc" />
+                                <option id="metalcore" value="metalcore" />
+                                <option id="minimal-techno" value="minimal-techno" />
+                                <option id="movies" value="movies" />
+                                <option id="mpb" value="mpb" />
+                                <option id="new-age" value="new-age" />
+                                <option id="new-release" value="new-release" />
+                                <option id="opera" value="opera" />
+                                <option id="pagode" value="pagode" />
+                                <option id="party" value="party" />
+                                <option id="philippines-opm" value="philippines-opm" />
+                                <option id="piano" value="piano" />
+                                <option id="pop" value="pop" />
+                                <option id="pop-film" value="pop-film" />
+                                <option id="post-dubstep" value="post-dubstep" />
+                                <option id="power-pop" value="power-pop" />
+                                <option id="progressive-house" value="progressive-house" />
+                                <option id="psych-rock" value="psych-rock" />
+                                <option id="punk" value="punk" />
+                                <option id="punk-rock" value="punk-rock" />
+                                <option id="r-n-b" value="r-n-b" />
+                                <option id="rainy-day" value="rainy-day" />
+                                <option id="reggae" value="reggae" />
+                                <option id="reggaeton" value="reggaeton" />
+                                <option id="road-trip" value="road-trip" />
+                                <option id="rock" value="rock" />
+                                <option id="rock-n-roll" value="rock-n-roll" />
+                                <option id="rockabilly" value="rockabilly" />
+                                <option id="romance" value="romance" />
+                                <option id="sad" value="sad" />
+                                <option id="salsa" value="salsa" />
+                                <option id="samba" value="samba" />
+                                <option id="sertanejo" value="sertanejo" />
+                                <option id="show-tunes" value="show-tunes" />
+                                <option id="singer-songwriter" value="singer-songwriter" />
+                                <option id="ska" value="ska" />
+                                <option id="sleep" value="sleep" />
+                                <option id="songwriter" value="songwriter" />
+                                <option id="soul" value="soul" />
+                                <option id="soundtracks" value="soundtracks" />
+                                <option id="spanish" value="spanish" />
+                                <option id="study" value="study" />
+                                <option id="summer" value="summer" />
+                                <option id="swedish" value="swedish" />
+                                <option id="synth-pop" value="synth-pop" />
+                                <option id="tango" value="tango" />
+                                <option id="techno" value="techno" />
+                                <option id="trance" value="trance" />
+                                <option id="trip-hop" value="trip-hop" />
+                                <option id="turkish" value="turkish" />
+                                <option id="work-out" value="work-out" />
+                                <option id="world-music" value="world-music" />
+                            </datalist>
+
+                        </div>
+
+                    </div>
+
+                    <div id="js-hide-generate" class="position-absolute bottom-0 end-0 p-3">
+                        <button class="hide-bttn" onclick="hideGenerate()">Hide</button>
+                    </div>
+
+                    <form asp-action="Verification" asp-controller="SongRecommendations" onsubmit="return submitSeeds()">
+                        <div>
+                            <input type="hidden" id="artist-seeds" asp-for="@Model.ArtistUserInput" />
+                            <input type="hidden" id="track-seeds" asp-for="@Model.TrackUserInput" />
+                            <input type="hidden" id="genre-seeds" asp-for="@Model.GenreUserInput" />
+                            <input type="hidden" id="recommendation-limit" asp-for="@Model.Limit" />
+                            <input id="seed-submit" type="submit" class="submit" />
+                        </div>
+                    </form>
+
+                </div>
+
+                <aside class="theme-container theme-page-text ml-26">
+                    <div class="d-flex flex-row align-items-center mb-12">
+                        <label for="recommendationLimit">Number of Recommendations</label>
+                        <input id="user-limit-input" type="number" value="20" min="1" max="100" class="aside__limit-input p-0 ml-26" onchange="setLimit()" onkeyup="setLimit()" />
+                    </div>
+                    <div class="aside__coming-soon">More Filters Coming Soon!</div>
+                </aside>
+            </div>
 
         </div>
 
@@ -623,32 +662,44 @@
 
         @if (Model.RecommendationsGiven != false)
         {
-            <div class="track-recommendations">
 
-                <div class="page-text theme-container">
-                    <h1 class="page-heading">Song Recommendations</h1>
-                    <p>
-                        Dont forget to mix and match different seeds to generate a new batch of recommendations!
-                    </p>
-                </div>
+            <div class="track-recommendations mt-120 theme-page-text theme-container-wider mb-64">
+                <h1 class="theme-page__heading-big">Song Recommendations</h1>
 
-                <div class="card-container">
-                    @foreach (Track track in Model.Tracks)
-                    {
+                <h2 class="theme-page__heading-small">Keep the songs you like...</h2>
+                <p>
+                    Use the heart (icon) to add songs to your favorites(button linking to favorites page),
+                    where you can create exciting new playlists.
+                </p>
 
-                        <div class="card">
-                            <div class="card-body">
-                                <img src="@track.Album.Images[0].Url" width="275" height="275" alt="Album cover art" />
-                                <h5 class="card-title">@track.Name</h5>
-                                <h6 class="card-subtitle">@track.PerformingArtists[0].Name</h6>
-                                <a href="@track.PreviewUrl" target="_blank" class="preview">Preview</a>
-                            </div>
-                        </div>
-                    }
+                <h2 class="theme-page__heading-small">Continue exploring new music...</h2>
+                <p>
+                    Make a new set of unique song recommendations by switching up filters. New Songs(button)
+                </p>
+
+                <div id="js-show-generate">
+                    <button class="blue-bttn-big" onclick="showGenerate(event)">Generate Again</button>
                 </div>
             </div>
+
+            <div class="card-container">
+                @foreach (Track track in Model.Tracks)
+                {
+
+                    <div class="card">
+                        <div class="card-body">
+                            <img src="@track.Album.Images[0].Url" width="275" height="275" alt="Album cover art" />
+                            <h5 class="card-title">@track.Name</h5>
+                            <h6 class="card-subtitle">@track.PerformingArtists[0].Name</h6>
+                            <a href="@track.PreviewUrl" target="_blank" class="preview">Preview</a>
+                        </div>
+                    </div>
+                }
+            </div>
         }
+
     </main>
+
 </div>
 
 

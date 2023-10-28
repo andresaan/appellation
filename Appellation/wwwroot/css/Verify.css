@@ -6,38 +6,12 @@
 }
 
 
-/* reusable */
+/* Page Specific */
 
-/*.song-rec-wrapper {
-    display: flex;
-    justify-content: center;
-    background-color: var(--theme-bg-med);
-    width: 100vw;
-    min-height: 100vh;*/ /* NEW! */    
-    /*padding-bottom: 150px;
-    --seed-container-width: 55%;
-}
-
-main.recommendations {
+main {
     width: 75%;
     text-align: left;
 }
-
-.theme-container {
-    background-color: var(--theme-bg-light);
-    margin-top: 120px;
-    margin-bottom: 24px;
-    padding: 24px;
-    width: 55%;
-    border-radius: 4px;
-    color: var(--theme-txt-col);
-    font-size: 18px;*/
-    /*    box-shadow: 0px 1px 6px 1px #0A0A0A;*/
-    /*box-shadow: 0px 1px 6px 1px #141414;
-}*/
-
-
-/* Page Specific */
 
 form.verification > .theme-container {
     width: 100%;
