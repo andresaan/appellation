@@ -1,20 +1,7 @@
 ﻿
-/*Individual Styles*/
-
-.theme-box-shadow {
-    box-shadow: 0px 2px 6px 3px #0A0A0A;
-}
-
-
-/* Page Specific */
-
-main {
-    width: 75%;
-    text-align: left;
-}
-
 form.verification > .theme-container {
     width: 100%;
+    text-align: center;
 }
 
 .invisible-radio {

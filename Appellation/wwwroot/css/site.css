@@ -130,6 +130,10 @@ main {
     box-shadow: 0px 2px 6px 3px #0A0A0A;
 }
 
+span.important {
+    color: orangered;
+    font-weight: bold;
+}
 
 /* -- BUTTONS -- */
 
@@ -155,7 +159,7 @@ main {
     background-color: hsl(210.26deg 100% 22.94% / 40%);
 }
 
-.submit {
+.secondary-bttn {
     font-size: 16px;
     color: rgb(255 255 255 / 70%);
     border: 1.5px solid rgb(255 255 255 / 70%);
@@ -163,12 +167,28 @@ main {
     background: var(--theme-bg-light)
 }
 
-    .submit:hover {
+    .secondary-bttn:hover {
         font-size: 16px;
         color: rgb(255 255 255);
         border: 1.5px solid rgb(255 255 255);
         border-radius: 4px;
         background: var(--theme-bg-light)
+    }
+
+.primary-bttn {
+    font-size: 16px;
+    color: rgb(255 255 255);
+    border: 1.5px solid rgb(255 255 255);
+    border-radius: 4px;
+    background: var(--theme-bg-light);
+}
+
+    .primary-bttn:hover {
+        font-size: 16px;
+        color: rgb(255 255 255 / 70%);
+        border: 1.5px solid rgb(255 255 255 / 70%);
+        border-radius: 4px;
+        background: var(--theme-bg-light);
     }
 
 .hide-bttn {
@@ -186,6 +206,19 @@ main {
         border: none;
     }
 
+.bi-heart {
+    font-size: 20px;
+    color: var(--theme-txt-col);
+}
+
+    .bi-heart:hover {
+        color: red;
+    }
+
+.bi-heart-fill{
+    font-size: 20px;
+    color: red;
+}
 
 /* -- MEDIA QUERIES -- */
 

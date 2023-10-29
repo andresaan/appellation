@@ -147,8 +147,16 @@ main:has(div.track-recommendations) > #js-generate {
     display: none;
 }
 
+main:has(div.track-recommendations) > #js-generate #first-submit {
+    display: none;
+}
+
 main:has(div.track-recommendations) > #js-generate > #recommendation-filters {
     margin-bottom: 0px;
+}
+
+main:has(div.track-recommendations) {
+
 }
 
 #js-hide-generate {
@@ -157,14 +165,11 @@ main:has(div.track-recommendations) > #js-generate > #recommendation-filters {
 }
 
 
-
-
-
+/* -- TRACK RECOMMENDATIONS -- */
 
 .track-recommendations {
     width: 100%;
 }
-
 
 .card {
     margin: 18px;
