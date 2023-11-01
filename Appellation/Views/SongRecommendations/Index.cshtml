@@ -3,7 +3,7 @@
 @model SongRecommendationsIndexModel
 
 <link rel="stylesheet" href="~/css/SongRec.css" asp-append-version="true" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
 
 
 @section scripts {
@@ -13,6 +13,11 @@
         var counter = 0;
 
         var dataListValues = getDataListValues();
+
+        var json = '@Json.Serialize(Model.Tracks)';
+        var recommendedTracks = JSON.parse(json);
+
+        console.log(recommendedTracks);
 
         function setWidth(elem) {
 
@@ -362,10 +367,36 @@
 
         }
 
-        function like(x) {
-            
-            x.classList.toggle("bi-heart");
-            x.classList.toggle("bi-heart-fill");
+        function like(e) {
+
+            var container = e.closest("div");
+            var track = container.getElementsByClassName("js-track-id")[0];
+            var trackId = track.value;
+
+            var uri = 'songrecommendations/addfavorite'
+
+            //like
+            if (e.classList.contains("bi-heart")) {
+                e.classList.toggle("bi-heart-fill");
+
+                var likedTrack = recommendedTracks.find(x => x.id === trackId);
+
+                fetch(uri, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(likedTrack)
+                })
+
+            }
+
+            //unlike
+            if (e.classList.contains("bi-heart-fill")) {
+                e.classList.toggle("bi-heart");
+            }
+
         }
 
     </script>
@@ -677,8 +708,7 @@
 
                 <h2 class="theme-page__heading-small">Keep the songs you like...</h2>
                 <p>
-                    Use the heart (icon) to add songs to your favorites(button linking to favorites page),
-                    where you can create exciting new playlists.
+                    Use the heart <i class="bi bi-heart inline"></i> to add songs to your <a asp-action="Favorites" asp-controller="SongRecommendations" class="inline-link">favorites</a>!
                 </p>
 
                 <h2 class="theme-page__heading-small">Continue exploring new music...</h2>
@@ -704,9 +734,8 @@
                             <a href="@track.PreviewUrl" target="_blank" class="preview">Preview</a>
 
                             <div class="position-absolute end-0 bottom-0 p-3">
-                                
+                                <input class="js-track-id" type="hidden" value="@track.Id" />
                                 <i class="bi bi-heart" onclick="like(this)"></i>
-     
                             </div>
 
                         </div>

@@ -3,11 +3,17 @@ using Appellation.Models;
 using Microsoft.AspNetCore.Mvc;
 using Data.Seed;
 using Microsoft.AspNetCore.Authorization;
+using Data.Results;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Microsoft.AspNetCore.DataProtection.KeyManagement;
+using System.Collections.Generic;
 
 namespace Appellation.Controllers
 {
     public class SongRecommendationsController : Controller
     {
+
         private ISongRecommendationHandler _processSongRecommendations;
         public SongRecommendationsController(ISongRecommendationHandler songRecommendationLogic)
         {
@@ -62,5 +68,63 @@ namespace Appellation.Controllers
             return View(seedVerificationModel);
         }
 
+        [HttpGet]
+        public IActionResult Favorites()
+        {
+
+            FavoritesModel favoritesModel = new FavoritesModel();
+
+            favoritesModel.FavoriteTracks = HttpContext.Session.Get<List<Track>>("favorites");
+
+            return View(favoritesModel);
+        }
+
+        [HttpPost]
+        public void AddFavorite([FromBody] Track track)
+        {
+            var session = HttpContext.Session;
+
+            if (session.Get<List<Track>>("favorites") == null)
+            {
+                var trackList = new List<Track>()
+        {
+            track
+        };
+
+                session.Set("favorites", trackList);
+            }
+            else
+            {
+                var favorites = session.Get<List<Track>>("favorites");
+                favorites = favorites.Append(track).ToList(); // Update the favorites list with the new track
+
+                session.Set("favorites", favorites);
+
+            }
+        }
+
+        [HttpPost]
+        public void RemoveFavorite([FromBody] Track track)
+        {
+            var session = HttpContext.Session;
+
+            var favorites = session.Get<List<Track>>("favorites");
+            
+            
+            foreach (Track item in favorites)
+            {
+                if (item.Id == track.Id)
+                {
+                    var contains = favorites.Contains(item);
+                    favorites.Remove(item);
+                    break;
+                }
+            }
+            
+
+            session.Set("favorites", favorites);
+
+        }
     }
 }
+

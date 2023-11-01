@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Spotify.Services;
+using Microsoft.AspNetCore.Session;
 using Application.Interfaces;
 using Application.Handlers;
 
@@ -8,6 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddSession();
 
 builder.Services.AddAuthorization(options =>
 {
@@ -65,6 +68,7 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
+
 }
 
 app.UseHttpsRedirection();
@@ -75,8 +79,15 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseSession();
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "songrecommendations",
+    pattern: "songrecommendations/{action}/{id?}",
+    defaults: new { controller = "SongRecommendations" });
 
 app.Run();
