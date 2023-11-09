@@ -372,14 +372,17 @@
             var container = e.closest("div");
             var track = container.getElementsByClassName("js-track-id")[0];
             var trackId = track.value;
-
-            var uri = 'songrecommendations/addfavorite'
+            
+            var likedTrack = recommendedTracks.find(x => x.id === trackId);
+     
 
             //like
             if (e.classList.contains("bi-heart")) {
+                
                 e.classList.toggle("bi-heart-fill");
-
-                var likedTrack = recommendedTracks.find(x => x.id === trackId);
+                e.classList.toggle("bi-heart");
+                
+                var uri = 'songrecommendations/addfavorite'               
 
                 fetch(uri, {
                     method: 'POST',
@@ -390,11 +393,28 @@
                     body: JSON.stringify(likedTrack)
                 })
 
+                return;
+
             }
 
             //unlike
             if (e.classList.contains("bi-heart-fill")) {
+                
                 e.classList.toggle("bi-heart");
+                e.classList.toggle("bi-heart-fill");
+
+                var uri = 'songrecommendations/removefavorite'
+
+                fetch(uri, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(likedTrack)
+                })
+
+                return;
             }
 
         }

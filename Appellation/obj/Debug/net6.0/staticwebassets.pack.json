@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\Appellation.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Appellation\\wwwroot\\Images\\empty-profile.png",
+      "PackagePath": "staticwebassets\\Images\\empty-profile.png"
+    },
+    {
       "Id": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Appellation\\wwwroot\\css\\Home.css",
       "PackagePath": "staticwebassets\\css\\Home.css"
     },

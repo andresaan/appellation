@@ -14,10 +14,12 @@ namespace Appellation.Controllers
     public class SongRecommendationsController : Controller
     {
 
-        private ISongRecommendationHandler _processSongRecommendations;
-        public SongRecommendationsController(ISongRecommendationHandler songRecommendationLogic)
+        private ISongRecommendationHandler _songRecommendationHandler;
+        private IFavoritesHandler _favoritesHandler;
+        public SongRecommendationsController(ISongRecommendationHandler songRecommendationHandler, IFavoritesHandler favoritesHandler)
         {
-            _processSongRecommendations = songRecommendationLogic;
+            _songRecommendationHandler = songRecommendationHandler;
+            _favoritesHandler = favoritesHandler;
         }
 
         [Authorize]
@@ -42,7 +44,7 @@ namespace Appellation.Controllers
 
             var songRecommendationsIndexModel = new SongRecommendationsIndexModel()
             {
-                Tracks = await _processSongRecommendations.GetSongRecommendationsAsync(
+                Tracks = await _songRecommendationHandler.GetSongRecommendationsAsync(
                     model.ArtistVerifiedSeeds, model.TrackVerifiedSeeds, model.GenreVerifiedSeeds, model.Limit),
 
                 RecommendationsGiven = true
@@ -55,7 +57,7 @@ namespace Appellation.Controllers
         [HttpPost]
         public async Task<IActionResult> Verification(SongRecommendationsIndexModel model)
         {
-            var songRecommendationSeeds = await _processSongRecommendations.VerifySeedInputsAsync(model.ArtistUserInput, model.TrackUserInput, model.GenreUserInput);
+            var songRecommendationSeeds = await _songRecommendationHandler.VerifySeedInputsAsync(model.ArtistUserInput, model.TrackUserInput, model.GenreUserInput);
 
             var seedVerificationModel = new SeedVerificationModel()
             {
@@ -83,23 +85,23 @@ namespace Appellation.Controllers
         public void AddFavorite([FromBody] Track track)
         {
             var session = HttpContext.Session;
+            var favorites = session.Get<List<Track>>("favorites");
 
-            if (session.Get<List<Track>>("favorites") == null)
+            if (favorites == null)
             {
                 var trackList = new List<Track>()
-        {
-            track
-        };
+                {
+                    track
+                };
 
                 session.Set("favorites", trackList);
             }
+            
             else
             {
-                var favorites = session.Get<List<Track>>("favorites");
-                favorites = favorites.Append(track).ToList(); // Update the favorites list with the new track
+                favorites = favorites.Append(track).ToList();
 
                 session.Set("favorites", favorites);
-
             }
         }
 
@@ -109,8 +111,8 @@ namespace Appellation.Controllers
             var session = HttpContext.Session;
 
             var favorites = session.Get<List<Track>>("favorites");
-            
-            
+
+
             foreach (Track item in favorites)
             {
                 if (item.Id == track.Id)
@@ -120,7 +122,7 @@ namespace Appellation.Controllers
                     break;
                 }
             }
-            
+
 
             session.Set("favorites", favorites);
 

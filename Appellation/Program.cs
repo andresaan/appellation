@@ -59,6 +59,7 @@ builder.Services.AddHttpClient("Spotify", httpClient =>
 builder.Services.AddScoped<ISongRecommendationsService, SongRecommendationsService>();
 builder.Services.AddScoped<ISearchSpotifyService, SearchSpotifyService>();
 builder.Services.AddScoped<ISongRecommendationHandler, SongRecommendationHandler>();
+builder.Services.AddScoped<IFavoritesHandler, FavoritesHandler>();
 
 var app = builder.Build();
 

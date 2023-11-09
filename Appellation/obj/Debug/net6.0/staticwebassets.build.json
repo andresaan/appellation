@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "aQcxPfDaSKBrR0pAYV8Hyj58huyLEZxOd5KUjVwjOsM=",
+  "Hash": "UMRwJiJDbb3IRXu8e/VgEtUvORHpn244bmG13kK78HE=",
   "Source": "Appellation",
   "BasePath": "_content/Appellation",
   "Mode": "Default",
@@ -168,6 +168,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Appellation\\wwwroot\\Images\\empty-profile.png",
+      "SourceId": "Appellation",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Appellation\\wwwroot\\",
+      "BasePath": "_content/Appellation",
+      "RelativePath": "Images/empty-profile.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\empty-profile.png"
     },
     {
       "Identity": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Appellation\\wwwroot\\js\\site.js",

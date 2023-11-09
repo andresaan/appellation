@@ -202,6 +202,11 @@ span.important {
     font-weight: bold;
 }
 
+a.no-style {
+    text-decoration: none;
+    color: inherit;
+}
+
 /* -- BUTTONS -- */
 
 .remove-bttn {

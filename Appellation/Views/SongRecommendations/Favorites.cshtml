@@ -19,8 +19,9 @@
 
             //remove
             if (e.classList.contains("bi-heart-fill")) {
-                
-                e.classList.toggle("bi-heart");               
+
+                e.classList.toggle("bi-heart");
+                e.classList.toggle("bi-heart-fill");
 
                 var uri = 'removefavorite'
 
@@ -38,8 +39,9 @@
 
             //add-back
             if (e.classList.contains("bi-heart")) {
-                
+
                 e.classList.toggle("bi-heart-fill");
+                e.classList.toggle("bi-heart");
 
                 var uri = 'addfavorite'
 
@@ -70,28 +72,34 @@
             <p>
                 Your favorite songs!
             </p>
+            <button type="button" class="primary-bttn"><a class="no-style" asp-action="Index" asp-controller="SongRecommendations">Get Song Recommendations</a></button>
 
         </div>
 
         <div class="card-container">
-            @foreach (Track track in Model.FavoriteTracks)
+          
+            @if (Model.FavoriteTracks != null)
             {
 
-                <div class="card">
-                    <div class="card-body position-relative">
-                        <img src="@track.Album.Images[0].Url" width="275" height="275" alt="Album cover art" />
+                @foreach (Track track in Model.FavoriteTracks)
+                {
 
-                        <h5 class="card-title">@track.Name</h5>
-                        <h6 class="card-subtitle">@track.PerformingArtists[0].Name</h6>
-                        <a href="@track.PreviewUrl" target="_blank" class="preview">Preview</a>
-                        
-                        <div class="position-absolute end-0 bottom-0 p-3">
-                            <input class="js-track-id" type="hidden" value="@track.Id" />
-                            <i class="bi bi-heart-fill" onclick="remove(this)"></i>
+                    <div class="card">
+                        <div class="card-body position-relative">
+                            <img src="@track.Album.Images[0].Url" width="275" height="275" alt="Album cover art" />
+
+                            <h5 class="card-title">@track.Name</h5>
+                            <h6 class="card-subtitle">@track.PerformingArtists[0].Name</h6>
+                            <a href="@track.PreviewUrl" target="_blank" class="preview">Preview</a>
+
+                            <div class="position-absolute end-0 bottom-0 p-3">
+                                <input class="js-track-id" type="hidden" value="@track.Id" />
+                                <i class="bi bi-heart-fill" onclick="remove(this)"></i>
+                            </div>
+
                         </div>
-
                     </div>
-                </div>
+                }
             }
         </div>
 
