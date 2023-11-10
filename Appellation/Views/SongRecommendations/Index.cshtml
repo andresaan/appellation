@@ -19,15 +19,22 @@
 
         console.log(recommendedTracks);
 
-        function setWidth(elem) {
+        function changeInputWidth() {
 
-            var interWidth = elem.offsetWidth;
-            var container = elem.closest(".js-seed-cont");
+            //Artist Width Change
+            var seedIntermediaryWidth = document.getElementById("artist-seeds-container").offsetWidth;
+            var root = document.querySelector(':root');
+            root.style.setProperty('--artist-seed-intermediary-width', seedIntermediaryWidth + "px");
 
-            alert(`${interWidth}`)
+            //Track Width Change
+            var seedIntermediaryWidth = document.getElementById("track-seeds-container").offsetWidth;
+            var root = document.querySelector(':root');
+            root.style.setProperty('--track-seed-intermediary-width', seedIntermediaryWidth + "px");
 
-            container.style.setProperty('--inter-width', interWidth);
-
+            //Genre Width Change
+            var seedIntermediaryWidth = document.getElementById("genre-seeds-container").offsetWidth;
+            var root = document.querySelector(':root');
+            root.style.setProperty('--genre-seed-intermediary-width', seedIntermediaryWidth + "px");
         }
 
         function addNewArtist() {
@@ -39,11 +46,13 @@
 
                 var newSpan = createDiv(inputValue);
 
-                var elem = document.getElementById("artist-seeds-container");
-                elem.appendChild(newSpan);
+                var seedIntermediary = document.getElementById("artist-seeds-container");
+                seedIntermediary.appendChild(newSpan);
 
                 input.value = "";
                 counter++;
+
+                changeInputWidth();
 
             }
             else {
@@ -77,6 +86,8 @@
 
                 input.value = "";
                 counter++;
+
+                changeInputWidth();
             }
             else {
                 seedInputErrors(inputValue);
@@ -109,6 +120,9 @@
                 removeGenreOption(inputValue);
                 input.value = "";
                 counter++;
+                
+                changeInputWidth();
+
                 return;
             }
             if (validGenre == false) {
@@ -150,22 +164,17 @@
             var target = event.target
 
             var content = target.closest("div");
-            var seed = content.getElementsByTagName("span");
-
-            for (i = 0; i < seed.length; i++) {
-
-                var seedValue = seed[i].innerHTML;
-
-            }
+            var seed = content.getElementsByTagName("span")[0];
+            var seedValue = seed.innerHTML;
 
             if (dataListValues.includes(seedValue)) {
 
                 addGenreBack(seedValue);
             }
 
-            target.closest("div").remove();
-
+            content.remove();
             counter--;
+            changeInputWidth();
         }
 
         function addGenreBack(seedValue) {
@@ -372,17 +381,18 @@
             var container = e.closest("div");
             var track = container.getElementsByClassName("js-track-id")[0];
             var trackId = track.value;
-            
+
             var likedTrack = recommendedTracks.find(x => x.id === trackId);
-     
+
+
 
             //like
             if (e.classList.contains("bi-heart")) {
-                
-                e.classList.toggle("bi-heart-fill");
+
                 e.classList.toggle("bi-heart");
-                
-                var uri = 'songrecommendations/addfavorite'               
+                e.classList.toggle("bi-heart-fill");
+
+                var uri = 'songrecommendations/addfavorite'
 
                 fetch(uri, {
                     method: 'POST',
@@ -399,7 +409,7 @@
 
             //unlike
             if (e.classList.contains("bi-heart-fill")) {
-                
+
                 e.classList.toggle("bi-heart");
                 e.classList.toggle("bi-heart-fill");
 

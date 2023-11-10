@@ -45,6 +45,18 @@ aside.theme-container {
 
 /*MAIN -- seed inputs/primary filters*/
 
+#artist-input {
+    width: calc(99% - var( --artist-seed-intermediary-width));
+}
+
+#track-input {
+    width: calc(99% - var( --track-seed-intermediary-width));
+}
+
+#genre-input {
+    width: calc(99% - var( --genre-seed-intermediary-width));
+}
+
 .seed-label {
         width: 50%;
         align-items: center;
@@ -74,7 +86,6 @@ aside.theme-container {
     background: var(--theme-bg-light);
     border-bottom: 1px solid rgb(255 255 255 / 70%);
     padding: 5px;
-    --inter-width: 0px;   
     color: var(--theme-txt-col);
 }
 
@@ -91,9 +102,6 @@ aside.theme-container {
         font-size: 14px;
         border: none;
         color: var(--theme-txt-col);
-        /*background-color: var(--theme-txt-col);    
-        font-size: 14px;
-        width: calc(100% - var(--inter-width));*/
     }
 
         .js-seed-cont > input:focus-visible {
@@ -104,7 +112,6 @@ aside.theme-container {
         .js-seed-cont > input::placeholder {
             color: rgb(255 255 255 / 70%);
         }
-
 /*MAIN -- indiv seed is within seed cont*/
 
 .js-seed-cont__seed-inter {

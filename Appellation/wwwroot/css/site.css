@@ -39,6 +39,12 @@
 
 /* -- HIGH LEVEL -- */
 
+:root {
+    --artist-seed-intermediary-width: 0px;
+    --track-seed-intermediary-width: 0px;
+    --genre-seed-intermediary-width: 0px;
+}
+
 html {
     --theme-bg-light: #3D3D3D;
     --theme-bg-med: #1F1F1F;
@@ -51,6 +57,7 @@ html {
     --theme-accent-dark: #503750;
     --theme-col-accent: #C4B1D4;
     --theme-txt-col: #ebebeb;
+    --seed-container-width: 55%;
     font-size: 14px;
     position: relative;
     min-height: 100%;
@@ -74,7 +81,7 @@ main {
     background-color: var(--theme-bg-med);
     width: 100vw;
     padding-bottom: 150px;
-    --seed-container-width: 55%;
+
 }
 
 .theme-page__heading-big {
