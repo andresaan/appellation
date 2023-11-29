@@ -30,10 +30,10 @@ namespace Spotify.Services
         {
             // making artist search - returning search result
             var httpClient = _httpClientFactory.CreateClient("Spotify");
-            var token = await _httpContextAccessor.HttpContext.GetTokenAsync("access_token");
-
             var request = new HttpRequestMessage(HttpMethod.Get, $"{httpClient.BaseAddress}/search?q={q}&type={type}&limit=3");
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            //var token = await _httpContextAccessor.HttpContext.GetTokenAsync("access_token");
+            //request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
             var response = await httpClient.SendAsync(request);
 

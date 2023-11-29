@@ -41,7 +41,6 @@ namespace Appellation.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(SeedVerificationModel model)
         {
-
             var songRecommendationsIndexModel = new SongRecommendationsIndexModel()
             {
                 Tracks = await _songRecommendationHandler.GetSongRecommendationsAsync(
@@ -70,10 +69,10 @@ namespace Appellation.Controllers
             return View(seedVerificationModel);
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult Favorites()
         {
-
             FavoritesModel favoritesModel = new FavoritesModel();
 
             favoritesModel.FavoriteTracks = HttpContext.Session.Get<List<Track>>("favorites");
@@ -87,45 +86,20 @@ namespace Appellation.Controllers
             var session = HttpContext.Session;
             var favorites = session.Get<List<Track>>("favorites");
 
-            if (favorites == null)
-            {
-                var trackList = new List<Track>()
-                {
-                    track
-                };
+            var favoritesUpdated = _favoritesHandler.addTrackToFavorites(favorites, track);
 
-                session.Set("favorites", trackList);
-            }
-            
-            else
-            {
-                favorites = favorites.Append(track).ToList();
-
-                session.Set("favorites", favorites);
-            }
+            session.Set("favorites", favoritesUpdated);
         }
 
         [HttpPost]
         public void RemoveFavorite([FromBody] Track track)
         {
             var session = HttpContext.Session;
-
             var favorites = session.Get<List<Track>>("favorites");
 
+            var favoritesUpdated = _favoritesHandler.removeTrackFromFavorites(favorites, track);
 
-            foreach (Track item in favorites)
-            {
-                if (item.Id == track.Id)
-                {
-                    var contains = favorites.Contains(item);
-                    favorites.Remove(item);
-                    break;
-                }
-            }
-
-
-            session.Set("favorites", favorites);
-
+            session.Set("favorites", favoritesUpdated);
         }
     }
 }

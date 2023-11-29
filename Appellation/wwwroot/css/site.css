@@ -68,6 +68,23 @@ body {
     margin-bottom: 60px;
 }
 
+/* -- HEADER -- */
+
+header {
+    
+}
+
+.navbar {
+    display: flex;
+    justify-content: center;
+
+}
+
+.navbar-brand {
+    position: absolute;
+    left: 24px;
+}
+
 /* -- LAYOUT -- */
 
 main {

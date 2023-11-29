@@ -50,9 +50,17 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 
 builder.Services.AddHttpContextAccessor();
 
+builder.Services.AddTransient<AuthenticationMessageHandler>();
 builder.Services.AddHttpClient("Spotify", httpClient =>
 {
     httpClient.BaseAddress = new Uri("https://api.spotify.com/v1");
+    httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
+})
+    .AddHttpMessageHandler<AuthenticationMessageHandler>();
+
+builder.Services.AddHttpClient("SpotifyAuthentication", httpClient =>
+{
+    httpClient.BaseAddress = new Uri("https://accounts.spotify.com");
     httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
 });
 
@@ -60,6 +68,8 @@ builder.Services.AddScoped<ISongRecommendationsService, SongRecommendationsServi
 builder.Services.AddScoped<ISearchSpotifyService, SearchSpotifyService>();
 builder.Services.AddScoped<ISongRecommendationHandler, SongRecommendationHandler>();
 builder.Services.AddScoped<IFavoritesHandler, FavoritesHandler>();
+builder.Services.AddScoped<IAuthenticationTokenService, AuthenticationTokenService>();
+
 
 var app = builder.Build();
 

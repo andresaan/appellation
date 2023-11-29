@@ -13,6 +13,7 @@ using Application.Interfaces;
 using Data.Results;
 using Data.Seed;
 using Microsoft.IdentityModel.Tokens;
+using Application.Handlers;
 
 namespace Spotify.Services
 {
@@ -20,31 +21,25 @@ namespace Spotify.Services
     {
         private IHttpClientFactory _httpClientFactory;
         private IHttpContextAccessor _httpContextAccessor;
-        public  SongRecommendationsService(IHttpClientFactory httpClientFactory, IHttpContextAccessor httpContextAccessor)
+        private AuthenticationMessageHandler _messageHandler;
+        public  SongRecommendationsService(IHttpClientFactory httpClientFactory, IHttpContextAccessor httpContextAccessor, AuthenticationMessageHandler messageHandler)
         {
             _httpClientFactory = httpClientFactory;
             _httpContextAccessor = httpContextAccessor;
+            _messageHandler = messageHandler;
         }
         
         public async Task<Track[]> GetSongRecommendationsAsync(string queryParameters)
         {
-            // HttpClient
             var httpClient = _httpClientFactory.CreateClient("Spotify");
-
-            //token
-            var token = await _httpContextAccessor.HttpContext.GetTokenAsync("access_token");
-
-            //Create new request and set authorization header
-
             var request = new HttpRequestMessage(HttpMethod.Get, $"{httpClient.BaseAddress}/recommendations?{queryParameters}");
             
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            
-            //send request 
-            var response = await httpClient.SendAsync(request);
+            //var token = await _httpContextAccessor.HttpContext.GetTokenAsync("access_token");
+            //request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            ////ensure success
+            ////response.EnsureSuccessStatusCode(); 
 
-            //ensure success
-            //response.EnsureSuccessStatusCode();
+            var response = await httpClient.SendAsync(request);
 
             //convert response message contents to tracks
             var content = await response.Content.ReadAsStringAsync();

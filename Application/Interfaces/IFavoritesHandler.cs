@@ -10,5 +10,7 @@ namespace Application.Interfaces
     public interface IFavoritesHandler
     {
         public List<Track> addTrackToFavorites(List<Track> favorites, Track track);
+
+        public List<Track> removeTrackFromFavorites(List<Track> favorites, Track track);
     }
 }

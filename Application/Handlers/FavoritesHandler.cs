@@ -13,12 +13,34 @@ namespace Application.Handlers
     {
         public List<Track> addTrackToFavorites(List<Track> favorites, Track track)
         {
-                
-            return new List<Track> { track };
+            if (favorites == null)
+            {
+                return new List<Track>()
+                {
+                    track
+                };
+            }
+
+            else
+            {
+                return favorites.Append(track).ToList();
+            }
         }
 
-            //return favorites.Contains(track) ? favorites : favorites.Append(track).ToList();
-        
+        public List<Track> removeTrackFromFavorites(List<Track> favorites, Track track)
+        {
 
+            foreach (Track item in favorites)
+            {
+                if (item.Id == track.Id)
+                {
+                    var contains = favorites.Contains(item);
+                    favorites.Remove(item);
+                    break;
+                }
+            }
+
+            return favorites;
+        }
     }
 }
