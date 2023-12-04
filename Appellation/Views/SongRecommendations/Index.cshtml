@@ -638,7 +638,7 @@
 
                     </div>
 
-                    <form asp-action="Verification" asp-controller="SongRecommendations" onsubmit="return submitSeeds()">
+                    <form id="song-generator" asp-action="Verification" asp-controller="SongRecommendations" onsubmit="return submitSeeds()">
                         <div>
                             <input type="hidden" id="artist-seeds" asp-for="@Model.ArtistUserInput" />
                             <input type="hidden" id="track-seeds" asp-for="@Model.TrackUserInput" />

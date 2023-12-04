@@ -181,24 +181,51 @@ main:has(div.track-recommendations) {
 
 /* -- Media Quieries -- */
 
-@media screen and (max-width: 1080px) {
+@media screen and /*(min-width: 625px) and*/ (max-width: 1080px) {
 
     #recommendation-filters {
         flex-direction: column-reverse;
     }
 
-    #recommendation-filters > div, aside.theme-container {
-        width: 100%;
-        margin: 0px 0px 26px 0px !important;
-    }
+        #recommendation-filters > div, aside.theme-container {
+            width: 100%;
+            margin: 0px 0px 26px 0px !important;
+        }
 
     .aside__coming-soon {
         display: none;
-    }   
+    }
+
+    #artist-input {
+        min-width: 25%;
+    }
+
+    #track-input {
+        min-width: 25%;
+    }
+
+    #genre-input {
+        min-width: 25%;
+    }
 }
 
+@media screen and (min-width: 425px) and (max-width: 625px) {
+    #artist-input {
+        min-width: 25%;
+    }
+
+    #track-input {
+        min-width: 25%;
+    }
+
+    #genre-input {
+        min-width: 25%;
+    }
+}
+
+
 @media screen and (max-width: 425px) {
-    form > div {
+    #song-generator > div {
         display: flex;
         justify-content: center;
     }
@@ -206,7 +233,6 @@ main:has(div.track-recommendations) {
     .seed-label {
         justify-content: space-between;
         width: 100%;
-
     }
 
     aside > div {
@@ -218,9 +244,9 @@ main:has(div.track-recommendations) {
             margin: 0px !important;
         }
 
-    aside > div > label {
-        margin-bottom: 12px;
-    }
+        aside > div > label {
+            margin-bottom: 12px;
+        }
 
     #artist-input {
         min-width: 50%;

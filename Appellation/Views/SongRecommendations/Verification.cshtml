@@ -108,7 +108,7 @@
                 @for (var i = 0; i < Model.ArtistSeedIntermediaries.Count(); i++)
                 {
                     <div class="theme-container theme-page-text mb-26">
-                        <div>
+                        <div class="verification-instructions">
                             <p>Verify which artist you would like to use for inspiration when generating your song recommendations</p>
                             <span class="important">Original Input: @Model.ArtistSeedIntermediaries[i].UserInput (Artist)</span>
                         </div>
@@ -135,12 +135,12 @@
                 @for (var i = 0; i < Model.TrackSeedIntermediaries.Count(); i++)
                 {
                     <div class="theme-container theme-page-text mb-26">
-                        <div>
+                        <div class="verification-instructions">
                             <p>Verify which track you would like to use for inspiration when generating your song recommendations</p>
                             <span class="important">Original Input: @Model.TrackSeedIntermediaries[i].UserInput (Track)</span>
                         </div>
 
-                        <div class="d-flex flex-row">
+                        <div class="verification-container">
 
                             @for (var j = 0; j < Model.TrackSeedIntermediaries[i].TrackPotentialSeeds.Count(); j++)
                             {
