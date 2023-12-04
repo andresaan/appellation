@@ -113,7 +113,7 @@
                             <span class="important">Original Input: @Model.ArtistSeedIntermediaries[i].UserInput (Artist)</span>
                         </div>
 
-                        <div class="d-flex flex-row">
+                        <div class="verification-container">
 
                             @for (var j = 0; j < Model.ArtistSeedIntermediaries[i].PotentialSeeds.Count(); j++)
                             {
@@ -122,7 +122,7 @@
                                 <label for="artist-seed-@i-@j">
                                     <div class="card styled-radio">
                                         <div class="card-body">
-                                            <img src="@Model.ArtistSeedIntermediaries[i].PotentialSeeds[j].Images[0].Url" width="275" height="275" alt="Album cover art" />
+                                            <img src="@Model.ArtistSeedIntermediaries[i].PotentialSeeds[j].Images[0].Url" alt="Album cover art" />
                                             <h5 class="card-title">@Model.ArtistSeedIntermediaries[i].PotentialSeeds[j].ArtistName</h5>
                                         </div>
                                     </div>

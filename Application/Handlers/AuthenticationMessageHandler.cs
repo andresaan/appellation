@@ -9,14 +9,15 @@ using Microsoft.AspNetCore.Authentication;
 using System.Net;
 using System.ComponentModel;
 using Application.Interfaces;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Application.Handlers
 {
     public class AuthenticationMessageHandler : DelegatingHandler
     {
         private IHttpContextAccessor _httpContextAccessor;
-        private IAuthenticationTokenService _authenticationService;
-        public AuthenticationMessageHandler(IHttpContextAccessor httpContextAccessor, IAuthenticationTokenService authenticationService)
+        private Interfaces.ITokenAuthenticationService _authenticationService;
+        public AuthenticationMessageHandler(IHttpContextAccessor httpContextAccessor, Interfaces.ITokenAuthenticationService authenticationService)
         {
             _httpContextAccessor = httpContextAccessor;
             _authenticationService = authenticationService;

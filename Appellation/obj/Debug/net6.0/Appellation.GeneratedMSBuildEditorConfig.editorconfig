@@ -20,6 +20,10 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/aasan/OneDrive/Desktop/DEV/Appellation/Appellation/Views/Home/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/aasan/OneDrive/Desktop/DEV/Appellation/Appellation/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -42,10 +46,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/aasan/OneDrive/Desktop/DEV/Appellation/Appellation/Views/SongRecommendations/Verification.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU29uZ1JlY29tbWVuZGF0aW9uc1xWZXJpZmljYXRpb24uY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/aasan/OneDrive/Desktop/DEV/Appellation/Appellation/Views/User/Login.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/aasan/OneDrive/Desktop/DEV/Appellation/Appellation/Views/_ViewImports.cshtml]

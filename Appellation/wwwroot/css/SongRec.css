@@ -47,14 +47,17 @@ aside.theme-container {
 
 #artist-input {
     width: calc(99% - var( --artist-seed-intermediary-width));
+    min-width: 15%;
 }
 
 #track-input {
     width: calc(99% - var( --track-seed-intermediary-width));
+    min-width: 15%;
 }
 
 #genre-input {
     width: calc(99% - var( --genre-seed-intermediary-width));
+    min-width: 15%;
 }
 
 .seed-label {
@@ -176,5 +179,58 @@ main:has(div.track-recommendations) {
 }
 
 
-/* Card Universal */
+/* -- Media Quieries -- */
 
+@media screen and (max-width: 1080px) {
+
+    #recommendation-filters {
+        flex-direction: column-reverse;
+    }
+
+    #recommendation-filters > div, aside.theme-container {
+        width: 100%;
+        margin: 0px 0px 26px 0px !important;
+    }
+
+    .aside__coming-soon {
+        display: none;
+    }   
+}
+
+@media screen and (max-width: 425px) {
+    form > div {
+        display: flex;
+        justify-content: center;
+    }
+
+    .seed-label {
+        justify-content: space-between;
+        width: 100%;
+
+    }
+
+    aside > div {
+        flex-direction: column;
+        margin: 0px !important;
+    }
+
+        aside > div > input {
+            margin: 0px !important;
+        }
+
+    aside > div > label {
+        margin-bottom: 12px;
+    }
+
+    #artist-input {
+        min-width: 50%;
+    }
+
+    #track-input {
+        min-width: 50%;
+    }
+
+    #genre-input {
+        min-width: 50%;
+    }
+}

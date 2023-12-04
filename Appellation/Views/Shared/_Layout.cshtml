@@ -14,7 +14,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow">
             <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Appellation</a>
             <div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -24,10 +24,13 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="SongRecommendations" asp-action="Favorites">Favorites</a>
+                            <a class="nav-link" asp-area="" asp-controller="SongRecommendations" asp-action="Favorites">Favorites</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="LogOut">Log Out</a>
                         </li>
                     </ul>
                 </div>
@@ -40,23 +43,6 @@
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2023 - Appellation - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-        <div class="pallet">
-            <div style="background-color: #2a2a2a">theme-bg-light</div>
-            <div style="background-color: #121212">theme-bg-med </div>
-            <div style="background-color: #000000">theme-bg-dark:</div>
-
-            <div style="background-color: #1ED760">theme-green-dark</div>
-            <div style="background-color: #1FDF64">theme-green-med</div>
-            <div style="background-color: #C3F0C8">theme-green-light</div>
-
-            <div style="background-color: #E3D7EE"> theme-accent-light</div>
-            <div style="background-color: #B49BC7">theme-accent-med </div>
-            <div style="background-color: #503750"> theme-accent-dark </div>
-            <div style="background-color: #C4B1D4"> theme-col-accent </div>
-
-            <div style="background-color: #FFFFFF">theme-txt-col</div>
-
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

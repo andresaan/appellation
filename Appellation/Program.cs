@@ -26,7 +26,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     .AddCookie(options =>
     {
         options.ExpireTimeSpan = TimeSpan.FromMinutes(59);
-        options.LoginPath = "/user/login";
+        options.LoginPath = "/home/login";
 
     })
     .AddSpotify(options =>
@@ -68,7 +68,7 @@ builder.Services.AddScoped<ISongRecommendationsService, SongRecommendationsServi
 builder.Services.AddScoped<ISearchSpotifyService, SearchSpotifyService>();
 builder.Services.AddScoped<ISongRecommendationHandler, SongRecommendationHandler>();
 builder.Services.AddScoped<IFavoritesHandler, FavoritesHandler>();
-builder.Services.AddScoped<IAuthenticationTokenService, AuthenticationTokenService>();
+builder.Services.AddScoped<ITokenAuthenticationService, TokenAuthenticationService>();
 
 
 var app = builder.Build();
