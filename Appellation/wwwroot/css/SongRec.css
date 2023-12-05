@@ -223,9 +223,8 @@ main:has(div.track-recommendations) {
     }
 }
 
-
 @media screen and (max-width: 425px) {
-    #song-generator > div {
+    #song-generator {
         display: flex;
         justify-content: center;
     }

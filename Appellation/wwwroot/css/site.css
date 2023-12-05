@@ -71,28 +71,41 @@ body {
 /* -- HEADER -- */
 
 nav {
-    background-color: var(--theme-bg-light)
-}
-
-.navbar {
+    background-color: var(--theme-bg-light);
     display: flex;
     justify-content: center;
-
 }
 
 .navbar-brand {
     position: absolute;
-    left: 24px;
+    left: 7%;
 }
 
-.nav-link {
+nav > div {
+    width: 100%;
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+div > a.navigation-link {
     color: var(--theme-txt-col);
+    text-decoration: none;
+    margin: 0px 4%;
+    border-bottom: 2px solid var(--theme-bg-light);
 }
 
-    .nav-link:hover {
+    div > a.navigation-link:hover {
         color: white;
         border-bottom: 2px solid #66b2ff;
     }
+
+.navigation-link-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 /* -- LAYOUT -- */
 
@@ -240,8 +253,38 @@ a.no-style {
     color: inherit;
 }
 
+.min-height__100 {
+    min-height: 100vh;
+}
+
 /* -- BUTTONS -- */
 
+.cross-button.logout {
+    font-size: 16px;
+    color: black;
+}
+
+a.cross-button {
+    margin: 12px;
+    padding: 12px;
+}
+
+    a.cross-button {
+        text-decoration: none;
+        background-color: var(--theme-green-dark);
+        color: black;
+        font-size: 20px;
+        padding: 6px 30px;
+        border: 1px solid var(--theme-green-dark);
+        border-radius: 25px;
+    }
+
+        a.cross-button:hover {
+            background-color: var(--theme-bg-light);
+            border: 1px solid var(--theme-accent-light);
+            color: var(--theme-accent-light);
+        }
+        
 .remove-bttn {
     border: none;
     background-color: hsl(210.26deg 100% 22.94% / 0%);
@@ -351,6 +394,43 @@ a.inline-link {
     } 
 
 /* -- MEDIA QUERIES -- */
+
+@media screen and (max-width: 625px) {
+
+    .navbar-brand {
+        font-size: 14px;
+    }
+
+    nav > div {
+        width: 100%;
+        margin: 4px;
+        display: flex;
+        justify-content: center;
+    }
+
+    div > a.navigation-link {
+        padding-top: 2px;
+        font-size: 12px;
+        margin: 0px 1%;
+    }
+
+}
+
+@media screen and (min-width: 425px) and (max-width: 625px) {
+    .theme-page__heading-big {
+        font-size: 34px;
+    }
+}
+
+@media screen and (max-width: 880px) {
+
+    .navbar-brand {
+        position: initial;
+        
+    }
+
+
+}
 
 @media screen and (min-width: 1550px) and (max-width: 1680px) {
 

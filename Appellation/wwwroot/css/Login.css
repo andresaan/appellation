@@ -24,23 +24,3 @@ main.login {
     align-items: center;
 }
 
-.cross-button {
-    margin: 12px;
-    padding: 12px;
-}
-
-    .cross-button a {
-        text-decoration: none;
-        background-color: var(--theme-green-dark);
-        color: black;
-        font-size: 20px;
-        padding: 6px 30px;
-        border: 1px solid var(--theme-green-dark);
-        border-radius: 25px;
-    }
-
-    .cross-button a:hover {
-        background-color: var(--theme-bg-light);
-        border: 1px solid var(--theme-accent-light);
-        color: var(--theme-accent-light);
-    }
