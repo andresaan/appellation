@@ -2,7 +2,7 @@
     width: 33%;
 }
 
-label > .card-body, .card {
+label > .card-body, label > .card {
     width: auto;
 }
 

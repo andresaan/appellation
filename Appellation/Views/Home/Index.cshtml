@@ -4,23 +4,14 @@
 
 <link rel="stylesheet" href="~/css/Home.css" asp-append-version="true" />
 
-<div class="home-page-wrapper">
-    <main class="main-home base">
-        <div class="page-intro-cont">
-            <div>
-                <h1 class="page-title-md">
-                    Welcome to
-                </h1>
-                <h1 class="page-title-lg">
-                    <span class="appellation underlined-lg">Appellation</span>
-                </h1>
-            </div>
-            <div class="theme-button">
-                <a asp-controller="SongRecommendations" asp-action="Index">Get Started</a>
-            </div>
+
+<div class="theme-page-wrapper pb-0">
+    <main class="login">
+        <div class="login-container">
+            <h1 class="fs-54 mb-26">
+                Welcome to <span class="appellation underlined-md">Appellation</span>
+            </h1>
+            <a class="cross-button__large" asp-controller="SongRecommendations" asp-action="Index">Get Started</a>
         </div>
     </main>
-    <aside>
-        <div style="color:aqua">Hello</div>
-    </aside>
 </div>

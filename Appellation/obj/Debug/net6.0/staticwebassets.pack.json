@@ -9,16 +9,8 @@
       "PackagePath": "staticwebassets\\Images\\empty-profile.png"
     },
     {
-      "Id": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Appellation\\wwwroot\\css\\Home.css",
-      "PackagePath": "staticwebassets\\css\\Home.css"
-    },
-    {
       "Id": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Appellation\\wwwroot\\css\\Login.css",
       "PackagePath": "staticwebassets\\css\\Login.css"
-    },
-    {
-      "Id": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Appellation\\wwwroot\\css\\OldTheme.css",
-      "PackagePath": "staticwebassets\\css\\OldTheme.css"
     },
     {
       "Id": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Appellation\\wwwroot\\css\\SongRec.css",

@@ -4,6 +4,7 @@
 
 /*-- MARGIN HELPERS --*/
 
+
 .mt-12 {
     margin-top: 12px;
 }
@@ -52,10 +53,9 @@ html {
     --theme-green-dark: #1ED760;
     --theme-green-med: #1FDF64;
     --theme-green-light: #C3F0C8;
-    --theme-accent-light: #E3D7EE;
-    --theme-accent-med: #B49BC7;
-    --theme-accent-dark: #503750;
-    --theme-col-accent: #C4B1D4;
+
+    --theme-accent: #66b2ff;
+
     --theme-txt-col: #ebebeb;
     --seed-container-width: 55%;
     font-size: 14px;
@@ -79,6 +79,12 @@ nav {
 .navbar-brand {
     position: absolute;
     left: 7%;
+}
+
+.logout {
+    position: absolute;
+    right: 7%;
+    margin-left: 1rem;
 }
 
 nav > div {
@@ -107,6 +113,19 @@ div > a.navigation-link {
     align-items: center;
 }
 
+/* -- FOOTER -- */
+
+footer {
+    background-color: var(--theme-bg-light);
+    display: flex;
+    justify-content: center;
+}
+
+footer > div {
+    display: flex;
+    justify-content: center;
+}
+
 /* -- LAYOUT -- */
 
 main {
@@ -118,9 +137,8 @@ main {
     display: flex;
     justify-content: center;
     background-color: var(--theme-bg-med);
-    width: 100vw;
-    padding-bottom: 150px;
-
+    min-height: 100vh;
+    padding-bottom: 120px;
 }
 
 .theme-page__heading-big {
@@ -257,34 +275,46 @@ a.no-style {
     min-height: 100vh;
 }
 
+.fs-54 {
+    font-size: 54px;
+}
+
 /* -- BUTTONS -- */
 
-.cross-button.logout {
-    font-size: 16px;
+.cross-button__small {
+    text-decoration: none;
+    background-color: var(--theme-green-dark);
     color: black;
+    font-size: 14px;
+    padding: 6px 20px;
+    border: 1px solid var(--theme-green-dark);
+    border-radius: 25px;
 }
 
-a.cross-button {
-    margin: 12px;
-    padding: 12px;
-}
-
-    a.cross-button {
-        text-decoration: none;
-        background-color: var(--theme-green-dark);
-        color: black;
-        font-size: 20px;
-        padding: 6px 30px;
-        border: 1px solid var(--theme-green-dark);
-        border-radius: 25px;
+    .cross-button__small:hover {
+        background-color: var(--theme-bg-light);
+        border: 1px solid var(--theme-accent);
+        color: var(--theme-accent);
     }
 
-        a.cross-button:hover {
-            background-color: var(--theme-bg-light);
-            border: 1px solid var(--theme-accent-light);
-            color: var(--theme-accent-light);
-        }
-        
+.cross-button__large {
+    text-decoration: none;
+    background-color: var(--theme-green-dark);
+    color: black;
+    font-size: 20px;
+    padding: 6px 30px;
+    border: 1px solid var(--theme-green-dark);
+    border-radius: 25px;
+}
+
+    .cross-button__large:hover {
+        background-color: var(--theme-bg-light);
+        border: 1px solid var(--theme-accent);
+        color: var(--theme-accent);
+    }
+
+
+
 .remove-bttn {
     border: none;
     background-color: hsl(210.26deg 100% 22.94% / 0%);
@@ -372,7 +402,7 @@ a.cross-button {
         color: red;
     }
 
-.bi-heart-fill{
+.bi-heart-fill {
     font-size: 20px;
     color: red;
 }
@@ -391,7 +421,7 @@ a.inline-link {
     a.inline-link:hover {
         color: #66b2ff;
         opacity: 75%;
-    } 
+    }
 
 /* -- MEDIA QUERIES -- */
 
@@ -411,9 +441,13 @@ a.inline-link {
     div > a.navigation-link {
         padding-top: 2px;
         font-size: 12px;
-        margin: 0px 1%;
+        margin: 0px 2%;
     }
 
+    .logout {
+        font-size: 12px;
+        padding: 4px 14px;
+    }
 }
 
 @media screen and (min-width: 425px) and (max-width: 625px) {
@@ -424,12 +458,9 @@ a.inline-link {
 
 @media screen and (max-width: 880px) {
 
-    .navbar-brand {
+    .navbar-brand, .logout {
         position: initial;
-        
     }
-
-
 }
 
 @media screen and (min-width: 1550px) and (max-width: 1680px) {
