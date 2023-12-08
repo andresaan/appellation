@@ -421,6 +421,13 @@
 
         }
 
+        var output = document.querySelector("#user-popularity-output");
+        var input = document.querySelector("#user-popularity-input");
+        output.textContent = input.value;
+        input.addEventListener("input", (event) => {
+            output.textContent = event.target.value;
+        });
+
     </script>
 }
 
@@ -647,9 +654,17 @@
                 </div>
 
                 <aside class="theme-container theme-page-text ml-26">
-                    <div class="d-flex align-items-center mb-12">
-                        <label for="recommendationLimit">Number of Recommendations</label>
+                    <div class="d-flex align-items-center mb-26">
+                        <label>Number of Recommendations</label>
                         <input id="user-limit-input" type="number" value="20" min="1" max="100" class="aside__limit-input p-0 ml-26" onchange="setLimit()" onkeyup="setLimit()" />
+                    </div>
+                    <div class="d-flex mb-12 flex-column">
+                        <label>Popularity of Song Recommendations</label>
+                        <div>
+                            <input id="user-popularity-input" type="range" value="50" min="1" max="100" @*class="aside__limit-input p-0 ml-26"*@ />
+                            <p>Value: <output id="user-popularity-output"></output></p>
+                            <input type="checkbox"/>
+                        </div>
                     </div>
                     <div class="aside__coming-soon">More Filters Coming Soon!</div>
                 </aside>
