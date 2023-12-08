@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "50GWR+2ybOo9sLIY6o2H9fnqy++Hice7+2OA37zpRaY=",
+  "Hash": "pnD4wgZDsygPI6wbIj7620lrw/0OlLXuugPzA25hHx0=",
   "Source": "Appellation",
   "BasePath": "_content/Appellation",
   "Mode": "Default",
@@ -136,12 +136,12 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Appellation\\wwwroot\\js\\site.js",
+      "Identity": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Appellation\\wwwroot\\js\\song-recommendation-filters.js",
       "SourceId": "Appellation",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Appellation\\wwwroot\\",
       "BasePath": "_content/Appellation",
-      "RelativePath": "js/site.js",
+      "RelativePath": "js/song-recommendation-filters.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -150,7 +150,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\js\\site.js"
+      "OriginalItemSpec": "wwwroot\\js\\song-recommendation-filters.js"
     },
     {
       "Identity": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Appellation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",

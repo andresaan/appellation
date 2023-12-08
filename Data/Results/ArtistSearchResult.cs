@@ -25,6 +25,9 @@ namespace Data.Results
         public int Offset { get; set; }
         public object Previous { get; set; } = string.Empty;
         public int Total { get; set; }
+
+        //
+        public bool NoResults { get; set; }
     }
 
    

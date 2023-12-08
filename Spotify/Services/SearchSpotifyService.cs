@@ -36,15 +36,17 @@ namespace Spotify.Services
 
             if (artistSearchResult?.Summary.Artists == null || artistSearchResult.Summary.Artists.Length == 0) {
 
-                artistSearchResult.Summary.Artists = 
-                    new ArtistComplex[] 
-                    { 
-                        new ArtistComplex() 
-                        { 
-                            Name = "no search results", 
-                            Images = new Image[] { new Image() { Url = "" } } 
-                        } 
-                    };
+                //artistSearchResult.Summary.Artists = 
+                //    new ArtistComplex[] 
+                //    { 
+                //        new ArtistComplex() 
+                //        { 
+                //            Name = "no search results", 
+                //            Images = new Image[] { new Image() { Url = "" } } 
+                //        } 
+                //    };
+
+                artistSearchResult.Summary.NoResults = true;
             }
 
             return artistSearchResult.Summary;

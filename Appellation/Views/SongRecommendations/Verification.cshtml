@@ -1,8 +1,142 @@
 ﻿@using Data.Seed;
 @model SeedVerificationModel
 
+<div class="theme-page-wrapper">
+    <main>
+
+        <div id="get-started" class="theme-container theme-page-text mt-120 mb-26">
+            <h1 class="theme-page__heading-big">Verify Your Choices</h1>
+            <p>
+                Many artists and track have the same name, so we need you to verify your inputs. Each seed you inpute on the prievious page has
+                returned three potential options for you to verify.
+            </p>
+            <p>
+                <span class="important">Important:</span> If you do not see the artist or track you wanted to use for
+                your recommendations, please press the back button and try a different search.
+            </p>
+            <h2 class="theme-page__heading-small">Instructions:</h2>
+            <ol>
+                <li>Select the picture corresponding to the correct seed input</li>
+                <li>Verify additional filters are correct</li>
+                <li>Go back if you need to change anything</li>
+                <li>Press verify when you are done</li>
+            </ol>
+        </div>
+
+        <div>
+            <form class="verification" asp-controller="SongRecommendations" asp-action="Index">
+                @for (var i = 0; i < Model.ArtistSeedIntermediaries.Count(); i++)
+                {
+                    <div class="theme-container theme-page-text mb-26">
+                        <div class="verification-instructions">
+                            <p>Verify which artist you would like to use for inspiration when generating your song recommendations</p>
+                            <span class="important">Original Input: @Model.ArtistSeedIntermediaries[i].UserInput (Artist)</span>
+                        </div>
+
+                        <div class="verification-container">
+
+                            @if (Model.ArtistSeedIntermediaries[i].NoResults)
+                            {
+                                <h5 class="card-title">No Results</h5>
+                            }
+                            else
+                            {
+                                @for (var j = 0; j < Model.ArtistSeedIntermediaries[i].PotentialSeeds.Count(); j++)
+                                {
+                                    <input class="invisible-radio" type="radio" name="artist-seed-@i" id="artist-seed-@i-@j" value="@Model.ArtistSeedIntermediaries[i].PotentialSeeds[j].SpotifyId" onchange="verifyArtist(event)" />
+
+                                    <label for="artist-seed-@i-@j">
+                                        <div class="card styled-radio">
+                                            <div class="card-body">
+                                                <img src="@Model.ArtistSeedIntermediaries[i].PotentialSeeds[j].Images[0].Url" alt="Album cover art" />
+                                                <h5 class="card-title">@Model.ArtistSeedIntermediaries[i].PotentialSeeds[j].ArtistName</h5>
+                                            </div>
+                                        </div>
+                                    </label>
+                                }
+                            }
+                        </div>
+                    </div>
+                }
+
+                @for (var i = 0; i < Model.TrackSeedIntermediaries.Count(); i++)
+                {
+                    <div class="theme-container theme-page-text mb-26">
+                        <div class="verification-instructions">
+                            <p>Verify which track you would like to use for inspiration when generating your song recommendations</p>
+                            <span class="important">Original Input: @Model.TrackSeedIntermediaries[i].UserInput (Track)</span>
+                        </div>
+
+                        <div class="verification-container">
+
+                            @for (var j = 0; j < Model.TrackSeedIntermediaries[i].TrackPotentialSeeds.Count(); j++)
+                            {
+                                <input class="invisible-radio" type="radio" name="track-seed-@i" id="track-seed-@i-@j" value="@Model.TrackSeedIntermediaries[i].TrackPotentialSeeds[j].SpotifyId" onchange="verifyTrack(event)" />
+
+                                <label for="track-seed-@i-@j">
+                                    <div class="card styled-radio">
+                                        <div class="card-body">
+                                            <img src="@Model.TrackSeedIntermediaries[i].TrackPotentialSeeds[j].Images[0].Url" width="275" height="275" alt="Album cover art" />
+                                            <h5 class="card-title">Track Name: @Model.TrackSeedIntermediaries[i].TrackPotentialSeeds[j].TrackName</h5>
+                                            <h6 class="card-subtitle">Performing Artist(s): @Model.TrackSeedIntermediaries[i].TrackPotentialSeeds[j].PerformingArtist</h6>
+                                        </div>
+                                    </div>
+                                </label>
+                            }
+                        </div>
+                    </div>
+                }
+
+                <div class="theme-container theme-page-text mb-26">
+                    <h1 class="theme-page__heading-small mb-26">Other Filters</h1>
+
+                    <div class="d-flex flex-row justify-content-around">
+                        <div>
+                            <p>Number of recommendations: @Model.Limit</p>
+                        </div>
+
+                        <div>
+                            <p id="verify-max-popularity">Song Popularity: @Model.PopularityMax</p>
+                        </div>
+
+                        @if (Model.GenreVerifiedSeeds != null && Model.GenreVerifiedSeeds != "")
+                        {
+                            <div>
+                                <p>Genre(s) being used: @Model.GenreVerifiedSeeds</p>
+                            </div>
+                        }
+                        else
+                        {
+                            <div>
+                                <p>Genre(s) being used: None</p>
+                            </div>
+                        }
+                    </div>
+
+                </div>
+
+                <input type="hidden" asp-for="@Model.GenreVerifiedSeeds" value="@Model.GenreVerifiedSeeds" />
+                <input type="hidden" asp-for="@Model.TrackVerifiedSeeds" id="verified-track-output" />
+                <input type="hidden" asp-for="@Model.ArtistVerifiedSeeds" id="verified-artist-output" />
+                <input type="hidden" asp-for="@Model.Limit" value="@Model.Limit" />
+                <input id="hidden-verify-max-popularity" type="hidden" asp-for="@Model.PopularityMax" value="@Model.PopularityMax" />
+
+                <div class="d-flex flex-row justify-content-center">
+                    <input type="submit" onclick="setValues()" class="primary-bttn" value="Verify" />
+                    <a asp-action="Index" asp-controller="SongRecommendations" class="secondary-bttn ml-26">Go Back</a>
+                </div>
+            </form>
+        </div>
+
+    </main>
+</div>
+
 @section scripts {
     <script>
+
+        if (document.getElementById("hidden-verify-max-popularity").value == -1) {
+            document.getElementById("verify-max-popularity").innerText = "Song Popularity: Disabled";
+        }
 
         var artistVerifiedSeeds = [];
 
@@ -73,123 +207,3 @@
 
     </script>
 }
-
-<div class="theme-page-wrapper">
-    <main>
-
-        <div id="get-started" class="theme-container theme-page-text mt-120 mb-26">
-            <h1 class="theme-page__heading-big">Verify Your Choices</h1>
-            <p>
-                Many artists and track have the same name, so we need you to verify your inputs. Each seed you inpute on the prievious page has
-                returned three potential options for you to verify.
-            </p>
-            <p>
-                <span class="important">Important:</span> If you do not see the artist or track you wanted to use for
-                your recommendations, please press the back button and try a different search.
-            </p>
-            <h2 class="theme-page__heading-small">Instructions:</h2>
-            <ol>
-                <li>Select the picture corresponding to the correct seed input</li>
-                <li>Verify additional filters are correct</li>
-                <li>Go back if you need to change anything</li>
-                <li>Press verify when you are done</li>
-            </ol>
-        </div>
-
-        <div>
-            <form class="verification" asp-controller="SongRecommendations" asp-action="Index">
-                @for (var i = 0; i < Model.ArtistSeedIntermediaries.Count(); i++)
-                {
-                    <div class="theme-container theme-page-text mb-26">
-                        <div class="verification-instructions">
-                            <p>Verify which artist you would like to use for inspiration when generating your song recommendations</p>
-                            <span class="important">Original Input: @Model.ArtistSeedIntermediaries[i].UserInput (Artist)</span>
-                        </div>
-
-                        <div class="verification-container">
-
-                            @for (var j = 0; j < Model.ArtistSeedIntermediaries[i].PotentialSeeds.Count(); j++)
-                            {
-                                <input class="invisible-radio" type="radio" name="artist-seed-@i" id="artist-seed-@i-@j" value="@Model.ArtistSeedIntermediaries[i].PotentialSeeds[j].SpotifyId" onchange="verifyArtist(event)" />
-
-                                <label for="artist-seed-@i-@j">
-                                    <div class="card styled-radio">
-                                        <div class="card-body">
-                                            <img src="@Model.ArtistSeedIntermediaries[i].PotentialSeeds[j].Images[0].Url" alt="Album cover art" />
-                                            <h5 class="card-title">@Model.ArtistSeedIntermediaries[i].PotentialSeeds[j].ArtistName</h5>
-                                        </div>
-                                    </div>
-                                </label>
-                            }
-                        </div>
-                    </div>
-                }
-
-                @for (var i = 0; i < Model.TrackSeedIntermediaries.Count(); i++)
-                {
-                    <div class="theme-container theme-page-text mb-26">
-                        <div class="verification-instructions">
-                            <p>Verify which track you would like to use for inspiration when generating your song recommendations</p>
-                            <span class="important">Original Input: @Model.TrackSeedIntermediaries[i].UserInput (Track)</span>
-                        </div>
-
-                        <div class="verification-container">
-
-                            @for (var j = 0; j < Model.TrackSeedIntermediaries[i].TrackPotentialSeeds.Count(); j++)
-                            {
-                                <input class="invisible-radio" type="radio" name="track-seed-@i" id="track-seed-@i-@j" value="@Model.TrackSeedIntermediaries[i].TrackPotentialSeeds[j].SpotifyId" onchange="verifyTrack(event)" />
-
-                                <label for="track-seed-@i-@j">
-                                    <div class="card styled-radio">
-                                        <div class="card-body">
-                                            <img src="@Model.TrackSeedIntermediaries[i].TrackPotentialSeeds[j].Images[0].Url" width="275" height="275" alt="Album cover art" />
-                                            <h5 class="card-title">Track Name: @Model.TrackSeedIntermediaries[i].TrackPotentialSeeds[j].TrackName</h5>
-                                            <h6 class="card-subtitle">Performing Artist(s): @Model.TrackSeedIntermediaries[i].TrackPotentialSeeds[j].PerformingArtist</h6>
-                                        </div>
-                                    </div>
-                                </label>
-                            }
-                        </div>
-                    </div>
-                }
-
-                <div class="theme-container theme-page-text mb-26">
-                    <h1 class="theme-page__heading-small mb-26">Other Filters</h1>
-
-                    <div class="d-flex flex-row justify-content-around">
-                        <div>
-                            <p>Number of recommendations: @Model.Limit</p>
-                        </div>
-
-                        @if (Model.GenreVerifiedSeeds != null && Model.GenreVerifiedSeeds != "")
-                        {
-                            <div>
-                                <p>Genre(s) being used: @Model.GenreVerifiedSeeds</p>
-                            </div>
-                        }
-                        else
-                        {
-                            <div>
-                                <p>Genre(s) being used: None</p>
-                            </div>
-                        }
-                    </div>
-
-                </div>
-
-                <input type="hidden" asp-for="@Model.GenreVerifiedSeeds" value="@Model.GenreVerifiedSeeds" />
-                <input type="hidden" asp-for="@Model.TrackVerifiedSeeds" id="verified-track-output" />
-                <input type="hidden" asp-for="@Model.ArtistVerifiedSeeds" id="verified-artist-output" />
-                <input type="hidden" asp-for="@Model.Limit" value="@Model.Limit" />
-
-                <div class="d-flex flex-row justify-content-center">
-                    <input type="submit" onclick="setValues()" class="primary-bttn" value="Verify" />
-                    <a asp-action="Index" asp-controller="SongRecommendations" class="secondary-bttn ml-26">Go Back</a>
-                </div>
-            </form>
-        </div>
-
-    </main>
-</div>
-
-

@@ -244,9 +244,9 @@ a:not([href]) {
 
 .preview {
     border: none;
-    background-color: none;
     color: #e95065;
     text-decoration: none;
+    padding: 0px;
 }
 
     .preview:hover {
@@ -276,6 +276,10 @@ a.no-style {
 
 .fs-54 {
     font-size: 54px;
+}
+
+.theme-disabled {
+    color: rgb(197, 197, 197);
 }
 
 /* -- BUTTONS -- */

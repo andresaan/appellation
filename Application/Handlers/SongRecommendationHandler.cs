@@ -21,7 +21,14 @@ namespace Application.Handlers
             {
                 var artistSearchSummary = await _searchSpotifyService.GetArtistSeedSearchResultsAsync(intermediary.UserInput, intermediary.SeedType); // Search user input
 
-                intermediary.PotentialSeeds = ProcessArtistSearchSummary(artistSearchSummary); // Use result to make potential seeds
+                if (artistSearchSummary.NoResults)
+                {
+                    intermediary.NoResults = true;
+                }
+                else 
+                { 
+                    intermediary.PotentialSeeds = ProcessArtistSearchSummary(artistSearchSummary); // Use result to make potential seeds
+                }
             }
 
             foreach (TrackSeedIntermediary intermediary in songRecommendationSeeds.TrackSeedIntermediaries)
@@ -109,19 +116,21 @@ namespace Application.Handlers
             return potentialSeeds;
         }
 
-        public async Task<Track[]> GetSongRecommendationsAsync(string? artistVerifiedSeeds, string? trackVerifiedSeeds, string? genreVerifiedSeeds, int limit)
+        public async Task<Track[]> GetSongRecommendationsAsync(string? artistVerifiedSeeds, string? trackVerifiedSeeds, string? genreVerifiedSeeds, int limit, int popularityTarget)
         {
 
-            var queryParameters = ConstructQueryParameters(artistVerifiedSeeds, trackVerifiedSeeds, genreVerifiedSeeds, limit);
+            var queryParameters = ConstructQueryParameters(artistVerifiedSeeds, trackVerifiedSeeds, genreVerifiedSeeds, limit, popularityTarget);
 
             var tracks = await _songRecommendationsService.GetSongRecommendationsAsync(queryParameters);
 
             return tracks;
         }
 
-        private string ConstructQueryParameters(string? artistSeeds, string? trackSeeds, string? genreSeeds, int limit)
+        private string ConstructQueryParameters(string? artistSeeds, string? trackSeeds, string? genreSeeds, int limit, int popularityTarget)
         {
-            return $"limit={limit}&seed_artists={artistSeeds}&seed_tracks={trackSeeds}&seed_genres={genreSeeds}";
+            var popularityTargetQueryParameter = (popularityTarget == -1) ? "" : $"&max_popularity={popularityTarget}";
+
+            return $"limit={limit}&seed_artists={artistSeeds}&seed_tracks={trackSeeds}&seed_genres={genreSeeds}{popularityTargetQueryParameter}";
         }
 
     }

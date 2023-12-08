@@ -14,6 +14,7 @@ namespace Data.Seed
     {
         public string UserInput { get; set; } = string.Empty;
         public string SeedType { get; set; } = string.Empty;
+        public bool NoResults { get; set; }
     }
     public abstract class AbstractPotentialSeed
     {

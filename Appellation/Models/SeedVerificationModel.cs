@@ -10,6 +10,8 @@ namespace Appellation.Models
         public string? ArtistVerifiedSeeds { get; set; } = string.Empty;
         public string? TrackVerifiedSeeds { get; set; } = string.Empty;
         public int Limit { get; set; } = 20;
+        public int PopularityMax { get; set; }
+
 
     }
 }

@@ -6,6 +6,6 @@ namespace Application.Interfaces
     public interface ISongRecommendationHandler
     {
         public Task<SongRecommendationSeeds> VerifySeedInputsAsync(string? artistInput, string? trackInput, string? genreInput);
-        public Task<Track[]> GetSongRecommendationsAsync(string? artistInput, string? trackInput, string? genreInput, int limit);
+        public Task<Track[]> GetSongRecommendationsAsync(string? artistInput, string? trackInput, string? genreInput, int limit, int popularityTarget);
     }
 }

@@ -43,14 +43,14 @@ form.verification > .theme-container {
         cursor: pointer;
     }
 
-div.card-body > h5 {
+/*div.card-body > h5 {
     margin-bottom: 0px;
 }
 
 div.card-body > h6 {
     margin-bottom: 0px;
     margin-top: 12px;
-}
+}*/
 
 @media screen and (min-width: 865px) and (max-width: 1080px) {
 

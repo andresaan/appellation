@@ -8,6 +8,7 @@ namespace Appellation.Models
         public string? TrackUserInput { get; set; } = string.Empty;
         public string? GenreUserInput { get; set; } = string.Empty;
         public int Limit { get; set; } = 20;
+        public int PopularityMax { get; set; } 
         public Track[] Tracks { get; set; } = Array.Empty<Track>();
     }
 }
