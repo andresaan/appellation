@@ -1,30 +1,22 @@
 ﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using System.Net;
-using System.ComponentModel;
 using Application.Interfaces;
-using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Application.Handlers
 {
     public class AuthenticationMessageHandler : DelegatingHandler
     {
         private IHttpContextAccessor _httpContextAccessor;
-        private Interfaces.ITokenAuthenticationService _authenticationService;
-        public AuthenticationMessageHandler(IHttpContextAccessor httpContextAccessor, Interfaces.ITokenAuthenticationService authenticationService)
+        private ITokenAuthenticationService _authenticationService;
+        public AuthenticationMessageHandler(IHttpContextAccessor httpContextAccessor, ITokenAuthenticationService authenticationService)
         {
             _httpContextAccessor = httpContextAccessor;
             _authenticationService = authenticationService;
         }
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            
             var accessToken = await _httpContextAccessor.HttpContext.GetTokenAsync("access_token");
 
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
@@ -40,8 +32,8 @@ namespace Application.Handlers
             }
 
             return response;
-
-            ////ensure success
+            
+            //ensure success
             //response.EnsureSuccessStatusCode(); 
         }
     }

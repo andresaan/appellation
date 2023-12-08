@@ -1,16 +1,10 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http.Headers;
-using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 using Data.Results;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Configuration;
-using Application.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 
@@ -51,7 +45,7 @@ namespace Spotify.Services
 
             if (tokenRefreshResult == null)
             {
-                throw new Exception("Error: Unable to parse into AuthResult");
+                throw new Exception("Error");
             }
 
             if (tokenRefreshResult.RefreshToken == null)

@@ -12,8 +12,6 @@
         var json = '@Json.Serialize(Model.Tracks)';
         var recommendedTracks = JSON.parse(json);
 
-        console.log(recommendedTracks);
-
         function changeInputWidth() {
 
             //Artist Width Change
@@ -380,8 +378,6 @@
 
             var likedTrack = recommendedTracks.find(x => x.id === trackId);
 
-
-
             //like
             if (e.classList.contains("bi-heart")) {
 
@@ -726,7 +722,7 @@
 
         </div>
 
-        @if (Model.RecommendationsGiven != false)
+        @if (Model.Tracks.Any())
         {
 
             <div class="track-recommendations mt-120 theme-page-text theme-container-wider mb-64">
@@ -771,7 +767,6 @@
         }
 
     </main>
-
 </div>
 
 

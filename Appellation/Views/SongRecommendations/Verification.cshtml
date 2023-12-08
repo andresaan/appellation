@@ -144,7 +144,7 @@
                                         <div class="card-body">
                                             <img src="@Model.TrackSeedIntermediaries[i].TrackPotentialSeeds[j].Images[0].Url" width="275" height="275" alt="Album cover art" />
                                             <h5 class="card-title">Track Name: @Model.TrackSeedIntermediaries[i].TrackPotentialSeeds[j].TrackName</h5>
-                                            <h6 class="card-subtitle">Performing Artist: @Model.TrackSeedIntermediaries[i].TrackPotentialSeeds[j].PerformingArtist</h6>
+                                            <h6 class="card-subtitle">Performing Artist(s): @Model.TrackSeedIntermediaries[i].TrackPotentialSeeds[j].PerformingArtist</h6>
                                         </div>
                                     </div>
                                 </label>
@@ -152,7 +152,6 @@
                         </div>
                     </div>
                 }
-
 
                 <div class="theme-container theme-page-text mb-26">
                     <h1 class="theme-page__heading-small mb-26">Other Filters</h1>
@@ -178,7 +177,6 @@
 
                 </div>
 
-
                 <input type="hidden" asp-for="@Model.GenreVerifiedSeeds" value="@Model.GenreVerifiedSeeds" />
                 <input type="hidden" asp-for="@Model.TrackVerifiedSeeds" id="verified-track-output" />
                 <input type="hidden" asp-for="@Model.ArtistVerifiedSeeds" id="verified-artist-output" />
@@ -186,12 +184,11 @@
 
                 <div class="d-flex flex-row justify-content-center">
                     <input type="submit" onclick="setValues()" class="primary-bttn" value="Verify" />
-                    <button class="secondary-bttn ml-26">Go Back</button>
+                    <a asp-action="Index" asp-controller="SongRecommendations" class="secondary-bttn ml-26">Go Back</a>
                 </div>
             </form>
-
-
         </div>
+
     </main>
 </div>
 

@@ -7,14 +7,10 @@ using System.Threading.Tasks;
 
 namespace Data.Results
 {
-    // NOTES:
-    // - Original Album was missing restrictions
-    // - Original Track (item) was missing IsPlayable and Restrictions -
-
     public class TrackSearchResult
     {
         [JsonProperty("tracks")]
-        public TrackSearchSummary TrackSearchSummary { get; set; } = new TrackSearchSummary();
+        public TrackSearchSummary Summary { get; set; } = new TrackSearchSummary();
     }
 
     public class TrackSearchSummary

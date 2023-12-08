@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "4EGOS/qQ+CYEWAo/xogM3u0yqHztGIVX8RerJUihCCk=",
+  "Hash": "50GWR+2ybOo9sLIY6o2H9fnqy++Hice7+2OA37zpRaY=",
   "Source": "Appellation",
   "BasePath": "_content/Appellation",
   "Mode": "Default",
@@ -51,23 +51,6 @@
       "OriginalItemSpec": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Appellation\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\Appellation.bundle.scp.css"
     },
     {
-      "Identity": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Appellation\\wwwroot\\css\\Login.css",
-      "SourceId": "Appellation",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Appellation\\wwwroot\\",
-      "BasePath": "_content/Appellation",
-      "RelativePath": "css/Login.css",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\css\\Login.css"
-    },
-    {
       "Identity": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Appellation\\wwwroot\\css\\site.css",
       "SourceId": "Appellation",
       "SourceType": "Discovered",
@@ -85,12 +68,12 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
-      "Identity": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Appellation\\wwwroot\\css\\SongRec.css",
+      "Identity": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Appellation\\wwwroot\\css\\song-recommendations.css",
       "SourceId": "Appellation",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Appellation\\wwwroot\\",
       "BasePath": "_content/Appellation",
-      "RelativePath": "css/SongRec.css",
+      "RelativePath": "css/song-recommendations.css",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -99,15 +82,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\css\\SongRec.css"
+      "OriginalItemSpec": "wwwroot\\css\\song-recommendations.css"
     },
     {
-      "Identity": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Appellation\\wwwroot\\css\\Verify.css",
+      "Identity": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Appellation\\wwwroot\\css\\verify.css",
       "SourceId": "Appellation",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Appellation\\wwwroot\\",
       "BasePath": "_content/Appellation",
-      "RelativePath": "css/Verify.css",
+      "RelativePath": "css/verify.css",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -116,7 +99,24 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\css\\Verify.css"
+      "OriginalItemSpec": "wwwroot\\css\\verify.css"
+    },
+    {
+      "Identity": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Appellation\\wwwroot\\css\\welcome-page.css",
+      "SourceId": "Appellation",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Appellation\\wwwroot\\",
+      "BasePath": "_content/Appellation",
+      "RelativePath": "css/welcome-page.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\welcome-page.css"
     },
     {
       "Identity": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Appellation\\wwwroot\\favicon.ico",
@@ -134,23 +134,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
-    },
-    {
-      "Identity": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Appellation\\wwwroot\\Images\\empty-profile.png",
-      "SourceId": "Appellation",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Appellation\\wwwroot\\",
-      "BasePath": "_content/Appellation",
-      "RelativePath": "Images/empty-profile.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\Images\\empty-profile.png"
     },
     {
       "Identity": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Appellation\\wwwroot\\js\\site.js",

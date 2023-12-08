@@ -1,14 +1,11 @@
 ﻿using Data.Results;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Interfaces
 {
     public interface IFavoritesHandler
     {
+        public List<Track> CheckFavorites(List<Track> favorites);
+
         public List<Track> addTrackToFavorites(List<Track> favorites, Track track);
 
         public List<Track> removeTrackFromFavorites(List<Track> favorites, Track track);

@@ -99,7 +99,7 @@ namespace Data.Results
 
     public class Image
     {
-        public string Url { get; set; } = string.Empty;
+        public string Url { get; set; } = "";
         public int Height { get; set; }
         public int Width { get; set; }
     }

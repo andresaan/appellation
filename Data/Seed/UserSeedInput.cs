@@ -5,7 +5,7 @@ namespace Data.Seed
 {
     public class SongRecommendationSeeds
     {
-        public List<ArtistSeedIntermediary> SeedIntermediaries { get; set; } = new List<ArtistSeedIntermediary>();
+        public List<ArtistSeedIntermediary> ArtistSeedIntermediaries { get; set; } = new List<ArtistSeedIntermediary>();
         public List<TrackSeedIntermediary> TrackSeedIntermediaries { get; set; } = new List<TrackSeedIntermediary>();
         public string? GenreVerifiedSeeds { get; set; } = string.Empty;
     }
@@ -15,7 +15,6 @@ namespace Data.Seed
         public string UserInput { get; set; } = string.Empty;
         public string SeedType { get; set; } = string.Empty;
     }
-
     public abstract class AbstractPotentialSeed
     {
         public string SpotifyId { get; set; } = string.Empty;

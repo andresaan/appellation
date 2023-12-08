@@ -1,39 +1,22 @@
-﻿using Data.Seed;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Data.Results;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Authentication;
 using Application.Interfaces;
-using System.Runtime.Serialization;
 
 namespace Spotify.Services
 {
     public class SearchSpotifyService : ISearchSpotifyService
     {
         private IHttpClientFactory _httpClientFactory;
-        private IHttpContextAccessor _httpContextAccessor;
 
-        public SearchSpotifyService(IHttpContextAccessor httpContextAccessor, IHttpClientFactory httpClientFactory)
+        public SearchSpotifyService(IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
-            _httpContextAccessor = httpContextAccessor;
         }
 
         private async Task<string> GetSeedSearchResultsAsync(string q, string type)
         {
-            // making artist search - returning search result
             var httpClient = _httpClientFactory.CreateClient("Spotify");
             var request = new HttpRequestMessage(HttpMethod.Get, $"{httpClient.BaseAddress}/search?q={q}&type={type}&limit=3");
-
-            //var token = await _httpContextAccessor.HttpContext.GetTokenAsync("access_token");
-            //request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
             var response = await httpClient.SendAsync(request);
 
@@ -50,6 +33,20 @@ namespace Spotify.Services
             var content = await GetSeedSearchResultsAsync(q, type);
 
             var artistSearchResult = JsonConvert.DeserializeObject<ArtistSearchResult>(content);
+
+            if (artistSearchResult?.Summary.Artists == null || artistSearchResult.Summary.Artists.Length == 0) {
+
+                artistSearchResult.Summary.Artists = 
+                    new ArtistComplex[] 
+                    { 
+                        new ArtistComplex() 
+                        { 
+                            Name = "no search results", 
+                            Images = new Image[] { new Image() { Url = "" } } 
+                        } 
+                    };
+            }
+
             return artistSearchResult.Summary;
         }
 
@@ -58,7 +55,22 @@ namespace Spotify.Services
             var content = await GetSeedSearchResultsAsync(q, type);
 
             var trackSearchResult = JsonConvert.DeserializeObject<TrackSearchResult>(content);
-            return trackSearchResult.TrackSearchSummary;
+
+            if (trackSearchResult?.Summary.Tracks == null || trackSearchResult.Summary.Tracks.Length == 0)
+            {
+                trackSearchResult.Summary.Tracks = 
+                    new Track[] 
+                    { 
+                        new Track() 
+                        { 
+                            Name = "no search results", 
+                            PerformingArtists = new ArtistComplex[] { new ArtistComplex() { Name = "no search results" } }, 
+                            Album = new Album() { Images = new Image[] { new Image() { Url = "" } } } 
+                        } 
+                    };
+            }
+
+            return trackSearchResult.Summary;
         }
 
     }

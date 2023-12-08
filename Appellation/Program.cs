@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Builder;
 using Spotify.Services;
-using Microsoft.AspNetCore.Session;
 using Application.Interfaces;
 using Application.Handlers;
 

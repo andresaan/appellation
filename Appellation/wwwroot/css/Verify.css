@@ -1,4 +1,8 @@
-﻿.verification-container > label {
+﻿img[src = ""] {
+    display: none;
+}
+
+.verification-container > label {
     width: 33%;
 }
 
@@ -82,7 +86,6 @@ div.card-body > h6 {
     }
 }
 
-
 @media screen and (min-width: 432px) and (max-width: 625px) {
     .card-body {
         padding: 20px;
@@ -97,7 +100,6 @@ div.card-body > h6 {
             width: 80%;
         }
 }
-
 
 @media screen and (max-width: 432px) {
     .card-body {

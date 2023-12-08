@@ -1,5 +1,4 @@
-﻿
-using Application.Interfaces;
+﻿using Application.Interfaces;
 using Data.Results;
 using Data.Seed;
 
@@ -14,62 +13,38 @@ namespace Application.Handlers
             _searchSpotifyService = searchSpotifyService;
             _songRecommendationsService = songRecsService;
         }
-        //General Flow: User input** - process seeds** - validate user input* - get song recs
-
-        //Validation Flow: processed seeds** - search endpoint** - display possibilities to user* - have user confirm seeds*
-        //Search Flow: make a search for each seed value and return potential seeds*
-
-        //Song Rec Flow: verified seeds sorted and types - search - response - display
-
-
-        //Organization/Refactor: Follow above flows and ensure separation of concerns. For data, use the classes created where needed. 
-        //Include remaining 2 types in flows
-
         public async Task<SongRecommendationSeeds> VerifySeedInputsAsync(string? artistInput, string? trackInput, string? genreInput)
         {
-            var songRecommendationSeeds = ProcessSeeds(artistInput, trackInput, genreInput); // Splits user input into seed intermediaries with types - MISSING GENRE
+            var songRecommendationSeeds = CreateSeedIntermediarys(artistInput, trackInput, genreInput); // Splits user input into seed intermediaries 
 
-            foreach (ArtistSeedIntermediary intermediary in songRecommendationSeeds.SeedIntermediaries)
+            foreach (ArtistSeedIntermediary intermediary in songRecommendationSeeds.ArtistSeedIntermediaries)
             {
-                var artistSearchSummary = await _searchSpotifyService.GetArtistSeedSearchResultsAsync(intermediary.UserInput, intermediary.SeedType);
+                var artistSearchSummary = await _searchSpotifyService.GetArtistSeedSearchResultsAsync(intermediary.UserInput, intermediary.SeedType); // Search user input
 
-                var potentialSeeds = ProcessArtistSearchSummary(artistSearchSummary);
-
-                foreach (ArtistPotentialSeed potentialSeed in potentialSeeds)
-                {
-                    intermediary.PotentialSeeds.Add(potentialSeed);
-                }
-
+                intermediary.PotentialSeeds = ProcessArtistSearchSummary(artistSearchSummary); // Use result to make potential seeds
             }
 
             foreach (TrackSeedIntermediary intermediary in songRecommendationSeeds.TrackSeedIntermediaries)
             {
-                var trackSearchResult = await _searchSpotifyService.GetTrackSeedSearchResultsAsync(intermediary.UserInput, intermediary.SeedType);
+                var trackSearchResult = await _searchSpotifyService.GetTrackSeedSearchResultsAsync(intermediary.UserInput, intermediary.SeedType); // Search user input
 
-                var potentialSeeds = ProcessTrackSearchSummary(trackSearchResult);
-
-                foreach (TrackPotentialSeed potentialSeed in potentialSeeds)
-                {
-                    intermediary.TrackPotentialSeeds.Add(potentialSeed);
-                }
-
+                intermediary.TrackPotentialSeeds = ProcessTrackSearchSummary(trackSearchResult); // Use result to make potential seeds
             }
 
             return songRecommendationSeeds;
         }
 
-        private SongRecommendationSeeds ProcessSeeds(string? artistInput, string? trackInput, string? genreInput)
+        private SongRecommendationSeeds CreateSeedIntermediarys(string? artistInput, string? trackInput, string? genreInput)
         {
             var songRecommendationSeeds = new SongRecommendationSeeds();
 
             if (artistInput != null)
             {
-                var artistInputTrimmed = artistInput.TrimEnd(',');
-                var splitArtistSeeds = artistInputTrimmed.Split(',').ToList();
+                var splitArtistSeeds = artistInput.TrimEnd(',').Split(',').ToList();
 
                 foreach (string artist in splitArtistSeeds)
                 {
-                    songRecommendationSeeds.SeedIntermediaries.Add(new ArtistSeedIntermediary()
+                    songRecommendationSeeds.ArtistSeedIntermediaries.Add(new ArtistSeedIntermediary()
                     {
                         UserInput = artist,
                         SeedType = "artist"
@@ -79,8 +54,7 @@ namespace Application.Handlers
 
             if (trackInput != null)
             {
-                var trackInputTrimmed = trackInput.TrimEnd(',');
-                var splitTrackSeeds = trackInputTrimmed.Split(',').ToList();
+                var splitTrackSeeds = trackInput.TrimEnd(',').Split(',').ToList();
 
                 foreach (string track in splitTrackSeeds)
                 {
@@ -116,20 +90,19 @@ namespace Application.Handlers
             return potentialSeeds;
         }
 
-        private List<TrackPotentialSeed> ProcessTrackSearchSummary(TrackSearchSummary trackSearchSummary)
+        private List<TrackPotentialSeed> ProcessTrackSearchSummary(TrackSearchSummary searchSummary)
         {
             var potentialSeeds = new List<TrackPotentialSeed>();
 
-            foreach (Track track in trackSearchSummary.Tracks)
+            foreach (Track track in searchSummary.Tracks)
             {
                 potentialSeeds.Add(new TrackPotentialSeed()
                 {
                     TrackName = track.Name,
-                    PerformingArtist = track.PerformingArtists[0].Name,
+                    PerformingArtist = string.Join(", ", track.PerformingArtists.Select(o => o.Name)),
                     SpotifyId = track.Id,
                     SeedType = track.Type,
                     Images = track.Album.Images
-
                 }); ;
             }
 
@@ -148,10 +121,7 @@ namespace Application.Handlers
 
         private string ConstructQueryParameters(string? artistSeeds, string? trackSeeds, string? genreSeeds, int limit)
         {
-
-            var queryParameters = $"limit={limit}&seed_artists={artistSeeds}&seed_tracks={trackSeeds}&seed_genres={genreSeeds}";
-
-            return queryParameters;
+            return $"limit={limit}&seed_artists={artistSeeds}&seed_tracks={trackSeeds}&seed_genres={genreSeeds}";
         }
 
     }

@@ -5,24 +5,20 @@
       "PackagePath": "staticwebassets\\Appellation.bundle.scp.css"
     },
     {
-      "Id": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Appellation\\wwwroot\\Images\\empty-profile.png",
-      "PackagePath": "staticwebassets\\Images\\empty-profile.png"
-    },
-    {
-      "Id": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Appellation\\wwwroot\\css\\Login.css",
-      "PackagePath": "staticwebassets\\css\\Login.css"
-    },
-    {
-      "Id": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Appellation\\wwwroot\\css\\SongRec.css",
-      "PackagePath": "staticwebassets\\css\\SongRec.css"
-    },
-    {
-      "Id": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Appellation\\wwwroot\\css\\Verify.css",
-      "PackagePath": "staticwebassets\\css\\Verify.css"
-    },
-    {
       "Id": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Appellation\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Appellation\\wwwroot\\css\\song-recommendations.css",
+      "PackagePath": "staticwebassets\\css\\song-recommendations.css"
+    },
+    {
+      "Id": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Appellation\\wwwroot\\css\\verify.css",
+      "PackagePath": "staticwebassets\\css\\verify.css"
+    },
+    {
+      "Id": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Appellation\\wwwroot\\css\\welcome-page.css",
+      "PackagePath": "staticwebassets\\css\\welcome-page.css"
     },
     {
       "Id": "C:\\Users\\aasan\\OneDrive\\Desktop\\DEV\\Appellation\\Appellation\\wwwroot\\favicon.ico",

@@ -1,9 +1,7 @@
-﻿using Appellation.Models;
-using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 
 namespace Appellation.Controllers
 {
@@ -18,11 +16,11 @@ namespace Appellation.Controllers
             _authenticationService = authenticationService;
         }
 
-        
+
         [Authorize]
         public IActionResult Index()
         {
-            return View();   
+            return View();
         }
 
         public IActionResult Login()

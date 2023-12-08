@@ -1,6 +1,4 @@
-﻿using Data.Results;
-using Microsoft.AspNetCore.Session;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace Appellation
 {
@@ -18,9 +16,5 @@ namespace Appellation
             return value == null ? default : JsonConvert.DeserializeObject<T>(value);
         }
 
-
     }
-
-
-
 }

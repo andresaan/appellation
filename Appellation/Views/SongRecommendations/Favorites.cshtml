@@ -68,24 +68,17 @@
 
         <div class="mt-120 theme-page-text theme-container-full mb-64">
             <h1 class="theme-page__heading-big">Favorites</h1>
-
-            <p>
-                Your favorite songs!
-            </p>
             <button type="button" class="primary-bttn"><a class="no-style" asp-action="Index" asp-controller="SongRecommendations">Get Song Recommendations</a></button>
-
         </div>
 
         <div class="card-container">
-          
-            @if (Model.FavoriteTracks != null)
+            @if (Model.FavoriteTracks.Any())
             {
-
                 @foreach (Track track in Model.FavoriteTracks)
                 {
-
                     <div class="card">
                         <div class="card-body position-relative">
+                            
                             <img src="@track.Album.Images[0].Url" width="275" height="275" alt="Album cover art" />
 
                             <h5 class="card-title">@track.Name</h5>
@@ -105,9 +98,7 @@
             {
                 <div class="theme-page-text">Favorites Empty</div>
             }
-            
         </div>
-
 
     </main>
 

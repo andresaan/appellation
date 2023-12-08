@@ -1,9 +1,4 @@
-﻿
-
-
-
-/*-- MARGIN HELPERS --*/
-
+﻿/*-- MARGIN HELPERS --*/
 
 .mt-12 {
     margin-top: 12px;
@@ -68,6 +63,10 @@ body {
     margin-bottom: 60px;
 }
 
+a {
+    text-decoration: none;
+    padding: 1px 6px;
+}
 /* -- HEADER -- */
 
 nav {
@@ -103,7 +102,7 @@ div > a.navigation-link {
 
     div > a.navigation-link:hover {
         color: white;
-        border-bottom: 2px solid #66b2ff;
+        border-bottom: 2px solid var(--theme-accent);
     }
 
 .navigation-link-container {
@@ -313,8 +312,6 @@ a.no-style {
         color: var(--theme-accent);
     }
 
-
-
 .remove-bttn {
     border: none;
     background-color: hsl(210.26deg 100% 22.94% / 0%);
@@ -325,22 +322,10 @@ a.no-style {
         color: var(--theme-txt-col);
     }
 
-.info-bttn-blue {
-    padding: 1px 4px;
-    font-size: 14px;
-    color: #66b2ff;
-    border: none;
-    outline: none;
-    background: var(--theme-bg-light);
-    border: 1px solid rgb(0, 89, 178);
-    border-radius: 8px;
-    background-color: hsl(210.26deg 100% 22.94% / 40%);
-}
-
 .blue-bttn-big {
     padding: 0px 4px;
     font-size: 17px;
-    color: #66b2ff;
+    color: var(--theme-accent);
     border: 1px solid rgb(0, 89, 178);
     border-radius: 8px;
     background-color: hsl(210.26deg 100% 22.94% / 40%);
@@ -372,8 +357,8 @@ a.no-style {
 
     .primary-bttn:hover {
         font-size: 16px;
-        color: #66b2ff;
-        border: 1.5px solid #66b2ff;
+        color: var(--theme-accent);
+        border: 1.5px solid var(--theme-accent);
         border-radius: 4px;
         background: var(--theme-bg-light);
     }
@@ -413,17 +398,49 @@ a.no-style {
 }
 
 a.inline-link {
-    color: #66b2ff;
+    color: var(--theme-accent);
     opacity: 100%;
     text-decoration: none;
 }
 
     a.inline-link:hover {
-        color: #66b2ff;
+        color: var(--theme-accent);
         opacity: 75%;
     }
 
-/* -- MEDIA QUERIES -- */
+@media screen and (min-width: 1900px) {
+
+    main {
+        width: 60%;
+    }
+}
+
+@media screen and (min-width: 1680px) and (max-width: 1900px) {
+
+    main {
+        width: 65%;
+    }
+}
+
+@media screen and (min-width: 1550px) and (max-width: 1680px) {
+
+    main {
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 880px) {
+
+    .navbar-brand, .logout {
+        position: initial;
+    }
+}
+
+@media screen and (min-width: 425px) and (max-width: 625px) {
+    .theme-page__heading-big {
+        font-size: 34px;
+    }
+}
 
 @media screen and (max-width: 625px) {
 
@@ -449,41 +466,6 @@ a.inline-link {
         padding: 4px 14px;
     }
 }
-
-@media screen and (min-width: 425px) and (max-width: 625px) {
-    .theme-page__heading-big {
-        font-size: 34px;
-    }
-}
-
-@media screen and (max-width: 880px) {
-
-    .navbar-brand, .logout {
-        position: initial;
-    }
-}
-
-@media screen and (min-width: 1550px) and (max-width: 1680px) {
-
-    main {
-        width: 70%;
-    }
-}
-
-@media screen and (min-width: 1680px) and (max-width: 1900px) {
-
-    main {
-        width: 65%;
-    }
-}
-
-@media screen and (min-width: 1900px) {
-
-    main {
-        width: 60%;
-    }
-}
-
 
 /* -- BROWSER RELATED STYLING -- */
 

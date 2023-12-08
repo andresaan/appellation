@@ -1,16 +1,20 @@
 ﻿using Application.Interfaces;
 using Data.Results;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Collections.Specialized.BitVector32;
 
 namespace Application.Handlers
 {
     public class FavoritesHandler : IFavoritesHandler
     {
+        public List<Track> CheckFavorites(List<Track> favorites)
+        {
+            if (favorites == null)
+            {
+                return new List<Track>();
+            }
+
+            return favorites;
+        }
+
         public List<Track> addTrackToFavorites(List<Track> favorites, Track track)
         {
             if (favorites == null)
@@ -29,16 +33,16 @@ namespace Application.Handlers
 
         public List<Track> removeTrackFromFavorites(List<Track> favorites, Track track)
         {
+            favorites.Remove(favorites.Find(o => o.Id == track.Id));
 
-            foreach (Track item in favorites)
-            {
-                if (item.Id == track.Id)
-                {
-                    var contains = favorites.Contains(item);
-                    favorites.Remove(item);
-                    break;
-                }
-            }
+            //foreach (Track item in favorites)
+            //{
+            //    if (item.Id == track.Id)
+            //    {
+            //        favorites.Remove(item);
+            //        break;
+            //    }
+            //}
 
             return favorites;
         }

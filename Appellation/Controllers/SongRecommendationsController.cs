@@ -1,13 +1,8 @@
 ﻿using Application.Interfaces;
 using Appellation.Models;
 using Microsoft.AspNetCore.Mvc;
-using Data.Seed;
 using Microsoft.AspNetCore.Authorization;
 using Data.Results;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Microsoft.AspNetCore.DataProtection.KeyManagement;
-using System.Collections.Generic;
 
 namespace Appellation.Controllers
 {
@@ -31,12 +26,6 @@ namespace Appellation.Controllers
             return View(model);
         }
 
-        //[HttpPost]
-        //public IActionResult Index(SongRecommendationsIndexModel model)
-        //{
-        //    return View(model);
-        //}
-
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> Index(SeedVerificationModel model)
@@ -44,9 +33,7 @@ namespace Appellation.Controllers
             var songRecommendationsIndexModel = new SongRecommendationsIndexModel()
             {
                 Tracks = await _songRecommendationHandler.GetSongRecommendationsAsync(
-                    model.ArtistVerifiedSeeds, model.TrackVerifiedSeeds, model.GenreVerifiedSeeds, model.Limit),
-
-                RecommendationsGiven = true
+                    model.ArtistVerifiedSeeds, model.TrackVerifiedSeeds, model.GenreVerifiedSeeds, model.Limit)
             };
 
             return View(songRecommendationsIndexModel);
@@ -60,7 +47,7 @@ namespace Appellation.Controllers
 
             var seedVerificationModel = new SeedVerificationModel()
             {
-                ArtistSeedIntermediaries = songRecommendationSeeds.SeedIntermediaries,
+                ArtistSeedIntermediaries = songRecommendationSeeds.ArtistSeedIntermediaries,
                 TrackSeedIntermediaries = songRecommendationSeeds.TrackSeedIntermediaries,
                 GenreVerifiedSeeds = songRecommendationSeeds.GenreVerifiedSeeds,
                 Limit = model.Limit
@@ -73,33 +60,36 @@ namespace Appellation.Controllers
         [HttpGet]
         public IActionResult Favorites()
         {
-            FavoritesModel favoritesModel = new FavoritesModel();
+            FavoritesModel model = new FavoritesModel() 
+            {
+                // Need for favorites page .Any() check -- two options 1) logic in cont or 2) checkfavorites()
+                FavoriteTracks = _favoritesHandler.CheckFavorites(HttpContext.Session.Get<List<Track>>("favorites"))
+            };
 
-            favoritesModel.FavoriteTracks = HttpContext.Session.Get<List<Track>>("favorites");
-
-            return View(favoritesModel);
+            // Old way uses var and then checks if null using if else block - returns new list if null like method
+            var favorites = HttpContext.Session.Get<List<Track>>("favorites");
+            
+            return View(model);
         }
 
         [HttpPost]
         public void AddFavorite([FromBody] Track track)
         {
-            var session = HttpContext.Session;
-            var favorites = session.Get<List<Track>>("favorites");
+            var favorites = HttpContext.Session.Get<List<Track>>("favorites");
 
             var favoritesUpdated = _favoritesHandler.addTrackToFavorites(favorites, track);
 
-            session.Set("favorites", favoritesUpdated);
+            HttpContext.Session.Set("favorites", _favoritesHandler.addTrackToFavorites(favorites, track));
         }
 
         [HttpPost]
         public void RemoveFavorite([FromBody] Track track)
         {
-            var session = HttpContext.Session;
-            var favorites = session.Get<List<Track>>("favorites");
+            var favorites = HttpContext.Session.Get<List<Track>>("favorites");
 
             var favoritesUpdated = _favoritesHandler.removeTrackFromFavorites(favorites, track);
 
-            session.Set("favorites", favoritesUpdated);
+            HttpContext.Session.Set("favorites", _favoritesHandler.removeTrackFromFavorites(favorites, track));
         }
     }
 }
