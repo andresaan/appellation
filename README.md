@@ -66,6 +66,9 @@ The favorites page is where user's liked songs are displayed. Users can like and
 
 ## How to Use: 
 
+### Install .NET 6
+If you do not already have .NET installed you can here: https://dotnet.microsoft.com/en-us/download/dotnet/6.0
+
 ### Cloning the repository
 ```
 git clone https://github.com/andresaan/appellation.git
@@ -99,4 +102,15 @@ open appsettings.json in a text editor and paste the following. Make sure to inp
 ```
 
 ### Run the project
-Run project in visual studio and Open http://localhost:4000
+You can run the project via Visual Studio  
+
+or   
+   
+```
+cd appellation/appellation
+dotnet run
+```   
+
+Open http://localhost:4000    
+   
+press ctrl + c to shut down the application   
