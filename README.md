@@ -19,7 +19,9 @@ Get fresh new music using Appelation, a song recommendation app that uses your p
 ### Log In Screen
 Here users log in using their Spotify credentials.  
 
-![Log in screen](/FunctionalityImages/LogInScreen.png)
+![Log in screen](/FunctionalityImages/LogInScreen.png)    
+    
+![Log in screen](/FunctionalityImages/SpotifyCredentials.png)    
 
 ### Home Screen
 After logging in, users are redirected to the home page.  
