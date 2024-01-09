@@ -6,75 +6,47 @@ namespace Spotify.Services
 {
     public class SearchSpotifyService : ISearchSpotifyService
     {
-        private IHttpClientFactory _httpClientFactory;
-
+        private HttpClient _httpClient;
         public SearchSpotifyService(IHttpClientFactory httpClientFactory)
         {
-            _httpClientFactory = httpClientFactory;
+            _httpClient = httpClientFactory.CreateClient("Spotify");
         }
-
         private async Task<string> GetSeedSearchResultsAsync(string q, string type)
         {
-            var httpClient = _httpClientFactory.CreateClient("Spotify");
-            var request = new HttpRequestMessage(HttpMethod.Get, $"{httpClient.BaseAddress}/search?q={q}&type={type}&limit=3");
+            var request = new HttpRequestMessage(HttpMethod.Get, $"{_httpClient.BaseAddress}/search?q={q}&type={type}&limit=3");
 
-            var response = await httpClient.SendAsync(request);
-
-            //response.EnsureSuccessStatusCode();
-
+            var response = await _httpClient.SendAsync(request);
             var content = await response.Content.ReadAsStringAsync();
-
+            
             return content;
-
         }
-
         public async Task<ArtistSearchSummary> GetArtistSeedSearchResultsAsync(string q, string type)
         {
             var content = await GetSeedSearchResultsAsync(q, type);
-
             var artistSearchResult = JsonConvert.DeserializeObject<ArtistSearchResult>(content);
+            
+            var artistSearchSummary = artistSearchResult != null ? artistSearchResult.Summary : new ArtistSearchSummary();
 
-            if (artistSearchResult?.Summary.Artists == null || artistSearchResult.Summary.Artists.Length == 0) {
-
-                //artistSearchResult.Summary.Artists = 
-                //    new ArtistComplex[] 
-                //    { 
-                //        new ArtistComplex() 
-                //        { 
-                //            Name = "no search results", 
-                //            Images = new Image[] { new Image() { Url = "" } } 
-                //        } 
-                //    };
-
-                artistSearchResult.Summary.NoResults = true;
+            if (artistSearchSummary.Artists == null || artistSearchSummary.Artists.Length == 0)
+            {
+                artistSearchSummary.NoResults = true;
             }
 
-            return artistSearchResult.Summary;
+            return artistSearchSummary;
         }
-
         public async Task<TrackSearchSummary> GetTrackSeedSearchResultsAsync(string q, string type)
         {
             var content = await GetSeedSearchResultsAsync(q, type);
-
             var trackSearchResult = JsonConvert.DeserializeObject<TrackSearchResult>(content);
 
-            if (trackSearchResult?.Summary.Tracks == null || trackSearchResult.Summary.Tracks.Length == 0)
+            var trackSearchSummary = trackSearchResult != null ? trackSearchResult.Summary : new TrackSearchSummary();
+
+            if (trackSearchSummary.Tracks == null || trackSearchSummary.Tracks.Length == 0)
             {
-                trackSearchResult.Summary.Tracks = 
-                    new Track[] 
-                    { 
-                        new Track() 
-                        { 
-                            Name = "no search results", 
-                            PerformingArtists = new ArtistComplex[] { new ArtistComplex() { Name = "no search results" } }, 
-                            Album = new Album() { Images = new Image[] { new Image() { Url = "" } } } 
-                        } 
-                    };
+                trackSearchSummary.NoResults = true;
             }
 
-            return trackSearchResult.Summary;
+            return trackSearchSummary;
         }
-
     }
-
 }

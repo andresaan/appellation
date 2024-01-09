@@ -12,7 +12,7 @@ namespace Spotify.Services
 {
     public class TokenAuthenticationService : Application.Interfaces.ITokenAuthenticationService
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly HttpClient _httpClient;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly string ClientId;
         private readonly string ClientSecret;
@@ -21,15 +21,12 @@ namespace Spotify.Services
         {
             ClientId = configuration.GetValue<string>("Spotify:ClientId");
             ClientSecret = configuration.GetValue<string>("Spotify:ClientSecret");
-            _httpClientFactory = httpClientFactory;
+            _httpClient = httpClientFactory.CreateClient("SpotifyAuthentication");
             _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<string> UseRefreshTokenAsync(string refreshToken)
         {
-
-            var httpClient = _httpClientFactory.CreateClient("SpotifyAuthentication");
-
             var request = new HttpRequestMessage(HttpMethod.Post, "/api/token");
             request.Headers.Authorization =
                 new AuthenticationHeaderValue("Basic", Convert.ToBase64String(Encoding.UTF8.GetBytes($"{ClientId}:{ClientSecret}")));
@@ -40,7 +37,7 @@ namespace Spotify.Services
                 { "refresh_token", refreshToken },
             });
 
-            var response = await httpClient.SendAsync(request);
+            var response = await _httpClient.SendAsync(request);
             var tokenRefreshResult = JsonConvert.DeserializeObject<TokenRefreshResult>(await response.Content.ReadAsStringAsync());
 
             if (tokenRefreshResult == null)

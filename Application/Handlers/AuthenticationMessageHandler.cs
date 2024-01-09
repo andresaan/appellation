@@ -22,19 +22,25 @@ namespace Application.Handlers
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
             var response = await base.SendAsync(request, cancellationToken);
 
-            if (response.StatusCode == HttpStatusCode.Unauthorized || response.StatusCode == HttpStatusCode.Forbidden)
+            try
+            {
+                response.EnsureSuccessStatusCode();
+            }
+            catch
             {
                 var refreshToken = await _httpContextAccessor.HttpContext.GetTokenAsync("refresh_token");
                 var newAccessToken = await _authenticationService.UseRefreshTokenAsync(refreshToken);
-
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", newAccessToken);
+
                 response = await base.SendAsync(request, cancellationToken);
             }
 
+            if (response.StatusCode == HttpStatusCode.Unauthorized || response.StatusCode == HttpStatusCode.Forbidden)
+            {
+
+            }
+
             return response;
-            
-            //ensure success
-            //response.EnsureSuccessStatusCode(); 
         }
     }
 }

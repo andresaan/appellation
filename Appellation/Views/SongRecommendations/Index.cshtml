@@ -1,47 +1,7 @@
 ﻿@using Data.Seed;
 @using Data.Results;
+@using Newtonsoft.Json;
 @model SongRecommendationsIndexModel
-
-@section scripts {
-    <script>
-        var counter = 0;
-        var dataListValues = getDataListValues();
-        var json = '@Json.Serialize(Model.Tracks)';
-        var recommendedTracks = JSON.parse(json);
-
-        var popularityMax = document.getElementById("popularity-max-output");
-        var popularityDisplay = document.getElementById("popularity-max-display");
-        var popularityInput = document.getElementById("popularity-max-input");
-        popularityDisplay.textContent = popularityInput.value;
-        
-        popularityMax.value = popularityInput.value;
-
-        popularityInput.addEventListener("input", (event) => {
-            popularityDisplay.textContent = event.target.value;
-            popularityMax.value = event.target.value;
-        });
-
-
-        var popularityMax = document.getElementById("popularity-max-output");
-        var popularityDisplay = document.getElementById("popularity-max-display");
-        var popularityInput = document.getElementById("popularity-max-input");
-
-        document.getElementById("disable-popularity").addEventListener("input", (event) => {
-
-            if (event.target.checked) {
-                popularityMax.value = -1;
-
-                popularityInput.disabled = true;
-                popularityDisplay.classList.add("theme-disabled");
-            }
-            if (!event.target.checked) {
-                popularityInput.disabled = false;
-                popularityDisplay.classList.remove("theme-disabled");
-            }
-        });
-        
-    </script>
-}
 
 <div class="theme-page-wrapper">
     <main class="recommendation">
@@ -243,7 +203,6 @@
                                 <option id="work-out" value="work-out" />
                                 <option id="world-music" value="world-music" />
                             </datalist>
-
                         </div>
 
                     </div>
@@ -274,13 +233,23 @@
                     <div class="d-flex mb-12 flex-column">
                         <label for="popularity-max-input">Popularity of Song Recommendations</label>
                         <div>
-                            <input id="popularity-max-input" type="range" value="50" min="0" max="100" @*class="aside__limit-input p-0 ml-26"*@ />
-                            <p>Value: <output id="popularity-max-display"></output></p>
-                            <label for="disable-popularity">Disable Popularity</label>
-                            <input id="disable-popularity" type="checkbox" />
+                            <p class="input-instructions">
+                                Use the slider to return songs depending on popularity
+                            </p>
+                            <div class="range-input-container">
+                                <p>Least</p>
+                                <input id="popularity-max-input" type="range" value="50" min="0" max="100" @*class="aside__limit-input p-0 ml-26"*@ />
+                                <p>Most</p>
+                            </div>
+                            <div class="range-input-container">
+                                <p>Value: <output id="popularity-max-display"></output></p>
+                                <div>
+                                    <label for="disable-popularity">Disable Popularity</label>
+                                    <input class="ml-12" id="disable-popularity" type="checkbox" />
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="aside__coming-soon">More Filters Coming Soon!</div>
                 </aside>
             </div>
 
@@ -288,7 +257,7 @@
 
         <div class="toast-container position-fixed bottom-0 end-0 p-3">
 
-            <div id="toastEmptySeed" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div id="toast-empty-seed" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="toast-header">
                     <strong class="me-auto">Input Invalid</strong>
                     <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
@@ -298,7 +267,7 @@
                 </div>
             </div>
 
-            <div id="toastSeedCount" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div id="toast-seed-count" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="toast-header">
                     <strong class="me-auto">Input Invalid</strong>
                     <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
@@ -318,7 +287,7 @@
                 </div>
             </div>
 
-            <div id="genreInputValidation" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div id="toast-genre-input-invalid" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="toast-header">
                     <strong class="me-auto">Input Invalid</strong>
                     <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
@@ -329,17 +298,17 @@
 
             </div>
 
-            <div id="seedSubmitValidation" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div id="toast-all-seeds-empty" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
                 <div class="toast-header">
                     <strong class="me-auto">Input Invalid</strong>
                     <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
                 <div class="toast-body">
-                    you must have at least one seed input
+                    All seed values are empty! You must have at least one seed input.
                 </div>
             </div>
 
-            <div id="toastInvalidLimit" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div id="toast-invalid-limit" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="toast-header">
                     <strong class="me-auto">Input Invalid</strong>
                     <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
@@ -349,6 +318,25 @@
                 </div>
             </div>
 
+            <div id="toast-no-tracks-returned" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+                <div class="toast-header">
+                    <strong class="me-auto">Error</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    We had trouble getting song recommendations from spotify! Spotifies service could be down. Try again and if the issue persists contact support.
+                </div>
+            </div>
+
+            <div id="toast-error-processing-request" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+                <div class="toast-header">
+                    <strong class="me-auto">Oops!</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    There was a problem processing your song recommendations request! We redirected you to try again. If the issue persists contact support.
+                </div>
+            </div>
         </div>
 
         @if (Model.Tracks.Any())
@@ -398,6 +386,492 @@
     </main>
 </div>
 
+@section scripts {
+    <script>
+        var counter = 0;
+        var dataListValues = getDataListValues();
+
+        var recommendedTracks = [];
+
+        try {
+            var json = '@Json.Serialize(Model.Tracks)';
+
+            var recommendedTracks = JSON.parse(json);
+
+            console.log(recommendedTracks);
+        }
+        catch {
+            console.error("parsing didnt work");
+        }
+
+        checkMessageQueryParameter();
+
+        var popularityMax = document.getElementById("popularity-max-output");
+        var popularityDisplay = document.getElementById("popularity-max-display");
+        var popularityInput = document.getElementById("popularity-max-input");
+        popularityDisplay.textContent = popularityInput.value;
+
+        popularityMax.value = popularityInput.value;
+
+        popularityInput.addEventListener("input", (event) => {
+            popularityDisplay.textContent = event.target.value;
+            popularityMax.value = event.target.value;
+        });
+
+        var popularityMax = document.getElementById("popularity-max-output");
+        var popularityDisplay = document.getElementById("popularity-max-display");
+        var popularityInput = document.getElementById("popularity-max-input");
+
+        document.getElementById("disable-popularity").addEventListener("input", (event) => {
+
+            if (event.target.checked) {
+                popularityMax.value = -1;
+
+                popularityInput.disabled = true;
+                popularityDisplay.classList.add("theme-disabled");
+            }
+            if (!event.target.checked) {
+                popularityMax.value = popularityInput.value;
+
+                popularityInput.disabled = false;
+                popularityDisplay.classList.remove("theme-disabled");
+            }
+        });
+
+        function checkMessageQueryParameter() {
+            
+            const params = new URLSearchParams(document.location.search);
+
+            if (params.has("message")) {
+
+                var message = params.get("message");
+
+                if (message == "All seed values are empty!") {
+                    var toastAllSeedsEmpty = document.getElementById("toast-all-seeds-empty");
+                    var toast = bootstrap.Toast.getOrCreateInstance(toastAllSeedsEmpty);
+                    toast.show();
+                }
+                if (message == "No recommendations returned") {
+                    var toastNoTracksReturned = document.getElementById("toast-no-tracks-returned");
+                    var toast = bootstrap.Toast.getOrCreateInstance(toastNoTracksReturned);
+                    toast.show();
+                }
+
+                var toastErrorProcessingRequest = document.getElementById("toast-error-processing-request");
+                var firstToast = bootstrap.Toast.getOrCreateInstance(toastErrorProcessingRequest);
+                firstToast.show();
+            }
+        }
+
+        function like(e) {
+
+            var container = e.closest("div");
+            var track = container.getElementsByClassName("js-track-id")[0];
+            var trackId = track.value;
+
+            var likedTrack = recommendedTracks.find(x => x.id === trackId);
+
+            //like
+            if (e.classList.contains("bi-heart")) {
+
+                e.classList.toggle("bi-heart");
+                e.classList.toggle("bi-heart-fill");
+
+                var uri = 'songrecommendations/addfavorite'
+
+                fetch(uri, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(likedTrack)
+                })
+
+                return;
+
+            }
+
+            //unlike
+            if (e.classList.contains("bi-heart-fill")) {
+
+                e.classList.toggle("bi-heart");
+                e.classList.toggle("bi-heart-fill");
+
+                var uri = 'songrecommendations/removefavorite'
+
+                fetch(uri, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(likedTrack)
+                })
+
+                return;
+            }
+
+        }
+
+        function changeInputWidth() {
+
+            //Artist Width Change
+            var seedIntermediaryWidth = document.getElementById("artist-seeds-container").offsetWidth;
+            var root = document.querySelector(':root');
+            root.style.setProperty('--artist-seed-intermediary-width', seedIntermediaryWidth + "px");
 
 
+            //Track Width Change
+            var seedIntermediaryWidth = document.getElementById("track-seeds-container").offsetWidth;
+            var root = document.querySelector(':root');
+            root.style.setProperty('--track-seed-intermediary-width', seedIntermediaryWidth + "px");
 
+            //Genre Width Change
+            var seedIntermediaryWidth = document.getElementById("genre-seeds-container").offsetWidth;
+            var root = document.querySelector(':root');
+            root.style.setProperty('--genre-seed-intermediary-width', seedIntermediaryWidth + "px");
+        }
+
+        function addNewArtist() {
+
+            var input = document.getElementById("artist-input");
+            var inputValue = input.value;
+
+            if (inputValue.trim() != "" && counter < 5) {
+
+                var newSpan = createDiv(inputValue);
+
+                var seedIntermediary = document.getElementById("artist-seeds-container");
+                seedIntermediary.appendChild(newSpan);
+
+                input.value = "";
+                counter++;
+
+                changeInputWidth();
+
+            }
+            else {
+
+                seedInputErrors(inputValue);
+                input.value = "";
+            }
+
+        }
+
+        function addNewArtistEnter(event) {
+
+            if (event.key == "Enter") {
+
+                document.getElementById("add-artist-bttn").click();
+
+            }
+        }
+
+        function addNewTrack() {
+
+            var input = document.getElementById("track-input");
+            var inputValue = input.value;
+
+            if (inputValue.trim() != "" && counter < 5) {
+
+                var newSpan = createDiv(inputValue);
+
+                var elem = document.getElementById("track-seeds-container");
+                elem.appendChild(newSpan);
+
+                input.value = "";
+                counter++;
+
+                changeInputWidth();
+            }
+            else {
+                seedInputErrors(inputValue);
+                input.value = "";
+            }
+
+        }
+
+        function addNewTrackEnter(event) {
+
+            if (event.key == "Enter") {
+
+                document.getElementById("add-track-bttn").click();
+            }
+        }
+
+        function addNewGenre() {
+
+            var input = document.getElementById("genre-input");
+            var inputValue = input.value;
+            var validGenre = dataListValues.includes(inputValue);
+
+            if (inputValue.trim() != "" && counter < 5 && validGenre == true) {
+
+                var newDiv = createDiv(inputValue);
+
+                var elem = document.getElementById("genre-seeds-container");
+                elem.appendChild(newDiv);
+
+                removeGenreOption(inputValue);
+                input.value = "";
+                counter++;
+
+                changeInputWidth();
+
+                return;
+            }
+            if (validGenre == false) {
+                var toastEmptyInput = document.getElementById("toast-genre-input-invalid");
+                var toast = bootstrap.Toast.getOrCreateInstance(toastEmptyInput);
+                toast.show();
+
+                input.value = "";
+                return;
+            }
+            else {
+                seedInputErrors(inputValue);
+                input.value = "";
+            }
+
+        }
+
+        function addNewGenreEnter(event) {
+
+            if (event.key == "Enter") {
+
+                document.getElementById("add-genre-bttn").click();
+            }
+        }
+
+        function createDiv(inputValue) {
+
+            var newDiv = document.createElement("div");
+            newDiv.classList.add("js-individual-seed");
+
+            newDiv.innerHTML = `<span>${inputValue}</span><button onclick="removeSeed(event)">x</button>`
+
+            return newDiv;
+
+        }
+
+        function removeSeed(event) {
+
+            var target = event.target
+
+            var content = target.closest("div");
+            var seed = content.getElementsByTagName("span")[0];
+            var seedValue = seed.innerHTML;
+
+            if (dataListValues.includes(seedValue)) {
+
+                addGenreBack(seedValue);
+            }
+
+            content.remove();
+            counter--;
+            changeInputWidth();
+        }
+
+        function addGenreBack(seedValue) {
+            var dataList = document.getElementById("genres");
+
+            var newOption = document.createElement("option");
+            newOption.value = seedValue;
+
+            dataList.appendChild(newOption);
+
+        }
+
+        function submitSeeds() {
+
+            setArtistSeeds();
+            setTrackSeeds();
+            setGenreSeeds();
+
+            if (document.getElementById("artist-seeds").value == "" && document.getElementById("track-seeds").value == "" && document.getElementById("genre-seeds").value == "") {
+                var toastEmptyInput = document.getElementById("toast-all-seeds-empty");
+                var toast = bootstrap.Toast.getOrCreateInstance(toastEmptyInput);
+                toast.show();
+
+                return false;
+
+            }
+
+            if (!validateLimit()) {
+
+                return false;
+            }
+
+            else {
+                return true;
+            }
+        }
+
+        function setArtistSeeds() {
+            var seedCont = document.getElementById("artist-seeds-container");
+            var spans = seedCont.getElementsByTagName("span");
+
+            var seeds = "";
+
+            for (var span of spans) {
+
+                var txt = span.textContent;
+
+                seeds = seeds + `${txt},`;
+            }
+
+            var output = document.getElementById("artist-seeds");
+            output.value = seeds;
+        }
+
+        function setTrackSeeds() {
+
+            var seedCont = document.getElementById("track-seeds-container");
+            var spans = seedCont.getElementsByTagName("span");
+
+            var seeds = "";
+
+            for (var span of spans) {
+
+                var txt = span.textContent;
+
+                seeds = seeds + `${txt},`;
+            }
+
+            var output = document.getElementById("track-seeds");
+            output.value = seeds;
+
+        }
+
+        function setGenreSeeds() {
+            var seedCont = document.getElementById("genre-seeds-container");
+            var spans = seedCont.getElementsByTagName("span");
+
+            var seeds = "";
+
+            for (var span of spans) {
+
+                var txt = span.textContent;
+
+                seeds = seeds + `${txt},`;
+            }
+
+            var output = document.getElementById("genre-seeds");
+            output.value = seeds;
+
+        }
+
+        function removeGenreOption(value) {
+            var option = document.getElementById(value);
+
+            option.remove();
+        }
+
+        function getDataListValues() {
+
+            var dataList = document.getElementById("genres");
+            var options = dataList.getElementsByTagName("option");
+
+            var optionValues = [];
+
+            var i = 0;
+
+            for (var option of options) {
+
+                optionValues[i] = option.value;
+
+                i++;
+            }
+
+            return optionValues;
+
+        }
+
+        function seedInputErrors(inputValue) {
+
+            if (inputValue.trim() == "") {
+                var toastEmptyInput = document.getElementById("toast-empty-seed");
+                var toast = bootstrap.Toast.getOrCreateInstance(toastEmptyInput);
+                toast.show();
+                return;
+            }
+
+            if (counter >= 5) {
+                var toastEmptyInput = document.getElementById("toast-seed-count");
+                var toast = bootstrap.Toast.getOrCreateInstance(toastEmptyInput);
+                toast.show();
+                return;
+            }
+
+            else {
+                var toastEmptyInput = document.getElementById("error");
+                var toast = bootstrap.Toast.getOrCreateInstance(toastEmptyInput);
+                toast.show();
+                return;
+            }
+        }
+
+        function setLimit() {
+
+            var userValue = document.getElementById("user-limit-input").value;
+
+            if (validateLimit()) {
+                var output = document.getElementById("recommendation-limit");
+                output.value = userValue;
+                return;
+            }
+
+        }
+
+        function validateLimit() {
+
+            var value = document.getElementById("user-limit-input").value;
+
+            var toastInvalidLimit = document.getElementById("toast-invalid-limit");
+            var toast = bootstrap.Toast.getOrCreateInstance(toastInvalidLimit);
+
+            if (value <= 100 && value > 0) {
+                toast.hide();
+                return true;
+            }
+
+            else {
+                toast.show();
+                return false;
+            }
+        }
+
+        function showGenerate() {
+
+            var generate = document.getElementById("js-generate");
+
+            if (generate.style.display == "none" || generate.style.display == "") {
+
+                document.getElementById("js-show-generate").style.display = "none";
+
+                document.getElementById("js-hide-generate").style.display = "flex";
+                generate.style.display = "initial";
+            }
+
+        }
+
+        function hideGenerate() {
+
+            var generate = document.getElementById("js-generate");
+
+            if (generate.style.display == "initial") {
+
+                document.getElementById("js-hide-generate").style.display = "none";
+
+                document.getElementById("js-show-generate").style.display = "block";
+
+                generate.style.display = "none";
+            }
+
+
+        }
+
+    </script>
+
+}

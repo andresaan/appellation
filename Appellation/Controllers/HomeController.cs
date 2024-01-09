@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using Appellation.Models;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Appellation.Controllers
@@ -28,6 +30,16 @@ namespace Appellation.Controllers
             return View();
         }
 
+        [Route("Error")]
+        public IActionResult Error(string? errorDetails)
+        {
+            var model = new ErrorViewModel()
+            {
+                Details = errorDetails
+            };
+
+            return View(model);
+        }
         new public IActionResult Challenge()
         {
             var properties = new AuthenticationProperties()
@@ -37,7 +49,6 @@ namespace Appellation.Controllers
 
             return Challenge(properties, "Spotify");
         }
-
         public RedirectToActionResult LogOut()
         {
             _authenticationService.SignOutAsync(HttpContext, CookieAuthenticationDefaults.AuthenticationScheme, null);

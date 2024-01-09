@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Spotify.Services;
 using Application.Interfaces;
 using Application.Handlers;
+using Application.Services;
+using Appellation.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddSession();
+
+builder.Services.AddLogging(configure =>
+{
+    configure.AddConsole();
+});
 
 builder.Services.AddAuthorization(options =>
 {
@@ -62,19 +69,22 @@ builder.Services.AddHttpClient("SpotifyAuthentication", httpClient =>
     httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
 });
 
-builder.Services.AddScoped<ISongRecommendationsService, SongRecommendationsService>();
+builder.Services.AddScoped<ISongRecommendationService, Spotify.Services.SongRecommendationService>();
 builder.Services.AddScoped<ISearchSpotifyService, SearchSpotifyService>();
-builder.Services.AddScoped<ISongRecommendationHandler, SongRecommendationHandler>();
-builder.Services.AddScoped<IFavoritesHandler, FavoritesHandler>();
+builder.Services.AddScoped<ISongRecommendationProcessingService, Application.Services.SongRecommendationProcessingService>();
+builder.Services.AddScoped<IFavoritesService, FavoritesService>();
 builder.Services.AddScoped<ITokenAuthenticationService, TokenAuthenticationService>();
 
+builder.Services.AddTransient<GlobalExceptionHandlingMiddleware>();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
+    //app.UseExceptionHandler("/Home/Error");
+
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 

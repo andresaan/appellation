@@ -12,7 +12,7 @@
             </p>
             <p>
                 <span class="important">Important:</span> If you do not see the artist or track you wanted to use for
-                your recommendations, please press the back button and try a different search.
+                your recommendations, please press the back button and try a different search. 
             </p>
             <h2 class="theme-page__heading-small">Instructions:</h2>
             <ol>
@@ -24,7 +24,7 @@
         </div>
 
         <div>
-            <form class="verification" asp-controller="SongRecommendations" asp-action="Index">
+            <form class="verification" asp-controller="SongRecommendations" asp-action="Index" onsubmit="return verifyRadioInputs()">
                 @for (var i = 0; i < Model.ArtistSeedIntermediaries.Count(); i++)
                 {
                     <div class="theme-container theme-page-text mb-26">
@@ -38,6 +38,7 @@
                             @if (Model.ArtistSeedIntermediaries[i].NoResults)
                             {
                                 <h5 class="card-title">No Results</h5>
+                                <p>Your input will not be used to generate song recommendations.</p>
                             }
                             else
                             {
@@ -68,20 +69,28 @@
                         </div>
 
                         <div class="verification-container">
-
-                            @for (var j = 0; j < Model.TrackSeedIntermediaries[i].TrackPotentialSeeds.Count(); j++)
+                            @if (Model.TrackSeedIntermediaries[i].NoResults)
                             {
-                                <input class="invisible-radio" type="radio" name="track-seed-@i" id="track-seed-@i-@j" value="@Model.TrackSeedIntermediaries[i].TrackPotentialSeeds[j].SpotifyId" onchange="verifyTrack(event)" />
+                                <h5 class="card-title">No Results</h5>
+                                <p>Your input will not be used to generate song recommendations.</p>
+                            }
+                            else
+                            {
+                                @for (var j = 0; j < Model.TrackSeedIntermediaries[i].PotentialSeeds.Count(); j++)
+                                {
+                                    <input class="invisible-radio" type="radio" name="track-seed-@i" id="track-seed-@i-@j" value="@Model.TrackSeedIntermediaries[i].PotentialSeeds[j].SpotifyId" onchange="verifyTrack(event)" />
 
-                                <label for="track-seed-@i-@j">
-                                    <div class="card styled-radio">
-                                        <div class="card-body">
-                                            <img src="@Model.TrackSeedIntermediaries[i].TrackPotentialSeeds[j].Images[0].Url" width="275" height="275" alt="Album cover art" />
-                                            <h5 class="card-title">Track Name: @Model.TrackSeedIntermediaries[i].TrackPotentialSeeds[j].TrackName</h5>
-                                            <h6 class="card-subtitle">Performing Artist(s): @Model.TrackSeedIntermediaries[i].TrackPotentialSeeds[j].PerformingArtist</h6>
+                                    <label for="track-seed-@i-@j">
+                                        <div class="card styled-radio">
+                                            <div class="card-body">
+                                                <img src="@Model.TrackSeedIntermediaries[i].PotentialSeeds[j].Images[0].Url" width="275" height="275" alt="Album cover art" />
+                                                <h5 class="card-title">Track Name: @Model.TrackSeedIntermediaries[i].PotentialSeeds[j].TrackName</h5>
+                                                <h6 class="card-subtitle">Performing Artist(s): @Model.TrackSeedIntermediaries[i].PotentialSeeds[j].PerformingArtist</h6>
+                                            </div>
                                         </div>
-                                    </div>
-                                </label>
+                                    </label>
+                                }
+
                             }
                         </div>
                     </div>
@@ -115,18 +124,44 @@
 
                 </div>
 
-                <input type="hidden" asp-for="@Model.GenreVerifiedSeeds" value="@Model.GenreVerifiedSeeds" />
+                <input type="hidden" asp-for="@Model.GenreVerifiedSeeds" value="@Model.GenreVerifiedSeeds" id="verified-genre-seeds" />
                 <input type="hidden" asp-for="@Model.TrackVerifiedSeeds" id="verified-track-output" />
                 <input type="hidden" asp-for="@Model.ArtistVerifiedSeeds" id="verified-artist-output" />
                 <input type="hidden" asp-for="@Model.Limit" value="@Model.Limit" />
                 <input id="hidden-verify-max-popularity" type="hidden" asp-for="@Model.PopularityMax" value="@Model.PopularityMax" />
 
                 <div class="d-flex flex-row justify-content-center">
-                    <input type="submit" onclick="setValues()" class="primary-bttn" value="Verify" />
+                    <input type="submit" class="primary-bttn" value="Verify" />
                     <a asp-action="Index" asp-controller="SongRecommendations" class="secondary-bttn ml-26">Go Back</a>
                 </div>
             </form>
         </div>
+
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+
+            <div id="no-potential-seed-selection" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <strong class="me-auto">Missing Seed Verification</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    The fields outlined in red are required. Please verify which artist or track you want to use for song recommendations.
+                </div>
+            </div>
+
+            <div id="no-results-available" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <strong class="me-auto">No Results</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    Your input returned no results. There must be one verifiable seed available to make 
+                    song recommendations. Go back to the previous page.
+                </div>
+            </div>
+
+        </div>
+
 
     </main>
 </div>
@@ -204,6 +239,65 @@
 
         }
 
+        function verifyRadioInputs() {
+
+            setValues();
+
+            var genreVerifiedSeeds = document.getElementById("verified-genre-seeds");
+
+            var radioContainers = document.getElementsByClassName("verification-container");
+            var shouldSubmit = true;
+            var noResultsCounter = 0;
+
+            for (let container of radioContainers) {
+
+                var selectionMade;
+                var radios = container.getElementsByClassName("invisible-radio");
+
+                if (radios.length == 0) {
+                    
+                    noResultsCounter++;
+                    continue;
+                }
+
+                for (let radio of radios) {
+
+                    if (radio.checked) {
+                        
+                        selectionMade = true;
+                        break;
+                    }
+                    else {
+                        selectionMade = false;
+                    }
+                }
+
+                if (selectionMade) {
+                    container.classList.remove("error");
+                }
+                else {
+                    container.classList.add("error");
+                    shouldSubmit = false;
+                }
+            }
+
+            if (noResultsCounter == radioContainers.length && genreVerifiedSeeds.value == "") {
+
+                var noResultsAvailable = document.getElementById("no-results-available");
+                var toast = bootstrap.Toast.getOrCreateInstance(noResultsAvailable);
+                toast.show();
+
+                return false;
+            }
+            else if (!shouldSubmit) {
+
+                var noSelection = document.getElementById("no-potential-seed-selection");
+                var toast = bootstrap.Toast.getOrCreateInstance(noSelection);
+                toast.show();
+            }
+            
+            return shouldSubmit;
+        }
 
     </script>
 }

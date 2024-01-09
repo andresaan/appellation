@@ -16,17 +16,10 @@ namespace Data.Results
 
     public class ArtistSearchSummary
     {
-        public string Href { get; set; } = string.Empty;
+        //public string Href { get; set; } = string.Empty;
 
         [JsonProperty (PropertyName = "items")]
         public ArtistComplex[] Artists { get; set; } = Array.Empty<ArtistComplex>();
-        public int Limit { get; set; }
-        public string Next { get; set; } = string.Empty;
-        public int Offset { get; set; }
-        public object Previous { get; set; } = string.Empty;
-        public int Total { get; set; }
-
-        //
         public bool NoResults { get; set; }
     }
 

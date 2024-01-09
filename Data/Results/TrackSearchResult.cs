@@ -15,14 +15,10 @@ namespace Data.Results
 
     public class TrackSearchSummary
     {
-        public string Href { get; set; } = string.Empty;
-        public int Limit { get; set; }
-        public string Next { get; set; } = string.Empty;
-        public int Offset { get; set; }
-        public object Previous { get; set; } = new object();
-        public int Total { get; set; }
         [JsonProperty("items")]
         public Track[] Tracks { get; set; } = Array.Empty<Track>();
+        public bool NoResults { get; set; }
+
     }
 
 }

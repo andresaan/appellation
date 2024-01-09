@@ -2,6 +2,48 @@
 
 @model FavoritesModel;
 
+<div class="theme-page-wrapper min-height__100">
+
+    <main>
+
+        <div class="mt-120 theme-page-text theme-container-full mb-64">
+            <h1 class="theme-page__heading-big">Favorites</h1>
+            <button type="button" class="primary-bttn"><a class="no-style" asp-action="Index" asp-controller="SongRecommendations">Get Song Recommendations</a></button>
+        </div>
+
+        <div class="card-container">
+            @if (Model.FavoriteTracks.Any())
+            {
+                @foreach (Track track in Model.FavoriteTracks)
+                {
+                    <div class="card">
+                        <div class="card-body position-relative">
+                            
+                            <img src="@track.Album.Images[0].Url" width="275" height="275" alt="Album cover art" />
+
+                            <h5 class="card-title">@track.Name</h5>
+                            <h6 class="card-subtitle">@track.PerformingArtists[0].Name</h6>
+                            <a href="@track.PreviewUrl" target="_blank" class="preview">Preview</a>
+
+                            <div class="position-absolute end-0 bottom-0 p-3">
+                                <input class="js-track-id" type="hidden" value="@track.Id" />
+                                <i class="bi bi-heart-fill" onclick="remove(this)"></i>
+                            </div>
+
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="theme-page-text">Favorites Empty</div>
+            }
+        </div>
+
+    </main>
+
+</div>
+
 @section scripts {
 
     <script>
@@ -60,46 +102,3 @@
 
     </script>
 }
-
-
-<div class="theme-page-wrapper min-height__100">
-
-    <main>
-
-        <div class="mt-120 theme-page-text theme-container-full mb-64">
-            <h1 class="theme-page__heading-big">Favorites</h1>
-            <button type="button" class="primary-bttn"><a class="no-style" asp-action="Index" asp-controller="SongRecommendations">Get Song Recommendations</a></button>
-        </div>
-
-        <div class="card-container">
-            @if (Model.FavoriteTracks.Any())
-            {
-                @foreach (Track track in Model.FavoriteTracks)
-                {
-                    <div class="card">
-                        <div class="card-body position-relative">
-                            
-                            <img src="@track.Album.Images[0].Url" width="275" height="275" alt="Album cover art" />
-
-                            <h5 class="card-title">@track.Name</h5>
-                            <h6 class="card-subtitle">@track.PerformingArtists[0].Name</h6>
-                            <a href="@track.PreviewUrl" target="_blank" class="preview">Preview</a>
-
-                            <div class="position-absolute end-0 bottom-0 p-3">
-                                <input class="js-track-id" type="hidden" value="@track.Id" />
-                                <i class="bi bi-heart-fill" onclick="remove(this)"></i>
-                            </div>
-
-                        </div>
-                    </div>
-                }
-            }
-            else
-            {
-                <div class="theme-page-text">Favorites Empty</div>
-            }
-        </div>
-
-    </main>
-
-</div>

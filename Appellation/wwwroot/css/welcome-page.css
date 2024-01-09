@@ -14,6 +14,10 @@ main.welcome {
     border-bottom-style: none;
 }
 
+body:has(main.login) > header, body:has(main.login) > footer {
+    display: none;
+}
+
 .welcome-container {
     width: 85%;
     display: flex;
@@ -31,7 +35,6 @@ main.welcome {
     font-weight: lighter;
     color: var(--theme-accent)
 }
-
 
 @media screen and (max-width: 900px) {
     
